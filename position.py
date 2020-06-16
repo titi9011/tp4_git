@@ -101,5 +101,5 @@ class Position:
 
 if __name__ == '__main__':
     print('Test unitaires de la classe "Position"...')
-    assert 
+    assert
     print('Test unitaires passés avec succès!')

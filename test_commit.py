@@ -1,9 +1,10 @@
 class maclasse():
-    def __init__(self, x):
+    def __init__(self, x, y):
         self.x = x
+        self.y = y
     
     def __repr__(self):
-        return '6'
+        return str(self.y)
 
-x = maclasse(4)
+x = maclasse(4, 5)
 print(x)
