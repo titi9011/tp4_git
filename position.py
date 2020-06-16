@@ -99,7 +99,9 @@ class Position:
         return hash(str(self))
 
 
+
 if __name__ == '__main__':
     print('Test unitaires de la classe "Position"...')
-    assert
+    x = Position(2, 3).positions_diagonales_bas()
+    assert str(x) == str([(3, 2), (3, 4)])
     print('Test unitaires passés avec succès!')
