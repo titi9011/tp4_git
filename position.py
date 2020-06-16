@@ -99,8 +99,7 @@ class Position:
         return hash(str(self))
 
 
-
 if __name__ == '__main__':
     print('Test unitaires de la classe "Position"...')
-
+    assert 
     print('Test unitaires passés avec succès!')
