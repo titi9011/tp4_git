@@ -99,9 +99,26 @@ class Position:
         return hash(str(self))
 
 
-
 if __name__ == '__main__':
     print('Test unitaires de la classe "Position"...')
-    x = Position(2, 3).positions_diagonales_bas()
-    assert str(x) == str([(3, 2), (3, 4)])
+    #test 1
+    assert Position(3, 3) in Position(2, 2).positions_diagonales_bas()
+    assert Position(3, 1) in Position(2, 2).positions_diagonales_bas()
+
+    #test 2
+    assert Position(1, 3) in Position(2, 2).positions_diagonales_haut()
+    assert Position(1, 1) in Position(2, 2).positions_diagonales_haut()
+
+    #test 3
+    assert Position(3, 3) in Position(2, 2).quatre_positions_diagonales()
+    assert Position(3, 1) in Position(2, 2).quatre_positions_diagonales()
+    assert Position(1, 3) in Position(2, 2).quatre_positions_diagonales()
+    assert Position(1, 1) in Position(2, 2).quatre_positions_diagonales()
+
+    #test 4
+    assert Position(0, 0) in Position(2, 2).quatre_positions_sauts()
+    assert Position(0, 4) in Position(2, 2).quatre_positions_sauts()
+    assert Position(4, 0) in Position(2, 2).quatre_positions_sauts()
+    assert Position(4, 4) in Position(2, 2).quatre_positions_sauts()
+    
     print('Test unitaires passés avec succès!')
