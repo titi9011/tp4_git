@@ -158,9 +158,9 @@ class Partie:
         # Demander les positions
 
         # TODO: À compléter
-        print(1)
+        print(1)  # temp
         [position_source, position_cible] = self.demander_positions_deplacement()
-        print(2)
+        print(2)  # temp
 
         # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
         # TODO: À compléter
@@ -175,12 +175,12 @@ class Partie:
         Returns:
             str: La couleur du joueur gagnant.
         """
-        print("Jouer 11")
+        print("Jouer 11")  # temp
         while self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant) or \
                 self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
-            print("J2", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))
+            print("J2", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))  # temp
             self.tour()
-        print("J3", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))
+        print("J3", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))  # temp
         if self.couleur_joueur_courant == "blanc":
             return "noir"
         else:

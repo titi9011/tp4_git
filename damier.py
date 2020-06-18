@@ -163,28 +163,28 @@ class Damier:
 
         """
         #TODO: À tester - compléter
-        # print("Posn ;", position_piece(0))
-        print(Position(5, 2) in self.cases)  #(5, 2) == (5, 2))
-        test1 = eval("Position(" + str(5) + ", "+ str(2) +")")
-        print(type(Position(5, 2)))
-        print(type((5, 2)))
-        print(type(self.cases))
-        print(test1 in self.cases)  # print((5, 2) == Position(5, 2))  # in self.cases)
+        # print("Posn ;", position_piece(0))  # temp
+        print(Position(5, 2) in self.cases)  #(5, 2) == (5, 2))  # temp)
+        test1 = eval("Position(" + str(5) + ", "+ str(2) +")")  # temp)
+        print(type(Position(5, 2)))  # temp)
+        print(type((5, 2)))  # temp)
+        print(type(self.cases))  # temp
+        print(test1 in self.cases)  # print((5, 2) == Position(5, 2))  # in self.cases)  # temp
 
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
-            print("Oui")
+            print("Oui")  # temp
             if Position(position_piece.ligne + 1, position_piece.colonne + 1) not in self.cases or Position(
                 position_piece.ligne + 1, position_piece.colonne - 1) not in self.cases:
-                print("# Modifier en utilisant méthodes de position")
+                print("# Modifier en utilisant méthodes de position")  # temp
                 return True
             else:
-                print(Position(position_piece.ligne + 1, position_piece.colonne + 1))
-                print(Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases)
-                print(eval("Position(" + str(position_piece.ligne + 1) +"," +str(position_piece.colonne + 1)) in self.cases)
-                print("non?")
+                print(Position(position_piece.ligne + 1, position_piece.colonne + 1))  # temp
+                print(Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases)  # temp
+                print(eval("Position(" + str(position_piece.ligne + 1) +"," +str(position_piece.colonne + 1)) in self.cases)  # temp
+                print("non?")  # temp
                 return False
         else:
-            print("non!!!")
+            print("non!!!")  # temp
             return False
 
     def piece_peut_faire_une_prise(self, position_piece):
