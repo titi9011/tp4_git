@@ -73,7 +73,7 @@ class Position:
         p3 = [Position(self.ligne + 2, self.colonne - 2)]
         p4 = [Position(self.ligne + 2, self.colonne + 2)]
 
-        return p1 + p2 + p3 + p4
+        return [p1, p2, p3, p4]
 
     def __eq__(self, other):
         """Méthode spéciale indiquant à Python comment vérifier si deux positions sont égales. On compare simplement

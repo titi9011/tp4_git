@@ -57,7 +57,16 @@ class Partie:
                  deuxième élément est un message d'erreur (ou une chaîne vide s'il n'y a pas d'erreur).
 
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
+
+        if position_source in Damier.cases:
+            if Damier.cases[position_source].couleur == self.couleur_joueur_courant:
+                return [True, ""]
+            else:
+                return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez choisir une autre pièce."]
+        else:
+                return [False, "Il n'y a pas de pièce sur la case que vous avez sélectionnée. Veuillez faire un autre choix."]
+
 
     def position_cible_valide(self, position_cible):
         """Vérifie si la position cible est valide (en fonction de la position source sélectionnée). Doit non seulement
@@ -71,6 +80,9 @@ class Partie:
 
         """
         #TODO: À compléter
+        # Damier.piece_peut_se_deplacer_vers(position_piece, position_cible)
+        # Damier.piece_peut_faire_une_prise(position_piece)
+
 
     def demander_positions_deplacement(self):
         """Demande à l'utilisateur les positions sources et cible, et valide ces positions. Cette méthode doit demander
@@ -82,7 +94,32 @@ class Partie:
             Position, Position: Un couple de deux positions (source et cible).
 
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
+
+        verif_source_cible = True
+        while verif_source_cible:
+            position_source = input("Quelle pièce désirez-vous déplacer? ")
+            print(position_source[0])
+            print(position_source[2])
+            self.ligne = int(position_source[0])
+            self.colonne = int(position_source[2])
+
+            position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
+            #self.position_source_selectionnee = Position(position_source)
+            if self.damier.piece_peut_se_deplacer(position_source_selectionnee): #position_source):
+                verif_source_cible = False
+            else:
+                print("La pièce choisie ne peut pas être déplacée.\n")
+
+        verif_source_cible = True
+        while verif_source_cible:
+            position_cible = input("Destination choisie : ")
+            if Damier.piece_peut_se_deplacer_vers(position_source, position_cible):
+                verif_source_cible = False
+            else:
+                print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
+
+        return [position_source, position_cible]
 
     def tour(self):
         """Cette méthode effectue le tour d'un joueur, et doit effectuer les actions suivantes:
@@ -115,7 +152,11 @@ class Partie:
             print("")
 
         # Demander les positions
+
         # TODO: À compléter
+        print(1)
+        [position_source, position_cible] = self.demander_positions_deplacement()
+        print(2)
 
         # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
         # TODO: À compléter
@@ -130,11 +171,12 @@ class Partie:
         Returns:
             str: La couleur du joueur gagnant.
         """
-
+        print("Jouer 11")
         while self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant) or \
                 self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
+            print("J2", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))
             self.tour()
-
+        print("J3", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))
         if self.couleur_joueur_courant == "blanc":
             return "noir"
         else:

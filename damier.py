@@ -78,7 +78,12 @@ class Damier:
             bool: True si la position est dans les bornes, False autrement.
 
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
+
+        if position.ligne in range(8) and position.colonne in range(8):
+            return True
+        else:
+            return None
 
     def piece_peut_se_deplacer_vers(self, position_piece, position_cible):
         """Cette méthode détermine si une pièce (à la position reçue) peut se déplacer à une certaine position cible.
@@ -99,7 +104,15 @@ class Damier:
             bool: True si la pièce peut se déplacer à la position cible, False autrement.
 
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
+
+        if position_piece in self.cases:
+            if position_cible in self.cases:
+                return False
+            else:
+                return True
+        else:
+            return False
 
     def piece_peut_sauter_vers(self, position_piece, position_cible):
         """Cette méthode détermine si une pièce (à la position reçue) peut sauter vers une certaine position cible.
@@ -119,7 +132,22 @@ class Damier:
             bool: True si la pièce peut sauter vers la position cible, False autrement.
 
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
+
+        # S'assurer que l'appel de cette méthode a été préalablement vérifiée (dans partie?)
+
+        if position_piece in self.cases:
+            if position_cible in self.cases:
+                return False
+            else:
+                p_interm_ligne = (position_piece.ligne + position_cible.ligne) / 2
+                p_interm_colonne = (position_piece.colonne + position_cible.colonne) / 2
+                if self.cases[Position(p_interm_ligne, p_interm_colonne)] in self.cases and self.cases[Position(p_interm_ligne, p_interm_colonne)] != self.cases.position_piece:
+                    return True
+                else:
+                    return False
+        else:
+            return False
 
     def piece_peut_se_deplacer(self, position_piece):
         """Vérifie si une pièce à une certaine position a la possibilité de se déplacer (sans faire de saut).
@@ -134,7 +162,30 @@ class Damier:
             bool: True si une pièce est à la position reçue et celle-ci peut se déplacer, False autrement.
 
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
+        # print("Posn ;", position_piece(0))
+        print(Position(5, 2) in self.cases)  #(5, 2) == (5, 2))
+        test1 = eval("Position(" + str(5) + ", "+ str(2) +")")
+        print(type(Position(5, 2)))
+        print(type((5, 2)))
+        print(type(self.cases))
+        print(test1 in self.cases)  # print((5, 2) == Position(5, 2))  # in self.cases)
+
+        if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
+            print("Oui")
+            if Position(position_piece.ligne + 1, position_piece.colonne + 1) not in self.cases or Position(
+                position_piece.ligne + 1, position_piece.colonne - 1) not in self.cases:
+                print("# Modifier en utilisant méthodes de position")
+                return True
+            else:
+                print(Position(position_piece.ligne + 1, position_piece.colonne + 1))
+                print(Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases)
+                print(eval("Position(" + str(position_piece.ligne + 1) +"," +str(position_piece.colonne + 1)) in self.cases)
+                print("non?")
+                return False
+        else:
+            print("non!!!")
+            return False
 
     def piece_peut_faire_une_prise(self, position_piece):
         """Vérifie si une pièce à une certaine position a la possibilité de faire une prise.
@@ -150,7 +201,26 @@ class Damier:
             bool: True si une pièce est à la position reçue et celle-ci peut faire une prise. False autrement.
 
         """
-        #TODO: À compléter
+        # TODO: À tester - compléter
+
+        if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
+            if Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases:
+                if Position(position_piece.ligne + 2, position_piece.colonne + 2) in self.cases:
+                    return False
+                else:
+                    return True
+
+            elif Position(position_piece.ligne + 1, position_piece.colonne - 1) in self.cases:
+                if Position(position_piece.ligne + 2, position_piece.colonne - 2) in self.cases:
+                    return False
+                else:
+                    return True
+
+            else:
+                return False
+        else:
+            return False
+
 
     def piece_de_couleur_peut_se_deplacer(self, couleur):
         """Vérifie si n'importe quelle pièce d'une certaine couleur reçue en argument a la possibilité de se déplacer
@@ -164,7 +234,19 @@ class Damier:
         Returns:
             bool: True si une pièce de la couleur reçue peut faire un déplacement standard, False autrement.
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
+
+        for i in range(8):
+            for j in range(8):
+                if Position(i,j) in self.cases:
+                    if self.cases[Position(i, j)].couleur == couleur:
+                        print("i", i, " j", j)
+                        if self.piece_peut_se_deplacer(Position(i, j)):
+                            return True
+                            break
+                        else:
+                            print("hop ", self.cases[Position(i, j)])
+                            return False
 
     def piece_de_couleur_peut_faire_une_prise(self, couleur):
         """Vérifie si n'importe quelle pièce d'une certaine couleur reçue en argument a la possibilité de faire un
@@ -179,7 +261,30 @@ class Damier:
         Returns:
             bool: True si une pièce de la couleur reçue peut faire un saut (une prise), False autrement.
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
+
+        flg = 0
+        for i in range(8):
+            for j in range(8):
+                if Position(i, j) in self.cases:
+                    if self.cases[Position(i, j)].couleur == couleur:
+                        if i < 5 and j < 5:
+                            if self.cases[Position(i + 1, j + 1)] in self.cases and self.cases[
+                                Position(i + 1, j + 1)].couleur != couleur:
+                                if self.cases[Position(i+2, j+2)] in self.cases:
+                                    flg = 1
+                                    break
+
+                        elif i < 5 and j > 2:
+
+                            if self.cases[Position(i + 1, j - 1)] in self.cases and self.cases[
+                                Position(i + 1, j - 1)].couleur != couleur:
+
+                                if self.cases[Position(i + 2, j - 2)] in self.cases:
+                                    flg = 1
+                                    break
+        return flg
+        print("houba")
 
     def deplacer(self, position_source, position_cible):
         """Effectue le déplacement sur le damier. Si le déplacement est valide, on doit mettre à jour le dictionnaire
@@ -204,8 +309,10 @@ class Damier:
                 "erreur" autrement.
 
         """
-        #TODO: À compléter
+        #TODO: À tester - compléter
 
+        self.cases[position_cible] = self.cases[position_source]
+        del self.cases[position_source]
 
     def __repr__(self):
         """Cette méthode spéciale permet de modifier le comportement d'une instance de la classe Damier pour
