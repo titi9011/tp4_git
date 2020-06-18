@@ -114,7 +114,11 @@ class Partie:
         verif_source_cible = True
         while verif_source_cible:
             position_cible = input("Destination choisie : ")
-            if Damier.piece_peut_se_deplacer_vers(position_source, position_cible):
+            self.ligne = int(position_cible[0])
+            self.colonne = int(position_cible[2])
+
+            position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
+            if self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
                 verif_source_cible = False
             else:
                 print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
