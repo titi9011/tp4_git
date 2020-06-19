@@ -105,7 +105,6 @@ class Damier:
 
         """
         #TODO: À tester - compléter
-        if 
 
 
         if position_piece in self.cases:
