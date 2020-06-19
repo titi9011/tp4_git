@@ -73,7 +73,7 @@ class Position:
         p3 = [Position(self.ligne + 2, self.colonne - 2)]
         p4 = [Position(self.ligne + 2, self.colonne + 2)]
 
-        return [p1, p2, p3, p4]
+        return p1 + p2 + p3 + p4
 
     def __eq__(self, other):
         """Méthode spéciale indiquant à Python comment vérifier si deux positions sont égales. On compare simplement
@@ -101,8 +101,9 @@ class Position:
 
 if __name__ == '__main__':
     print('Test unitaires de la classe "Position"...')
+    # other = (3, 1)
     #test 1
-    assert Position(3, 3) in Position(2, 2).positions_diagonales_bas()
+    assert Position(4, 3) in Position(3, 2).positions_diagonales_bas()
     assert Position(3, 1) in Position(2, 2).positions_diagonales_bas()
 
     #test 2
@@ -116,7 +117,6 @@ if __name__ == '__main__':
     assert Position(1, 1) in Position(2, 2).quatre_positions_diagonales()
 
     #test 4
-    assert Position(0, 0) in Position(2, 2).quatre_positions_sauts()
     assert Position(0, 4) in Position(2, 2).quatre_positions_sauts()
     assert Position(4, 0) in Position(2, 2).quatre_positions_sauts()
     assert Position(4, 4) in Position(2, 2).quatre_positions_sauts()
