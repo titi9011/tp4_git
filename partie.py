@@ -80,6 +80,9 @@ class Partie:
 
         """
         #TODO: À compléter
+
+
+
         # Damier.piece_peut_se_deplacer_vers(position_piece, position_cible)
         # Damier.piece_peut_faire_une_prise(position_piece)
 
@@ -185,7 +188,6 @@ class Partie:
             return "noir"
         else:
             return "blanc"
-
 
 
 if __name__ == "__main__":

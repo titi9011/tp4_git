@@ -83,7 +83,7 @@ class Damier:
         if position.ligne in range(8) and position.colonne in range(8):
             return True
         else:
-            return None
+            return False
 
     def piece_peut_se_deplacer_vers(self, position_piece, position_cible):
         """Cette méthode détermine si une pièce (à la position reçue) peut se déplacer à une certaine position cible.
@@ -105,6 +105,8 @@ class Damier:
 
         """
         #TODO: À tester - compléter
+        if 
+
 
         if position_piece in self.cases:
             if position_cible in self.cases:
@@ -337,7 +339,11 @@ if __name__ == "__main__":
 
     un_damier = Damier()
 
-    # TODO: À compléter
+    assert Damier().position_est_dans_damier(Position(2, 2))
+    assert not Damier().position_est_dans_damier(Position(-1, 2))
+
+    assert Damier().recuperer_piece_a_position(Position())
+
 
     print('Test unitaires passés avec succès!')
 
