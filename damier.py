@@ -327,6 +327,7 @@ if __name__ == "__main__":
 
     assert un_damier.recuperer_piece_a_position(Position(4, 0)) == None
     assert un_damier.recuperer_piece_a_position(Position(0, 5)).est_pion()
+    assert un_damier.recuperer_piece_a_position(Position(0, 5)).est_noire()
 
     assert Damier().position_est_dans_damier(Position(2, 2))
     assert not Damier().position_est_dans_damier(Position(-1, 2))
