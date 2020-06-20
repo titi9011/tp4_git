@@ -285,7 +285,6 @@ class Damier:
                                     flg = 1
                                     break
         return flg
-        print("houba")
 
     def deplacer(self, position_source, position_cible):
         """Effectue le déplacement sur le damier. Si le déplacement est valide, on doit mettre à jour le dictionnaire
@@ -338,10 +337,11 @@ if __name__ == "__main__":
 
     un_damier = Damier()
 
+    assert un_damier.recuperer_piece_a_position(Position(4, 0)) == None
+    assert un_damier.recuperer_piece_a_position(Position(0, 5)).est_pion()
+
     assert Damier().position_est_dans_damier(Position(2, 2))
     assert not Damier().position_est_dans_damier(Position(-1, 2))
-
-    assert Damier().recuperer_piece_a_position(Position())
 
 
     print('Test unitaires passés avec succès!')
