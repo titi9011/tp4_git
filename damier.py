@@ -165,27 +165,46 @@ class Damier:
         """
         #TODO: À tester - compléter
         # print("Posn ;", position_piece(0))  # temp
-        print(Position(5, 2) in self.cases)  #(5, 2) == (5, 2))  # temp)
-        test1 = eval("Position(" + str(5) + ", "+ str(2) +")")  # temp)
-        print(type(Position(5, 2)))  # temp)
+        print("p peut dep", Position(5, 2) in self.cases)  #(5, 2) == (5, 2))  # temp)
+        # test1 = eval("Position(" + str(5) + ", "+ str(2) +")")  # temp)
+        print("p peut dep type : ", type(Position(5, 2)))  # temp)
         print(type((5, 2)))  # temp)
         print(type(self.cases))  # temp
-        print(test1 in self.cases)  # print((5, 2) == Position(5, 2))  # in self.cases)  # temp
+        # print(test1 in self.cases)  # print((5, 2) == Position(5, 2))  # in self.cases)  # temp
+
+        # if self.cases[position_piece]
 
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
-            print("Oui")  # temp
-            if Position(position_piece.ligne + 1, position_piece.colonne + 1) not in self.cases or Position(
-                position_piece.ligne + 1, position_piece.colonne - 1) not in self.cases:
+            print("p peut dep Oui")  # temp
+            if (self.cases[position_piece].type_de_piece) == "dame":
+
+                for i in range(4):
+                    if self.position_est_dans_damier(position_piece.quatre_positions_diagonales()[i]):
+                        if position_piece.quatre_positions_diagonales()[i] not in self.cases:
+                            print(position_piece.quatre_positions_diagonales()[i])
+                            print("p peut dep houba hop! Dame")
+            elif (self.cases[position_piece].type_de_piece) == "pion":  # Position(position_piece.ligne + 1, position_piece.colonne + 1) not in self.cases or Position(position_piece.ligne + 1, position_piece.colonne - 1) not in self.cases:
+                if (self.cases[position_piece].couleur) == "blanc":
+                    for i in range(2):
+                        if self.position_est_dans_damier(position_piece.positions_diagonales_haut()[i]):
+                            if position_piece.positions_diagonales_haut()[i] not in self.cases:
+                                print("p peut dep houba hop! Blanc")
+                else:
+                    for i in range(2):
+                        if self.position_est_dans_damier(position_piece.positions_diagonales_bas()[i]):
+                            if position_piece.positions_diagonales_bas()[i] not in self.cases:
+                                print("p peut dep houba hop! Noir")
                 print("# Modifier en utilisant méthodes de position")  # temp
                 return True
             else:
-                print(Position(position_piece.ligne + 1, position_piece.colonne + 1))  # temp
-                print(Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases)  # temp
-                print(eval("Position(" + str(position_piece.ligne + 1) +"," +str(position_piece.colonne + 1)) in self.cases)  # temp
-                print("non?")  # temp
+                # print()
+                # print(Position(position_piece.ligne + 1, position_piece.colonne + 1))  # temp
+                # print(Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases)  # temp
+                # print(eval("Position(" + str(position_piece.ligne + 1) +"," +str(position_piece.colonne + 1)+")") in self.cases)  # temp
+                print("La pièce choisie ne peut pas être déplacée.\n")
                 return False
         else:
-            print("non!!!")  # temp
+            print("Il n'y a pas de pièce dans la case sélectionnée.\n")
             return False
 
     def piece_peut_faire_une_prise(self, position_piece):
@@ -205,6 +224,7 @@ class Damier:
         # TODO: À tester - compléter
 
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
+
             if Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases:
                 if Position(position_piece.ligne + 2, position_piece.colonne + 2) in self.cases:
                     return False
@@ -241,12 +261,12 @@ class Damier:
             for j in range(8):
                 if Position(i,j) in self.cases:
                     if self.cases[Position(i, j)].couleur == couleur:
-                        print("i", i, " j", j)
+                        print("p coul peut i", i, " j", j)
                         if self.piece_peut_se_deplacer(Position(i, j)):
                             return True
                             break
                         else:
-                            print("hop ", self.cases[Position(i, j)])
+                            print("p coul peut hop ", self.cases[Position(i, j)])
                             return False
 
     def piece_de_couleur_peut_faire_une_prise(self, couleur):
@@ -264,28 +284,36 @@ class Damier:
         """
         #TODO: À tester - compléter
 
-        flg = 0
+        # position.quatre_positions_diagonales
+        # position.positions_diagonales_haut(self) + Position.positions_diagonales_bas(self)
+        # position.quatre_positions_sauts
+        # p1 + p2 + p3 + p4
+        
+        poss_faire_prise = False
         for i in range(8):
             for j in range(8):
+                # print("temp ij", i, j, Position(i+2, j+2) in self.cases)
                 if Position(i, j) in self.cases:
                     if self.cases[Position(i, j)].couleur == couleur:
                         if i < 5 and j < 5:
-                            if self.cases[Position(i + 1, j + 1)] in self.cases and self.cases[
-                                Position(i + 1, j + 1)].couleur != couleur:
-                                if self.cases[Position(i+2, j+2)] in self.cases:
-                                    flg = 1
-                                    break
+                            # print("temp2 ij", i, j)
+                            if Position(i + 1, j + 1) in self.cases:
+                                if self.cases[Position(i + 1, j + 1)].couleur != couleur:
+                                    if [Position(i+2, j+2)] not in self.cases:
+                                        poss_faire_prise = True
+                                        break
+                        # print("temp3 ij", i, j)
+                        if i < 5 and j > 2:
+                            # print("temp4 ij", i, j, Position(i+1, j-1) in self.cases)
+                            if Position(i + 1, j - 1) in self.cases:
+                                if self.cases[Position(i + 1, j - 1)].couleur != couleur:
+                                    if Position(i + 2, j - 2) not in self.cases:
+                                        # print("temp5 ij")
+                                        poss_faire_prise = True
+                                        break
 
-                        elif i < 5 and j > 2:
-
-                            if self.cases[Position(i + 1, j - 1)] in self.cases and self.cases[
-                                Position(i + 1, j - 1)].couleur != couleur:
-
-                                if self.cases[Position(i + 2, j - 2)] in self.cases:
-                                    flg = 1
-                                    break
-        return flg
-        print("houba")
+        return poss_faire_prise
+       
 
     def deplacer(self, position_source, position_cible):
         """Effectue le déplacement sur le damier. Si le déplacement est valide, on doit mettre à jour le dictionnaire
@@ -311,7 +339,6 @@ class Damier:
 
         """
         #TODO: À tester - compléter
-
         self.cases[position_cible] = self.cases[position_source]
         del self.cases[position_source]
 

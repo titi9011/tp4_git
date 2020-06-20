@@ -102,31 +102,29 @@ class Partie:
         verif_source_cible = True
         while verif_source_cible:
             position_source = input("Quelle pièce désirez-vous déplacer? ")
-            print(position_source[0])
-            print(position_source[2])
+            print("dpd", position_source[0])  # temp
+            print(position_source[2])  # temp
             self.ligne = int(position_source[0])
             self.colonne = int(position_source[2])
 
             position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
             #self.position_source_selectionnee = Position(position_source)
-            if self.damier.piece_peut_se_deplacer(position_source_selectionnee): #position_source):
+            if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
                 verif_source_cible = False
-            else:
-                print("La pièce choisie ne peut pas être déplacée.\n")
+            # else:
+            #    print("La pièce choisie ne peut pas être déplacée.\n")
 
         verif_source_cible = True
         while verif_source_cible:
             position_cible = input("Destination choisie : ")
             self.ligne = int(position_cible[0])
             self.colonne = int(position_cible[2])
-
             position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
             if self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
                 verif_source_cible = False
             else:
                 print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
-
-        return [position_source, position_cible]
+            return [position_source_selectionnee, position_cible]
 
     def tour(self):
         """Cette méthode effectue le tour d'un joueur, et doit effectuer les actions suivantes:
@@ -161,15 +159,18 @@ class Partie:
         # Demander les positions
 
         # TODO: À compléter
-        print(1)  # temp
+        print("tour 1")  # temp
         [position_source, position_cible] = self.demander_positions_deplacement()
-        print(2)  # temp
-
+        print("tour 2\t")  # temp
+        print(position_source)
+        print(position_cible)
         # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
         # TODO: À compléter
 
         # Mettre à jour les attributs de la classe
         # TODO: À compléter
+        print("tour Houb!")
+        self.damier.deplacer(position_source, position_cible)
 
     def jouer(self):
         """Démarre une partie. Tant que le joueur courant a des déplacements possibles (utilisez les méthodes
