@@ -181,12 +181,11 @@ class Partie:
         Returns:
             str: La couleur du joueur gagnant.
         """
-        print("Jouer 11")  # temp
         while self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant) or \
                 self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
             print("J2", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))  # temp
             self.tour()
-        print("J3", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))  # temp
+            print("J3", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))  # temp
         if self.couleur_joueur_courant == "blanc":
             return "noir"
         else:

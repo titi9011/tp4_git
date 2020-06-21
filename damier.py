@@ -352,8 +352,23 @@ class Damier:
                 "erreur" autrement.
         """
         #TODO: À tester - compléter
-        self.cases[position_cible] = self.cases[position_source]
-        del self.cases[position_source]
+        # self.cases[position_cible] = self.cases[position_source]
+        # del self.cases[position_source]
+        print(position_cible.ligne)
+        print(Position(position_cible.ligne, position_cible.colonne))
+        if True: # position_cible.ligne == 0 or position_cible.ligne == 7:
+            self.cases[Position(position_source.ligne, position_source.colonne)].type_de_piece = "dame"
+
+        if abs(position_cible.ligne - position_source.ligne) == 1:
+            self.cases[position_cible] = self.cases[position_source]
+            del self.cases[position_source]
+            return "ok"
+        elif abs(position_cible.ligne - position_source.ligne) == 2:
+            self.cases[position_cible] = self.cases[position_source]
+            del self.cases[position_source]
+            return "prise"
+        else:
+            return "erreur"
 
     def __repr__(self):
         """Cette méthode spéciale permet de modifier le comportement d'une instance de la classe Damier pour
