@@ -91,12 +91,26 @@ class Damier:
         """
         #TODO: À tester - compléter
 
-
-        if position_piece in self.cases:
-            if position_cible in self.cases:
-                return False
-            else:
-                return True
+        #si la position est dans le damier et il y a une piece sur la case 
+        if self.position_est_dans_damier(position_piece) and position_piece in self.cases:
+            #si la piece est une dame
+            if self.recuperer_piece_a_position(position_piece).est_dame():
+                if position_cible in position_piece.quatre_positions_diagonales():
+                    return True
+                else:
+                    return False
+            #si la piece est un pion noir 'x'
+            elif self.recuperer_piece_a_position(position_piece).est_noire():
+                if position_cible in position_piece.positions_diagonales_bas():
+                    return True
+                else:
+                    return False
+            #si la piece est un pion blanc 'o'
+            elif self.recuperer_piece_a_position(position_piece).est_blanche():
+                if position_cible in position_piece.positions_diagonales_haut():
+                    return True
+                else:
+                    return False
         else:
             return False
 
@@ -329,11 +343,13 @@ if __name__ == "__main__":
     assert un_damier.recuperer_piece_a_position(Position(0, 5)).est_pion()
     assert un_damier.recuperer_piece_a_position(Position(0, 5)).est_noire()
 
-    assert Damier().position_est_dans_damier(Position(2, 2))
-    assert not Damier().position_est_dans_damier(Position(-1, 2))
+    assert un_damier.position_est_dans_damier(Position(2, 2))
+    assert not un_damier.position_est_dans_damier(Position(-1, 2))
 
+    assert un_damier.piece_peut_se_deplacer_vers(Position(2, 1), Position(3, 0))
+    assert un_damier.piece_peut_se_deplacer_vers(Position(5, 0), Position(4, 1))
+    assert un_damier.piece_peut_se_deplacer_vers(Position(6, 1), Position(5, 2))
 
     print('Test unitaires passés avec succès!')
-
     # NOTEZ BIEN: Pour vous aider lors du développement, affichez le damier!
     print(un_damier)
