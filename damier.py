@@ -128,16 +128,24 @@ class Damier:
             bool: True si la pièce peut sauter vers la position cible, False autrement.
         """
         #TODO: À tester - compléter
+        #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupé
+        if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
+            #si la piece mange une piece adverse
 
-        # S'assurer que l'appel de cette méthode a été préalablement vérifiée (dans partie?)
-
-        if position_piece in self.cases:
-            if position_cible in self.cases:
-                return False
-            else:
-                p_interm_ligne = (position_piece.ligne + position_cible.ligne) / 2
-                p_interm_colonne = (position_piece.colonne + position_cible.colonne) / 2
-                if self.cases[Position(p_interm_ligne, p_interm_colonne)] in self.cases and self.cases[Position(p_interm_ligne, p_interm_colonne)] != self.cases.position_piece:
+            if self.recuperer_piece_a_position(position_piece).est_dame():
+                if position_cible in position_piece.quatre_positions_sauts():
+                    return True
+                else:
+                    return False
+            #si la piece est un pion noir 'x'
+            elif self.recuperer_piece_a_position(position_piece).est_noire():
+                if position_cible in position_piece.positions_diagonales_bas():
+                    return True
+                else:
+                    return False
+            #si la piece est un pion blanc 'o'
+            elif self.recuperer_piece_a_position(position_piece).est_blanche():
+                if position_cible in position_piece.positions_diagonales_haut():
                     return True
                 else:
                     return False
