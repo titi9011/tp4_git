@@ -110,7 +110,7 @@ class Partie:
 
             position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
             #self.position_source_selectionnee = Position(position_source)
-            print("Dépalcement permis ", self.damier.piece_peut_se_deplacer(position_source_selectionnee))
+            print("Déplacement permis ", self.damier.piece_peut_se_deplacer(position_source_selectionnee))
             if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
                 verif_source_cible = False
             # else:
@@ -143,36 +143,43 @@ class Partie:
         """
 
         # Détermine si le joueur courant a la possibilité de prendre une pièce adverse.
-        if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
-            self.doit_prendre = True
+        while True:  # True est temporaire
+            if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
+                self.doit_prendre = True
 
-        # Affiche l'état du jeu
-        print(self.damier)
-        print("")
-        print("Tour du joueur", self.couleur_joueur_courant, end=".")
-        if self.doit_prendre:
-            if self.position_source_forcee is None:
-                print(" Doit prendre une pièce.")
-            else:
-                print(" Doit prendre avec la pièce en position {}.".format(self.position_source_forcee))
-        else:
+            # Affiche l'état du jeu
+            print(self.damier)
             print("")
+            print("Tour du joueur", self.couleur_joueur_courant, end=".")
+            if self.doit_prendre:
+                if self.position_source_forcee is None:
+                    print(" Doit prendre une pièce.")
+                else:
+                    print(" Doit prendre avec la pièce en position {}.".format(self.position_source_forcee))
+            else:
+                print("")
 
-        # Demander les positions
+            # Demander les positions
 
-        # TODO: À compléter
-        print("tour 1")  # temp
-        [position_source, position_cible] = self.demander_positions_deplacement()
-        print("tour 2\t")  # temp
-        print(position_source)
-        print(position_cible)
-        # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
-        # TODO: À compléter
+            # TODO: À compléter
 
-        # Mettre à jour les attributs de la classe
-        # TODO: À compléter
-        print("tour Houb!")
-        self.damier.deplacer(position_source, position_cible)
+            print("tour 1")  # temp
+            [position_source, position_cible] = self.demander_positions_deplacement()
+            print("tour 2\t")  # temp
+            print(position_source)
+            print(position_cible)
+            # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
+            # TODO: À compléter
+
+            # Mettre à jour les attributs de la classe
+            # TODO: À compléter
+            print("tour Houb!")
+            self.damier.deplacer(position_source, position_cible)
+            print("Chang tour")
+            if self.couleur_joueur_courant == "blanc":
+                self.couleur_joueur_courant = "noir"
+            else:
+                self.couleur_joueur_courant = "blanc"
 
     def jouer(self):
         """Démarre une partie. Tant que le joueur courant a des déplacements possibles (utilisez les méthodes
@@ -185,7 +192,6 @@ class Partie:
                 self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
             print("J2", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))  # temp
             self.tour()
-            print("J3", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))  # temp
         if self.couleur_joueur_courant == "blanc":
             return "noir"
         else:

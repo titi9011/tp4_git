@@ -93,19 +93,19 @@ class Damier:
 
         #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupé
         if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
-            #si la piece est une dame
+            print("# si la piece est une dame")
             if self.recuperer_piece_a_position(position_piece).est_dame():
                 if position_cible in position_piece.quatre_positions_diagonales():
                     return True
                 else:
                     return False
-            #si la piece est un pion noir 'x'
+                print("si la piece est un pion noir 'x'")
             elif self.recuperer_piece_a_position(position_piece).est_noire():
                 if position_cible in position_piece.positions_diagonales_bas():
                     return True
                 else:
                     return False
-            #si la piece est un pion blanc 'o'
+                print("si la piece est un pion blanc 'o'")
             elif self.recuperer_piece_a_position(position_piece).est_blanche():
                 if position_cible in position_piece.positions_diagonales_haut():
                     return True
@@ -354,9 +354,7 @@ class Damier:
         #TODO: À tester - compléter
         # self.cases[position_cible] = self.cases[position_source]
         # del self.cases[position_source]
-        print(position_cible.ligne)
-        print(Position(position_cible.ligne, position_cible.colonne))
-        if True: # position_cible.ligne == 0 or position_cible.ligne == 7:
+        if position_cible.ligne == 0 or position_cible.ligne == 7:
             self.cases[Position(position_source.ligne, position_source.colonne)].type_de_piece = "dame"
 
         if abs(position_cible.ligne - position_source.ligne) == 1:
