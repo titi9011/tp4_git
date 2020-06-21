@@ -104,11 +104,13 @@ class Partie:
             position_source = input("Quelle pièce désirez-vous déplacer? ")
             print("dpd", position_source[0])  # temp
             print(position_source[2])  # temp
+            # if
             self.ligne = int(position_source[0])
             self.colonne = int(position_source[2])
 
             position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
             #self.position_source_selectionnee = Position(position_source)
+            print("Dépalcement permis ", self.damier.piece_peut_se_deplacer(position_source_selectionnee))
             if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
                 verif_source_cible = False
             # else:
