@@ -91,8 +91,8 @@ class Damier:
         """
         #TODO: À tester - compléter
 
-        #si la position est dans le damier et il y a une piece sur la case 
-        if self.position_est_dans_damier(position_piece) and position_piece in self.cases:
+        #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupé
+        if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
             #si la piece est une dame
             if self.recuperer_piece_a_position(position_piece).est_dame():
                 if position_cible in position_piece.quatre_positions_diagonales():
@@ -348,7 +348,9 @@ if __name__ == "__main__":
 
     assert un_damier.piece_peut_se_deplacer_vers(Position(2, 1), Position(3, 0))
     assert un_damier.piece_peut_se_deplacer_vers(Position(5, 0), Position(4, 1))
-    assert un_damier.piece_peut_se_deplacer_vers(Position(6, 1), Position(5, 2))
+    assert not un_damier.piece_peut_se_deplacer_vers(Position(6, 1), Position(5, 2))
+    assert not un_damier.piece_peut_se_deplacer_vers(Position(0, 7), Position(1, 6))
+
 
     print('Test unitaires passés avec succès!')
     # NOTEZ BIEN: Pour vous aider lors du développement, affichez le damier!
