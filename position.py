@@ -74,6 +74,12 @@ class Position:
         p4 = [Position(self.ligne + 2, self.colonne + 2)]
 
         return p1 + p2 + p3 + p4
+    
+    def position_mange(self, other):
+        x = (self.ligne + other.ligne)/2
+        y = (self.colonne + other.colonne)/2
+
+        return Position(x, y)
 
     def __eq__(self, other):
         """Méthode spéciale indiquant à Python comment vérifier si deux positions sont égales. On compare simplement
@@ -119,5 +125,7 @@ if __name__ == '__main__':
     assert Position(0, 4) in Position(2, 2).quatre_positions_sauts()
     assert Position(4, 0) in Position(2, 2).quatre_positions_sauts()
     assert Position(4, 4) in Position(2, 2).quatre_positions_sauts()
-    
+
+    assert Position(2, 2).position_mange(Position(0, 0)) == Position(1, 1)
+
     print('Tests unitaires passés avec succès!')

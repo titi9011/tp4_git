@@ -128,13 +128,16 @@ class Damier:
             bool: True si la pièce peut sauter vers la position cible, False autrement.
         """
         #TODO: À tester - compléter
+        #piece entre position_piece et position_cible
+        position_piece_mange = position_piece.position_mange(position_cible)
+        piece_mange = self.recuperer_piece_a_position(position_piece_mange)
         #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupé
         if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
-            #si la piece mange une piece adverse
-            if self.recuperer_piece_a_position(position_piece) != 
-
-
-
+            #s'il y a une piece qui peut être mangé et si cette piece est adverse
+            if position_piece_mange in self.cases and self.recuperer_piece_a_position(position_piece) != piece_mange:
+                return  True
+            else:
+                return False
         else:
             return False
 
@@ -344,6 +347,8 @@ if __name__ == "__main__":
     assert un_damier.piece_peut_se_deplacer_vers(Position(5, 0), Position(4, 1))
     assert not un_damier.piece_peut_se_deplacer_vers(Position(6, 1), Position(5, 2))
     assert not un_damier.piece_peut_se_deplacer_vers(Position(0, 7), Position(1, 6))
+
+    assert not un_damier.piece_peut_sauter_vers(Position(5, 4), Position(3, 6))
 
 
     print('Test unitaires passés avec succès!')
