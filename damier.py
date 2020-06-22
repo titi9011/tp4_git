@@ -174,6 +174,9 @@ class Damier:
         verif_depl_possible = False
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
             # print("p peut dep Oui")  # temp
+
+            #if self.cases[position_piece].couleur == couleur_joueur_courant:
+            #    print("Test couleur")
             if (self.cases[position_piece].type_de_piece) == "dame":
 
                 for i in range(4):
@@ -187,7 +190,7 @@ class Damier:
                         if self.position_est_dans_damier(position_piece.positions_diagonales_haut()[i]):
                             if position_piece.positions_diagonales_haut()[i] not in self.cases:
                                 verif_depl_possible = True
-                                print("p peut dep houba hop! Blanc")
+                                print("p peut dep houba hop! ", self.cases[position_piece].couleur)
                 else:
                     for i in range(2):
                         if self.position_est_dans_damier(position_piece.positions_diagonales_bas()[i]):
@@ -273,11 +276,6 @@ class Damier:
             bool: True si une pièce de la couleur reçue peut faire un saut (une prise), False autrement.
         """
         #TODO: À tester - compléter
-
-        # position.quatre_positions_diagonales
-        # position.positions_diagonales_haut(self) + Position.positions_diagonales_bas(self)
-        # position.quatre_positions_sauts
-        # p1 + p2 + p3 + p4
 
         poss_faire_prise = False
         for i in range(8):

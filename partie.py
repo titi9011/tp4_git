@@ -111,10 +111,11 @@ class Partie:
             position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
             #self.position_source_selectionnee = Position(position_source)
             print("Déplacement permis ", self.damier.piece_peut_se_deplacer(position_source_selectionnee))
-            if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
-                verif_source_cible = False
-            # else:
-            #    print("La pièce choisie ne peut pas être déplacée.\n")
+            if self.damier.cases[position_source_selectionnee].couleur == self.couleur_joueur_courant:
+                if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
+                    verif_source_cible = False
+            else:
+                print("La pièce choisie appartient à votre adversaire et ne peut pas être déplacée.\n")
 
         verif_source_cible = True
         while verif_source_cible:
@@ -126,7 +127,7 @@ class Partie:
                 verif_source_cible = False
             else:
                 print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
-            return [position_source_selectionnee, position_cible]
+        return [position_source_selectionnee, position_cible]
 
     def tour(self):
         """Cette méthode effectue le tour d'un joueur, et doit effectuer les actions suivantes:
@@ -174,7 +175,10 @@ class Partie:
             # Mettre à jour les attributs de la classe
             # TODO: À compléter
             print("tour Houb!")
-            self.damier.deplacer(position_source, position_cible)
+            # bonne_couleur = "erreur"
+            # while bonne_couleur == "erreur":
+            bonne_couleur = self.damier.deplacer(position_source, position_cible)
+
             print("Chang tour")
             if self.couleur_joueur_courant == "blanc":
                 self.couleur_joueur_courant = "noir"
@@ -189,9 +193,9 @@ class Partie:
             str: La couleur du joueur gagnant.
         """
         while self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant) or \
-                self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
-            print("J2", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))  # temp
+                self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant): 
             self.tour()
+            
         if self.couleur_joueur_courant == "blanc":
             return "noir"
         else:
