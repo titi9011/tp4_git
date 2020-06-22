@@ -31,11 +31,11 @@ class Damier:
 
 class Partie:
 
-1. position_cible_valide(self, position_cible)
+1. position_cible_valide(self, position_cible): Thierry
 
-2. demander_positions_deplacement(self)
+2. demander_positions_deplacement(self): Thierry
 
-3. tour(self)
+3. tour(self): Bernard
 
-4. jouer(self)
+4. jouer(self): Bernard
 
