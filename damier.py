@@ -164,8 +164,7 @@ class Damier:
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
             # print("p peut dep Oui")  # temp
 
-            #if self.cases[position_piece].couleur == couleur_joueur_courant:
-            #    print("Test couleur")
+            #if self.cases[position_piece].couleur == couleur_joueur_courant: 
             if (self.cases[position_piece].type_de_piece) == "dame":
 
                 for i in range(4):
