@@ -131,24 +131,10 @@ class Damier:
         #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupé
         if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
             #si la piece mange une piece adverse
+            if self.recuperer_piece_a_position(position_piece) != 
 
-            if self.recuperer_piece_a_position(position_piece).est_dame():
-                if position_cible in position_piece.quatre_positions_sauts():
-                    return True
-                else:
-                    return False
-            #si la piece est un pion noir 'x'
-            elif self.recuperer_piece_a_position(position_piece).est_noire():
-                if position_cible in position_piece.positions_diagonales_bas():
-                    return True
-                else:
-                    return False
-            #si la piece est un pion blanc 'o'
-            elif self.recuperer_piece_a_position(position_piece).est_blanche():
-                if position_cible in position_piece.positions_diagonales_haut():
-                    return True
-                else:
-                    return False
+
+
         else:
             return False
 
