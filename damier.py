@@ -185,13 +185,8 @@ class Damier:
                         if self.position_est_dans_damier(position_piece.positions_diagonales_bas()[i]):
                             if position_piece.positions_diagonales_bas()[i] not in self.cases:
                                 verif_depl_possible = True  # print("p peut dep houba hop! Noir")
-                # print("# Modifier en utilisant méthodes de position")  # temp
-                # verif_depl_possible = True
+
             else:
-                # print()
-                # print(Position(position_piece.ligne + 1, position_piece.colonne + 1))  # temp
-                # print(Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases)  # temp
-                # print(eval("Position(" + str(position_piece.ligne + 1) +"," +str(position_piece.colonne + 1)+")") in self.cases)  # temp
                 print("La pièce choisie ne peut pas être déplacée.\n")
 
         else:
@@ -213,20 +208,17 @@ class Damier:
 
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
 
-            if Position(position_piece.ligne + 1, position_piece.colonne + 1) in self.cases:
-                if Position(position_piece.ligne + 2, position_piece.colonne + 2) in self.cases:
-                    return False
+            for i in range(4):
+                if self.position_est_dans_damier(position_piece.quatre_positions_sauts()[i]):
+                    if Position(position_piece.quatre_positions_diagonales()[i]) in self.cases:
+                        if self.cases[Position(position_piece.quatre_positions_diagonales()[i])].couleur != self.cases[Position(i, j)].couleur:
+                            
+                            if Position(quatre_positions_sauts()[i]) not in self.cases:
+                                return True
+                        else:
+                            return False
                 else:
-                    return True
-
-            elif Position(position_piece.ligne + 1, position_piece.colonne - 1) in self.cases:
-                if Position(position_piece.ligne + 2, position_piece.colonne - 2) in self.cases:
                     return False
-                else:
-                    return True
-
-            else:
-                return False
         else:
             return False
 
@@ -345,10 +337,14 @@ class Damier:
             self.cases[Position(position_source.ligne, position_source.colonne)].type_de_piece = "dame"
 
         if abs(position_cible.ligne - position_source.ligne) == 1:
+            print("!", position_cible)  # temp
+            print(position_source)  # temp
             self.cases[position_cible] = self.cases[position_source]
             del self.cases[position_source]
             return "ok"
         elif abs(position_cible.ligne - position_source.ligne) == 2:
+            print("!!", position_cible)  # temp
+            print(position_source)  # temp
             self.cases[position_cible] = self.cases[position_source]
             del self.cases[position_source]
             return "prise"

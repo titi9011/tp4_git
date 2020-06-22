@@ -59,8 +59,8 @@ class Partie:
         """
         #TODO: À tester - compléter
 
-        if position_source in Damier.cases:
-            if Damier.cases[position_source].couleur == self.couleur_joueur_courant:
+        if position_source in self.damier.cases:
+            if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
                 return [True, ""]
             else:
                 return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez choisir une autre pièce."]
@@ -110,14 +110,16 @@ class Partie:
 
             position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
             #self.position_source_selectionnee = Position(position_source)
-            print("Déplacement permis ", self.damier.piece_peut_se_deplacer(position_source_selectionnee))
-            if self.damier.cases[position_source_selectionnee].couleur == self.couleur_joueur_courant:
+
+            if self.position_source_valide(position_source_selectionnee):  # in Damier.cases:  # self.damier.cases[position_source_selectionnee].couleur == self.couleur_joueur_courant:
                 if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
                     verif_source_cible = False
+                else:
+                    print("Le déplacement de cette pièce n'est pas possible.")
             else:
                 print("La pièce choisie appartient à votre adversaire et ne peut pas être déplacée.\n")
 
-        verif_source_cible = True
+        verif_source_cible = True  # Même "drapeau" réinitialisé et utilisé pour vérifier la position de la cible.
         while verif_source_cible:
             position_cible = input("Destination choisie : ")
             self.ligne = int(position_cible[0])
@@ -154,9 +156,9 @@ class Partie:
             print("Tour du joueur", self.couleur_joueur_courant, end=".")
             if self.doit_prendre:
                 if self.position_source_forcee is None:
-                    print(" Doit prendre une pièce.")
+                    print(" Il doit prendre une pièce.")
                 else:
-                    print(" Doit prendre avec la pièce en position {}.".format(self.position_source_forcee))
+                    print(" Il doit prendre avec la pièce en position {}.".format(self.position_source_forcee))
             else:
                 print("")
 
@@ -164,8 +166,8 @@ class Partie:
 
             # TODO: À compléter
 
-            print("tour 1")  # temp
-            [position_source, position_cible] = self.demander_positions_deplacement()
+                print("tour 1")  # temp
+                [position_source, position_cible] = self.demander_positions_deplacement()
             print("tour 2\t")  # temp
             print(position_source)
             print(position_cible)
