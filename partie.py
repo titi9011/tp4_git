@@ -101,18 +101,47 @@ class Partie:
 
         verif_source_cible = True
         while verif_source_cible:
-            position_source = input("Quelle pièce désirez-vous déplacer? ")
-            try:
-                self.ligne = int(position_source[0])
-                # print("dpd", position_source[0])  # temp
-            except ValueError:
-                print("Veuillez...")
-            # print(position_source[2])  # temp
-            # if
+            valeur_non_valide = True
+            validation_valeur = False
+            while valeur_non_valide:
+                try:
+                    position_source = input("Quelle pièce désirez-vous déplacer? ").strip()
+                    print(len(position_source))
+                    if len(position_source) > 0:
+                        self.ligne = int(position_source[0])
+                    else:
+                        print("Houb")
+                        validation_valeur = True
+                except ValueError:
+                    print("L'entrée devrait être un nombre et est invalide. Veuillez essayer de nouveau!")
+                except IndexError:
+                    print("L'entrée est invalide. Veuillez essayer de nouveau!")
+                else:
+                    print(44)  # temp
+                    if validation_valeur != True:
+                        valeur_non_valide = False
+                        validation_valeur = False
+            valeur_non_valide = True
+            ref_entree = 2
+            while valeur_non_valide:
+                try:
+                    self.colonne = int(position_source[ref_entree])
+
+                except ValueError:
+                    print(22)  # temp
+                    position_source = str(self.ligne) +"," + input("Entrer une colonne valide :")
+                    ref_entree = 2
+                except IndexError:
+                    print("La pièce que vous désirez déplacer est dans la rangée {}".format(self.ligne))
+                    position_source = str(self.ligne) +"," + input("La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne!")
+                    ref_entree = 2
+                else:
+                    valeur_non_valide = False
             # self.ligne = int(position_source[0])
-            self.colonne = int(position_source[2])
+            # self.colonne = int(position_source[2])
 
             position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
+            print("posn sélect :", position_source_selectionnee)
             #self.position_source_selectionnee = Position(position_source)
 
             if self.position_source_valide(position_source_selectionnee):  # in Damier.cases:  # self.damier.cases[position_source_selectionnee].couleur == self.couleur_joueur_courant:
