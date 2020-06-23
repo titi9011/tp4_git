@@ -147,8 +147,8 @@ class Partie:
             if self.position_source_valide(position_source_selectionnee):  # in Damier.cases:  # self.damier.cases[position_source_selectionnee].couleur == self.couleur_joueur_courant:
                 if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
                     verif_source_cible = False
-                else:
-                    print("Le déplacement de cette pièce n'est pas possible.")
+                # else:
+                    # print("Le déplacement de cette pièce n'est pas possible.")
             else:
                 print("La pièce choisie appartient à votre adversaire et ne peut pas être déplacée.\n")
 
