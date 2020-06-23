@@ -102,10 +102,14 @@ class Partie:
         verif_source_cible = True
         while verif_source_cible:
             position_source = input("Quelle pièce désirez-vous déplacer? ")
-            print("dpd", position_source[0])  # temp
-            print(position_source[2])  # temp
+            try:
+                self.ligne = int(position_source[0])
+                # print("dpd", position_source[0])  # temp
+            except ValueError:
+                print("Veuillez...")
+            # print(position_source[2])  # temp
             # if
-            self.ligne = int(position_source[0])
+            # self.ligne = int(position_source[0])
             self.colonne = int(position_source[2])
 
             position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
