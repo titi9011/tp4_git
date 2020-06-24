@@ -218,9 +218,8 @@ class Partie:
             # Thierry (et Bernard!), il faut mettre à jour les attributs :
                 # self.doit_prendre = False
                 # self.position_source_selectionnee = None
-                # self.position_source_forcee = Nonebonne_couleur = "erreur"
-            # while bonne_couleur == "erreur":
-            bonne_couleur = self.damier.deplacer(position_source, position_cible)
+                # self.position_source_forcee = None
+
 
             if self.couleur_joueur_courant == "blanc":
                 self.couleur_joueur_courant = "noir"
