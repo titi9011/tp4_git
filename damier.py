@@ -337,18 +337,21 @@ class Damier:
             self.cases[Position(position_source.ligne, position_source.colonne)].type_de_piece = "dame"
 
         if abs(position_cible.ligne - position_source.ligne) == 1:
-            print("!", position_cible)  # temp
+            print("!", type(position_cible))  # temp
             print(position_source)  # temp
             # print(self.cases[position_cible])
-            # print(self.cases[position_source].couleur)
+            print("Coul pos source", type(position_source))  # self.cases[position_source])  # .couleur)
             self.cases[position_cible] = self.cases[position_source]
+            self.cases[position_cible].couleur = self.cases[position_source].couleur
+            self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
             del self.cases[position_source]
             return "ok"
         elif abs(position_cible.ligne - position_source.ligne) == 2:
             print("!!", position_cible)  # temp
             print(position_source)  # temp
             self.cases[position_cible] = self.cases[position_source]
-            del self.cases[position_source]
+            self.cases[position_cible].couleur = self.cases[position_source].couleur
+            self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
             return "prise"
         else:
             return "erreur"

@@ -244,10 +244,13 @@ class Partie:
                 print("tour 1")  # temp
                 [position_source, position_cible] = self.demander_positions_deplacement()
             print("tour 2\t")  # temp
-            print(position_source)
-            print(position_cible)
+            print("Source :", position_source)
+            print(self.damier.position_est_dans_damier(position_source))
+            print("Cible : ", position_cible)
+            print(self.damier.position_est_dans_damier(position_cible))
             # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
             # TODO: À compléter
+
             self.damier.deplacer(position_source, position_cible)
 
 
