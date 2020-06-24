@@ -107,8 +107,6 @@ class Partie:
             while valeur_non_valide:
                 try:
                     position_source = input("Quelle pièce désirez-vous déplacer? ").strip()
-                    print(len(position_source))
-
                     self.ligne = int(position_source[0])
                 except:
                     if ValueError:
@@ -116,7 +114,6 @@ class Partie:
                     else:
                         print("L'entrée est invalide. Veuillez essayer de nouveau!")
                 else:
-                    print(44)  # temp
                     valeur_non_valide = False
 
             try:
@@ -129,11 +126,11 @@ class Partie:
                             "La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne!").strip()
                         self.colonne = int(self.colonne)
                     except:
-                        print("La pièce que vous désirez déplacer est dans la rangée {}".format(self.ligne))
+                        print("La pièce que vous désirez déplacer est dans la rangée {}.\n".format(self.ligne))
                         if ValueError:
-                            print(22)  # temp
+                            print("L'entrée devrait être un nombre et est invalide. Veuillez essayer de nouveau!")
                         else:
-                            print("Houba")
+                            print("L'entrée est invalide. Veuillez essayer de nouveau!")
                     else:
                         valeur_non_valide = False
 
@@ -141,26 +138,72 @@ class Partie:
             print("posn sélect :", position_source_selectionnee)  # temp
             position_source_selectionnee = eval(position_source_selectionnee)
             if self.position_source_valide(
-                position_source_selectionnee)[0]:  # in Damier.cases:  # self.damier.cases[position_source_selectionnee].couleur == self.couleur_joueur_courant:
-                if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
+                position_source_selectionnee)[0]:
+                if self.damier.piece_peut_se_deplacer(position_source_selectionnee):
                     verif_source_cible = False
-                # else:
-                # print("Le déplacement de cette pièce n'est pas possible.")
+                else:
+                    print("La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez faire un autre choix.")
             else:
                 print(self.position_source_valide(position_source_selectionnee)[1],"\n")
 
-
-
-        verif_source_cible = True  # Même "drapeau" réinitialisé et utilisé pour vérifier la position de la cible.
+        verif_source_cible = True
         while verif_source_cible:
-            position_cible = input("Destination choisie : ")
-            self.ligne = int(position_cible[0])
-            self.colonne = int(position_cible[2])
+            valeur_non_valide = True
+            while valeur_non_valide:
+                try:
+                    position_cible = input("Destination choisie : ").strip()
+                    self.ligne = int(position_cible[0])
+                except:
+                    if ValueError:
+                        print("L'entrée devrait être un nombre et est invalide. Veuillez essayer de nouveau!")
+                    else:
+                        print("L'entrée est invalide. Veuillez essayer de nouveau!")
+                else:
+
+                    valeur_non_valide = False
+
+            try:
+                self.colonne = int(position_cible[2])
+            except:
+                valeur_non_valide = True
+                while valeur_non_valide:
+                    try:
+                        colonne_test = input(
+                            "La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne!").strip()
+                        self.colonne = int(self.colonne)
+                    except:
+                        print("La pièce que vous désirez déplacer est dans la rangée {}.\n".format(self.ligne))
+                        if ValueError:
+                            print("L'entrée devrait être un nombre et est invalide. Veuillez essayer de nouveau!")
+                        else:
+                            print("L'entrée est invalide. Veuillez essayer de nouveau!")
+                    else:
+                        valeur_non_valide = False
+
             position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
+
             if self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
                 verif_source_cible = False
             else:
                 print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
+
+
+
+
+
+
+
+
+        #verif_source_cible = True  # Même "drapeau" réinitialisé et utilisé pour vérifier la position de la cible.
+        #while verif_source_cible:
+         #   position_cible = input("Destination choisie : ")
+          #  self.ligne = int(position_cible[0])
+           # self.colonne = int(position_cible[2])
+            #position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
+            #if self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
+             #   verif_source_cible = False
+            #else:
+             #   print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
         return [position_source_selectionnee, position_cible]
 
     def tour(self):

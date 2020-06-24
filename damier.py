@@ -192,7 +192,6 @@ class Damier:
         else:
             print("Il n'y a pas de pièce de votre couleur dans la case sélectionnée.\n")
 
-        print("verif_depl_possible : ", verif_depl_possible)
         return verif_depl_possible
 
     def piece_peut_faire_une_prise(self, position_piece):
@@ -340,6 +339,8 @@ class Damier:
         if abs(position_cible.ligne - position_source.ligne) == 1:
             print("!", position_cible)  # temp
             print(position_source)  # temp
+            # print(self.cases[position_cible])
+            # print(self.cases[position_source].couleur)
             self.cases[position_cible] = self.cases[position_source]
             del self.cases[position_source]
             return "ok"
