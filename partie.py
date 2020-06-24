@@ -58,9 +58,11 @@ class Partie:
 
         """
         #TODO: À tester - compléter
-
         if position_source in self.damier.cases:
+            print("Couleur case :", self.damier.cases[position_source].couleur)
+            print("Coul joueur : ", self.couleur_joueur_courant)
             if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
+                print("Couleur vérifiée")  # temp
                 return [True, ""]
             else:
                 return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez choisir une autre pièce."]
@@ -102,60 +104,52 @@ class Partie:
         verif_source_cible = True
         while verif_source_cible:
             valeur_non_valide = True
-            validation_valeur = False
             while valeur_non_valide:
                 try:
                     position_source = input("Quelle pièce désirez-vous déplacer? ").strip()
                     print(len(position_source))
-                    if len(position_source) > 0:
-                        self.ligne = int(position_source[0])
-                    else:
-                        print("Houb")
-                        validation_valeur = True
+
+                    self.ligne = int(position_source[0])
                 except:
                     if ValueError:
                         print("L'entrée devrait être un nombre et est invalide. Veuillez essayer de nouveau!")
-                # except IndexError:
                     else:
                         print("L'entrée est invalide. Veuillez essayer de nouveau!")
-                    # validation_valeur = True
                 else:
                     print(44)  # temp
-                    print(validation_valeur)
-                    if validation_valeur == True:
-                        print("V")
-                        valeur_non_valide = False
-                        validation_valeur = False
-            valeur_non_valide = True
-            ref_entree = 2
-            while valeur_non_valide:
-                try:
-                    self.colonne = int(position_source[ref_entree])
-
-                except ValueError:
-                    print(22)  # temp
-                    position_source = str(self.ligne) +"," + input("Entrer une colonne valide :")
-                    ref_entree = 2
-                except IndexError:
-                    print("La pièce que vous désirez déplacer est dans la rangée {}".format(self.ligne))
-                    position_source = str(self.ligne) +"," + input("La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne!")
-                    ref_entree = 2
-                else:
                     valeur_non_valide = False
-            # self.ligne = int(position_source[0])
-            # self.colonne = int(position_source[2])
 
-            position_source_selectionnee = eval("Position(" + str(self.ligne) + ", "+ str(self.colonne) +")")  # Position(self.ligne, self.colonne)
-            print("posn sélect :", position_source_selectionnee)
-            #self.position_source_selectionnee = Position(position_source)
+            try:
+                self.colonne = int(position_source[2])
+            except:
+                valeur_non_valide = True
+                while valeur_non_valide:
+                    try:
+                        colonne_test = input(
+                            "La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne!").strip()
+                        self.colonne = int(self.colonne)
+                    except:
+                        print("La pièce que vous désirez déplacer est dans la rangée {}".format(self.ligne))
+                        if ValueError:
+                            print(22)  # temp
+                        else:
+                            print("Houba")
+                    else:
+                        valeur_non_valide = False
 
-            if self.position_source_valide(position_source_selectionnee):  # in Damier.cases:  # self.damier.cases[position_source_selectionnee].couleur == self.couleur_joueur_courant:
+            position_source_selectionnee = "Position(" + str(self.ligne) + "," + str(self.colonne) + ")"
+            print("posn sélect :", position_source_selectionnee)  # temp
+            position_source_selectionnee = eval(position_source_selectionnee)
+            if self.position_source_valide(
+                position_source_selectionnee)[0]:  # in Damier.cases:  # self.damier.cases[position_source_selectionnee].couleur == self.couleur_joueur_courant:
                 if self.damier.piece_peut_se_deplacer(position_source_selectionnee):  # position_source):
                     verif_source_cible = False
                 # else:
-                    # print("Le déplacement de cette pièce n'est pas possible.")
+                # print("Le déplacement de cette pièce n'est pas possible.")
             else:
-                print("La pièce choisie appartient à votre adversaire et ne peut pas être déplacée.\n")
+                print(self.position_source_valide(position_source_selectionnee)[1],"\n")
+
+
 
         verif_source_cible = True  # Même "drapeau" réinitialisé et utilisé pour vérifier la position de la cible.
         while verif_source_cible:
@@ -211,6 +205,8 @@ class Partie:
             print(position_cible)
             # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
             # TODO: À compléter
+            self.damier.deplacer(position_source, position_cible)
+
 
             # Mettre à jour les attributs de la classe
             # TODO: À compléter

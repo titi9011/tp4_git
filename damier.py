@@ -161,8 +161,9 @@ class Damier:
 
         # if self.cases[position_piece]
         verif_depl_possible = False
+        print(position_piece)
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
-            # print("p peut dep Oui")  # temp
+            print("p peut dep Oui")  # temp
 
             #if self.cases[position_piece].couleur == couleur_joueur_courant: 
             if (self.cases[position_piece].type_de_piece) == "dame":
@@ -171,7 +172,7 @@ class Damier:
                     if self.position_est_dans_damier(position_piece.quatre_positions_diagonales()[i]):
                         if position_piece.quatre_positions_diagonales()[i] not in self.cases:
                             verif_depl_possible = True  # (position_piece.quatre_positions_diagonales()[i])
-                            # print("p peut dep houba hop! Dame")
+                            print("p peut dep houba hop! Dame")
             elif (self.cases[position_piece].type_de_piece) == "pion":  # Position(position_piece.ligne + 1, position_piece.colonne + 1) not in self.cases or Position(position_piece.ligne + 1, position_piece.colonne - 1) not in self.cases:
                 if (self.cases[position_piece].couleur) == "blanc":
                     for i in range(2):
@@ -191,6 +192,7 @@ class Damier:
         else:
             print("Il n'y a pas de pièce de votre couleur dans la case sélectionnée.\n")
 
+        print("verif_depl_possible : ", verif_depl_possible)
         return verif_depl_possible
 
     def piece_peut_faire_une_prise(self, position_piece):
