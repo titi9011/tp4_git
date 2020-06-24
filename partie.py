@@ -112,13 +112,18 @@ class Partie:
                     else:
                         print("Houb")
                         validation_valeur = True
-                except ValueError:
-                    print("L'entrée devrait être un nombre et est invalide. Veuillez essayer de nouveau!")
-                except IndexError:
-                    print("L'entrée est invalide. Veuillez essayer de nouveau!")
+                except:
+                    if ValueError:
+                        print("L'entrée devrait être un nombre et est invalide. Veuillez essayer de nouveau!")
+                # except IndexError:
+                    else:
+                        print("L'entrée est invalide. Veuillez essayer de nouveau!")
+                    # validation_valeur = True
                 else:
                     print(44)  # temp
-                    if validation_valeur != True:
+                    print(validation_valeur)
+                    if validation_valeur == True:
+                        print("V")
                         valeur_non_valide = False
                         validation_valeur = False
             valeur_non_valide = True
@@ -209,12 +214,14 @@ class Partie:
 
             # Mettre à jour les attributs de la classe
             # TODO: À compléter
-            print("tour Houb!")
-            # bonne_couleur = "erreur"
+
+            # Thierry (et Bernard!), il faut mettre à jour les attributs :
+                # self.doit_prendre = False
+                # self.position_source_selectionnee = None
+                # self.position_source_forcee = Nonebonne_couleur = "erreur"
             # while bonne_couleur == "erreur":
             bonne_couleur = self.damier.deplacer(position_source, position_cible)
 
-            print("Chang tour")
             if self.couleur_joueur_courant == "blanc":
                 self.couleur_joueur_courant = "noir"
             else:
