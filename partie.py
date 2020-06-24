@@ -221,6 +221,7 @@ class Partie:
                 # self.position_source_forcee = None
 
 
+
             if self.couleur_joueur_courant == "blanc":
                 self.couleur_joueur_courant = "noir"
             else:
