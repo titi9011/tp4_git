@@ -137,9 +137,10 @@ class Partie:
             position_source_selectionnee = "Position(" + str(self.ligne) + "," + str(self.colonne) + ")"
             print("posn sélect :", position_source_selectionnee)  # temp
             position_source_selectionnee = eval(position_source_selectionnee)
-            if self.position_source_valide(
-                position_source_selectionnee)[0]:
+            if self.position_source_valide(position_source_selectionnee)[0]:
                 if self.damier.piece_peut_se_deplacer(position_source_selectionnee):
+                    verif_source_cible = False
+                elif self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
                     verif_source_cible = False
                 else:
                     print("La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez faire un autre choix.")
@@ -183,6 +184,8 @@ class Partie:
             position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
 
             if self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
+                verif_source_cible = False
+            elif self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
                 verif_source_cible = False
             else:
                 print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
@@ -242,7 +245,7 @@ class Partie:
             # TODO: À compléter
 
                 print("tour 1")  # temp
-                [position_source, position_cible] = self.demander_positions_deplacement()
+            [position_source, position_cible] = self.demander_positions_deplacement()
             print("tour 2\t")  # temp
             print("Source :", position_source)
             print(self.damier.position_est_dans_damier(position_source))

@@ -133,7 +133,7 @@ class Damier:
         piece_mange = self.recuperer_piece_a_position(position_piece_mange)
         #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupé
         if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
-            #s'il y a une piece qui peut être mangé et si cette piece est adverse
+            #s'il y a une piece qui peut être mangée; cette piece est adverse
             if position_piece_mange in self.cases and self.recuperer_piece_a_position(position_piece) != piece_mange:
                 return  True
             else:
@@ -150,16 +150,8 @@ class Damier:
         Returns:
             bool: True si une pièce est à la position reçue et celle-ci peut se déplacer, False autrement.
         """
-        #TODO: À tester - compléter
-        # print("Posn ;", position_piece(0))  # temp
-        # print("p peut dep", Position(5, 2) in self.cases)  #(5, 2) == (5, 2))  # temp)
-        # test1 = eval("Position(" + str(5) + ", "+ str(2) +")")  # temp)
-        # print("p peut dep type : ", type(Position(5, 2)))  # temp)
-        # print(type((5, 2)))  # temp)
-        # print(type(self.cases))  # temp
-        # print(test1 in self.cases)  # print((5, 2) == Position(5, 2))  # in self.cases)  # temp
+        # TODO: À tester - compléter
 
-        # if self.cases[position_piece]
         verif_depl_possible = False
         print(position_piece)
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
@@ -330,9 +322,8 @@ class Damier:
             str: "ok" si le déplacement a été effectué sans prise, "prise" si une pièce adverse a été prise, et
                 "erreur" autrement.
         """
-        #TODO: À tester - compléter
-        # self.cases[position_cible] = self.cases[position_source]
-        # del self.cases[position_source]
+        # TODO: À tester - compléter
+
         if position_cible.ligne == 0 or position_cible.ligne == 7:
             self.cases[Position(position_source.ligne, position_source.colonne)].type_de_piece = "dame"
 
