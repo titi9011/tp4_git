@@ -253,7 +253,6 @@ class Damier:
         poss_faire_prise = False
         for i in range(8):
             for j in range(8):
-                # print("temp ij", i, j, Position(i+2, j+2) in self.cases)
                 if Position(i, j) in self.cases:
                     if self.cases[Position(i, j)].couleur == couleur:
                         for k in range(4):
@@ -261,7 +260,7 @@ class Damier:
 
 
                         # if i < 5 and j < 5:
-                                print("temp2 ij", i, j)
+                                print("temp2 piece_couleur_peut_faire_prise - ij", i, j)
                             # for k in range(4):
                                 if Position.quatre_positions_diagonales(Position(i, j))[k] in self.cases:
                                     if self.cases[Position.quatre_positions_diagonales(Position(i, j))[k]].couleur != couleur:
