@@ -1,4 +1,4 @@
-# Auteurs: À compéter
+# Auteurs: À compléter
 
 from damier import Damier
 from position import Position
