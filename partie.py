@@ -59,10 +59,7 @@ class Partie:
         """
         #TODO: À tester - compléter
         if position_source in self.damier.cases:
-            print("Couleur case :", self.damier.cases[position_source].couleur)
-            print("Coul joueur : ", self.couleur_joueur_courant)
             if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
-                print("Couleur vérifiée")  # temp
                 return [True, ""]
             else:
                 return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez choisir une autre pièce."]
