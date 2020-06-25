@@ -138,8 +138,8 @@ class Partie:
             print("posn sélect :", position_source_selectionnee)  # temp
             position_source_selectionnee = eval(position_source_selectionnee)
             if self.position_source_valide(position_source_selectionnee)[0]:
-                print("PSS", position_source_selectionnee)
-                print("PSS", self.damier.piece_peut_faire_une_prise(position_source_selectionnee))
+                print("PSS", position_source_selectionnee)  # temp
+                print("PSS", self.damier.piece_peut_faire_une_prise(position_source_selectionnee))  # temp
                 if self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
                     verif_source_cible = False
                     self.position_source_forcee = position_source_selectionnee
@@ -186,9 +186,9 @@ class Partie:
 
             position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
 
-            #if self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
-            #    verif_source_cible = False
-            if  self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
+            if self.damier.piece_peut_sauter_vers(position_source, position_source_selectionnee):  #, position_cible):
+                verif_source_cible = False
+            elif self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
                 verif_source_cible = False
             else:
                 print("La pièce choisie ne peut pas être déplacée vers cette case.\n")

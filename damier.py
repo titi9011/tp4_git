@@ -202,6 +202,7 @@ class Damier:
 
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
             print("self.cases[position_piece].couleur ", self.cases[position_piece].couleur)  # temp
+            bool_peut_faire_prise = False
             for i in range(4):
                 print("self.position_est_dans_damier(position_piece.quatre_positions_sauts()[i])", self.position_est_dans_damier(position_piece.quatre_positions_sauts()[i]))  # temp
                 if self.position_est_dans_damier(position_piece.quatre_positions_sauts()[i]):
@@ -210,15 +211,11 @@ class Damier:
                     if position_piece.quatre_positions_diagonales()[i] in self.cases:
                         if self.cases[position_piece.quatre_positions_diagonales()[i]].couleur != self.cases[position_piece].couleur:
                             print("HHOPosition de trop?")  # temp
-                            if Position(quatre_positions_sauts()[i]) not in self.cases:
-                                return True
-                                break
-                        else:
-                            return False
-                else:
-                    return False
-        else:
-            return False
+                            if position_piece.quatre_positions_sauts()[i] not in self.cases:
+                            # if Position(quatre_positions_sauts()[i]) not in self.cases:
+                                bool_peut_faire_prise = True
+
+        return bool_peut_faire_prise
 
 
     def piece_de_couleur_peut_se_deplacer(self, couleur):
