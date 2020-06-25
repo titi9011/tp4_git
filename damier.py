@@ -264,47 +264,11 @@ class Damier:
                         for k in range(4):
                             if self.position_est_dans_damier(Position(i, j).quatre_positions_sauts()[k]):
 
-
-                        # if i < 5 and j < 5:
-                            # for k in range(4):
                                 if Position.quatre_positions_diagonales(Position(i, j))[k] in self.cases:
                                     if self.cases[Position.quatre_positions_diagonales(Position(i, j))[k]].couleur != couleur:
                                         if Position.quatre_positions_sauts(Position(i, j))[k] not in self.cases:
                                             poss_faire_prise = True
                                             break
-
-                        # if i < 5 and j > 2:
-                            # print("temp2 ij", i, j)
-                            # for k in range(4):
-                            # if Position.quatre_positions_diagonales(Position(i, j))[2] in self.cases:
-                            # if Position(i + 1, j + 1) in self.cases:
-                                # if self.cases[Position.quatre_positions_diagonales(Position(i, j))[2]].couleur != couleur:
-                                    # if self.cases[Position(i + 1, j + 1)].couleur != couleur:
-                                    # if Position.quatre_positions_sauts(Position(i, j))[2] not in self.cases:
-                                        # poss_faire_prise = True
-                                        # break
-
-                        # if i > 2 and j < 5:
-                            # print("temp2 ij", i, j)
-                            # for k in range(4):
-                            # if Position.quatre_positions_diagonales(Position(i, j))[1] in self.cases:
-                            # if Position(i + 1, j + 1) in self.cases:
-                                # if self.cases[Position.quatre_positions_diagonales(Position(i, j))[1]].couleur != couleur:
-                                    # if self.cases[Position(i + 1, j + 1)].couleur != couleur:
-                                    # if Position.quatre_positions_sauts(Position(i, j))[1] not in self.cases:
-                                        # poss_faire_prise = True
-                                        # break
-
-                        # if i > 2 and j > 2:
-                            # print("temp2 ij", i, j)
-                            # for k in range(4):
-                            # if Position.quatre_positions_diagonales(Position(i, j))[0] in self.cases:
-                            # if Position(i + 1, j + 1) in self.cases:
-                                # if self.cases[Position.quatre_positions_diagonales(Position(i, j))[0]].couleur != couleur:
-                                    # if self.cases[Position(i + 1, j + 1)].couleur != couleur:
-                                    # if Position.quatre_positions_sauts(Position(i, j))[0] not in self.cases:
-                                        # poss_faire_prise = True
-                                        # break
 
         return poss_faire_prise
 
@@ -328,15 +292,13 @@ class Damier:
         """
         # TODO: À tester - compléter
 
-        if (position_cible.ligne == 0 and self.cases[Position(position_source.ligne, position_source.colonne)].couleur == "blanc")
-            or (position_cible.ligne == 7 and self.cases[Position(position_source.ligne, position_source.colonne)].couleur == "noir"):
+        if not (not (position_cible.ligne == 0 and self.cases[
+            Position(position_source.ligne, position_source.colonne)].couleur == "blanc") and not (
+                position_cible.ligne == 7 and self.cases[
+            Position(position_source.ligne, position_source.colonne)].couleur == "noir")):
             self.cases[Position(position_source.ligne, position_source.colonne)].type_de_piece = "dame"
 
         if abs(position_cible.ligne - position_source.ligne) == 1:
-            print("!", type(position_cible))  # temp
-            print(position_source)  # temp
-            # print(self.cases[position_cible])
-            print("Coul pos source", type(position_source))  # self.cases[position_source])  # .couleur)
             self.cases[position_cible] = self.cases[position_source]
             # self.cases[position_cible].couleur = self.cases[position_source].couleur
             # self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
