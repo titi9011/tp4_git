@@ -35,7 +35,7 @@ class Partie:
 
 2. demander_positions_deplacement(self): Thierry
 
-3. tour(self): Bernard
+3. tour(self): Thierry
 
 4. jouer(self): Bernard
 

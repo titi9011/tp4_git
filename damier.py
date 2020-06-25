@@ -132,7 +132,7 @@ class Damier:
         # print("Type saute : ", position_cible.ligne)
         # print(position_cible.colonne)
         # x = input("?")
-        position_piece_mange = Position((position_piece.ligne + position_cible.ligne)/2, (position_piece.colonne + position_cible.colonne)/2)  # Position.position_mange(position_cible)
+        position_piece_mange = position_piece.position_mange(position_cible)
         piece_mange = self.recuperer_piece_a_position(position_piece_mange)
         print("# Si la position est dans le damier et s'il y a une pièce sur la case et si la position_cible n'est pas occupée")
         if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
