@@ -266,7 +266,6 @@ class Damier:
 
 
                         # if i < 5 and j < 5:
-                                print("temp2 piece_couleur_peut_faire_prise - ij", i, j)
                             # for k in range(4):
                                 if Position.quatre_positions_diagonales(Position(i, j))[k] in self.cases:
                                     if self.cases[Position.quatre_positions_diagonales(Position(i, j))[k]].couleur != couleur:
@@ -329,7 +328,8 @@ class Damier:
         """
         # TODO: À tester - compléter
 
-        if position_cible.ligne == 0 or position_cible.ligne == 7:
+        if (position_cible.ligne == 0 and self.cases[Position(position_source.ligne, position_source.colonne)].couleur == "blanc")
+            or (position_cible.ligne == 7 and self.cases[Position(position_source.ligne, position_source.colonne)].couleur == "noir"):
             self.cases[Position(position_source.ligne, position_source.colonne)].type_de_piece = "dame"
 
         if abs(position_cible.ligne - position_source.ligne) == 1:

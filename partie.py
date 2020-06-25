@@ -140,7 +140,18 @@ class Partie:
             if self.position_source_valide(position_source_selectionnee)[0]:
                 print("PSS", position_source_selectionnee)  # temp
                 print("PSS", self.damier.piece_peut_faire_une_prise(position_source_selectionnee))  # temp
-                if self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
+                if self.doit_prendre == True:
+                    if self.position_source_forcee != None:
+                        if self.position_source_forcee != position_source_selectionnee:
+                            print("Vous devez prendre. La pièce en position {} doit être sélectionnée".format(self.position_source_forcee))
+                            # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
+                            verif_source_cible = False
+                        else:
+                            print("Vous devez prendre. La pièce choisie ne peut pas être sélectionnée")
+                    else:
+                        print("Compléter : S'assurer d'avoir une pièce qui peut prendre.")
+                        verif_source_cible = False
+                elif self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
                     verif_source_cible = False
                     self.position_source_forcee = position_source_selectionnee
                 elif self.damier.piece_peut_se_deplacer(position_source_selectionnee):
@@ -213,7 +224,7 @@ class Partie:
         while True:  # True est temporaire
             if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
                 self.doit_prendre = True
-
+                print("Doit prendre activé")
             # Affiche l'état du jeu
             print(self.damier)
             print("")
@@ -241,17 +252,23 @@ class Partie:
 
             # TODO: À compléter
 
-            self.damier.deplacer(position_source, position_cible)
+            retour_apres_deplacement = self.damier.deplacer(position_source, position_cible)
 
 
             # Mettre à jour les attributs de la classe
             # TODO: À compléter
 
             # Thierry (et Bernard!), il faut mettre à jour les attributs :
-                # self.doit_prendre = False
-                # self.position_source_selectionnee = None
-                # self.position_source_forcee = None
-
+            if retour_apres_deplacement == "ok":
+                pass
+            elif retour_apres_deplacement == "prise":
+                # Vérifier si peut prendre encore
+                # Sinon :
+                self.doit_prendre = False
+                self.position_source_selectionnee = None
+                self.position_source_forcee = None
+            else:
+                print("Il y a erreur dans le code!")
 
 
             if self.couleur_joueur_courant == "blanc":
