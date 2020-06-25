@@ -38,4 +38,3 @@ class Partie:
 3. tour(self): Thierry
 
 4. jouer(self): Bernard
-

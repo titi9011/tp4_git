@@ -98,8 +98,9 @@ class Damier:
                 if position_cible in position_piece.quatre_positions_diagonales():
                     return True
                 else:
+                    print("si la piece est un pion noir 'x'")  # temp
                     return False
-                print("si la piece est un pion noir 'x'")  # temp
+
             elif self.recuperer_piece_a_position(position_piece).est_noire():
                 if position_cible in position_piece.positions_diagonales_bas():
                     return True
@@ -134,11 +135,11 @@ class Damier:
         # x = input("?")
         position_piece_mange = position_piece.position_mange(position_cible)
         piece_mange = self.recuperer_piece_a_position(position_piece_mange)
-        print("# Si la position est dans le damier et s'il y a une pièce sur la case et si la position_cible n'est pas occupée")
+        # Si la position est dans le damier et s'il y a une pièce sur la case et si la position_cible n'est pas occupée"
         if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
-            print("# S'il y a une pièce qui peut être mangée; cette pièce est adverse")
+            # S'il y a une pièce qui peut être mangée; cette pièce est adverse"
             if position_piece_mange in self.cases and self.recuperer_piece_a_position(position_piece) != piece_mange:
-                return  True
+                return True
             else:
                 return False
         else:
@@ -239,7 +240,7 @@ class Damier:
                         print("p coul peut i", i, " j", j)
                         if self.piece_peut_se_deplacer(Position(i, j)):
                             return True
-                            break
+
                         else:
                             print("p coul peut hop ", self.cases[Position(i, j)])
                             return False
