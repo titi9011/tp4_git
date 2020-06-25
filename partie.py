@@ -186,7 +186,7 @@ class Partie:
 
             position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
 
-            if self.damier.piece_peut_sauter_vers(position_source, position_source_selectionnee):  #, position_cible):
+            if self.damier.piece_peut_sauter_vers(position_source_selectionnee, position_cible):
                 verif_source_cible = False
             elif self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
                 verif_source_cible = False
