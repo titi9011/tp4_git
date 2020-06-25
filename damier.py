@@ -93,19 +93,19 @@ class Damier:
 
         #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupé
         if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
-            print("# si la piece est une dame")
+            print("# si la piece est une dame")  # temp
             if self.recuperer_piece_a_position(position_piece).est_dame():
                 if position_cible in position_piece.quatre_positions_diagonales():
                     return True
                 else:
                     return False
-                print("si la piece est un pion noir 'x'")
+                print("si la piece est un pion noir 'x'")  # temp
             elif self.recuperer_piece_a_position(position_piece).est_noire():
                 if position_cible in position_piece.positions_diagonales_bas():
                     return True
                 else:
                     return False
-                print("si la piece est un pion blanc 'o'")
+                print("si la piece est un pion blanc 'o'")  # temp
             elif self.recuperer_piece_a_position(position_piece).est_blanche():
                 if position_cible in position_piece.positions_diagonales_haut():
                     return True
@@ -164,14 +164,16 @@ class Damier:
                     if self.position_est_dans_damier(position_piece.quatre_positions_diagonales()[i]):
                         if position_piece.quatre_positions_diagonales()[i] not in self.cases:
                             verif_depl_possible = True  # (position_piece.quatre_positions_diagonales()[i])
-                            print("p peut dep houba hop! Dame")
-            elif (self.cases[position_piece].type_de_piece) == "pion":  # Position(position_piece.ligne + 1, position_piece.colonne + 1) not in self.cases or Position(position_piece.ligne + 1, position_piece.colonne - 1) not in self.cases:
+                            print("p peut dep houba hop! Dame")  # temp
+            elif (self.cases[position_piece].type_de_piece) == "pion":  # Position(position_piece.ligne + 1,
+                # position_piece.colonne + 1) not in self.cases or
+                # Position(position_piece.ligne + 1, position_piece.colonne - 1) not in self.cases:
                 if (self.cases[position_piece].couleur) == "blanc":
                     for i in range(2):
                         if self.position_est_dans_damier(position_piece.positions_diagonales_haut()[i]):
                             if position_piece.positions_diagonales_haut()[i] not in self.cases:
                                 verif_depl_possible = True
-                                print("p peut dep houba hop! ", self.cases[position_piece].couleur)
+                                print("p peut dep houba hop! ", self.cases[position_piece].couleur)  # temp
                 else:
                     for i in range(2):
                         if self.position_est_dans_damier(position_piece.positions_diagonales_bas()[i]):
@@ -199,14 +201,18 @@ class Damier:
         # TODO: À tester - compléter
 
         if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
-
+            print("self.cases[position_piece].couleur ", self.cases[position_piece].couleur)  # temp
             for i in range(4):
+                print("self.position_est_dans_damier(position_piece.quatre_positions_sauts()[i])", self.position_est_dans_damier(position_piece.quatre_positions_sauts()[i]))  # temp
                 if self.position_est_dans_damier(position_piece.quatre_positions_sauts()[i]):
-                    if Position(position_piece.quatre_positions_diagonales()[i]) in self.cases:
-                        if self.cases[Position(position_piece.quatre_positions_diagonales()[i])].couleur != self.cases[Position(i, j)].couleur:
-                            
+                    print("p ", position_piece.quatre_positions_diagonales()[i])
+                    # print("P ", Position(position_piece.quatre_positions_diagonales()[i]))
+                    if position_piece.quatre_positions_diagonales()[i] in self.cases:
+                        if self.cases[position_piece.quatre_positions_diagonales()[i]].couleur != self.cases[position_piece].couleur:
+                            print("HHOPosition de trop?")  # temp
                             if Position(quatre_positions_sauts()[i]) not in self.cases:
                                 return True
+                                break
                         else:
                             return False
                 else:
@@ -332,16 +338,19 @@ class Damier:
             # print(self.cases[position_cible])
             print("Coul pos source", type(position_source))  # self.cases[position_source])  # .couleur)
             self.cases[position_cible] = self.cases[position_source]
-            self.cases[position_cible].couleur = self.cases[position_source].couleur
-            self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
+            # self.cases[position_cible].couleur = self.cases[position_source].couleur
+            # self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
             del self.cases[position_source]
             return "ok"
         elif abs(position_cible.ligne - position_source.ligne) == 2:
             print("!!", position_cible)  # temp
             print(position_source)  # temp
             self.cases[position_cible] = self.cases[position_source]
-            self.cases[position_cible].couleur = self.cases[position_source].couleur
-            self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
+            # self.cases[position_cible].couleur = self.cases[position_source].couleur
+            # self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
+            del self.cases[position_source]
+            del self.cases[Position.position_mange(position_source, position_cible)]
+
             return "prise"
         else:
             return "erreur"

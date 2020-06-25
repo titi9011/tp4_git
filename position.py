@@ -18,7 +18,7 @@ class Position:
         colonne (int): La colonne associée à la position
 
     """
-    def __init__(self, ligne, colonne):
+    def __init__(self, ligne, colonne):  # object, colonne: object) -> object:
         """Constructeur de la classe Position. Initialise les deux attributs de la classe.
 
         Args:
