@@ -84,6 +84,7 @@ class Partie:
 
         # Damier.piece_peut_se_deplacer_vers(position_piece, position_cible)
         # Damier.piece_peut_faire_une_prise(position_piece)
+        print("position_cible à compléter")
         return [True, "Message"]
 
     def demander_positions_deplacement(self):
@@ -121,7 +122,7 @@ class Partie:
                     try:
                         colonne_test = input(
                             "La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne!").strip()
-                        self.colonne = int(self.colonne)
+                        self.colonne = int(colonne_test)
                     except:
                         print("La pièce que vous désirez déplacer est dans la rangée {}.\n".format(self.ligne))
                         if ValueError:
@@ -137,17 +138,19 @@ class Partie:
             if self.position_source_valide(position_source_selectionnee)[0]:
                 print("PSS", position_source_selectionnee)  # temp
                 print("PSS", self.damier.piece_peut_faire_une_prise(position_source_selectionnee))  # temp
+                print("PSS", self.position_source_forcee)  # temp
                 if self.doit_prendre == True:
-                    if self.position_source_forcee != None:
-                        if self.position_source_forcee != position_source_selectionnee:
-                            print("Vous devez prendre. La pièce en position {} doit être sélectionnée".format(self.position_source_forcee))
+                    if self.position_source_forcee is None:
+                        print("Compléter : S'assurer d'avoir une pièce qui peut prendre.")
+                        verif_source_cible = False
+                    else:
+                        if self.position_source_forcee == position_source_selectionnee:
+                            print("Vous devez prendre. La pièce en position {} a été sélectionnée.".format(self.position_source_forcee))
                             # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
                             verif_source_cible = False
                         else:
                             print("Vous devez prendre. La pièce choisie ne peut pas être sélectionnée")
-                    else:
-                        print("Compléter : S'assurer d'avoir une pièce qui peut prendre.")
-                        verif_source_cible = False
+
                 elif self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
                     verif_source_cible = False
                     self.position_source_forcee = position_source_selectionnee
@@ -181,8 +184,9 @@ class Partie:
                 while valeur_non_valide:
                     try:
                         colonne_test = input(
-                            "La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne!").strip()
-                        self.colonne = int(self.colonne)
+                            "La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne! ").strip()
+                        print(colonne_test)
+                        self.colonne = int(colonne_test)
                     except:
                         print("La pièce que vous désirez déplacer est dans la rangée {}.\n".format(self.ligne))
                         if ValueError:
@@ -232,7 +236,7 @@ class Partie:
             if self.position_source_forcee is None:
                 print(" Il doit prendre une pièce.")
             else:
-                print(" Il doit prendre avec la pièce en position {}.".format(self.position_source_forcee))
+                print(" La pièce en position {} doit faire une autre prise.".format(self.position_source_forcee))
         else:
             print("")
 
@@ -261,8 +265,10 @@ class Partie:
         if retour_apres_deplacement == "ok":
             pass
         elif retour_apres_deplacement == "prise":
-            if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
+            if self.damier.piece_peut_faire_une_prise(position_cible):
+            #if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
             # Vérifier si peut prendre encore
+                self.position_source_forcee = position_cible
                 self.doit_prendre = True
             # Sinon :
             else:
