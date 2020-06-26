@@ -84,7 +84,7 @@ class Partie:
 
         # Damier.piece_peut_se_deplacer_vers(position_piece, position_cible)
         # Damier.piece_peut_faire_une_prise(position_piece)
-        return True
+        return [True, "Message"]
 
     def demander_positions_deplacement(self):
         """Demande à l'utilisateur les positions sources et cible, et valide ces positions. Cette méthode doit demander
@@ -193,13 +193,15 @@ class Partie:
                         valeur_non_valide = False
 
             position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
-
-            if self.damier.piece_peut_sauter_vers(position_source_selectionnee, position_cible):
-                verif_source_cible = False
-            elif self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
-                verif_source_cible = False
+            if self.position_cible_valide(position_cible)[0]:
+                if self.damier.piece_peut_sauter_vers(position_source_selectionnee, position_cible):
+                    verif_source_cible = False
+                elif self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
+                    verif_source_cible = False
+                else:
+                    print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
             else:
-                print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
+                print(self.position_cible_valide(position_cible)[1])
 
         return [position_source_selectionnee, position_cible]
 
@@ -249,7 +251,7 @@ class Partie:
 
         # TODO: À compléter
 
-        retour_apres_deplacement = self.damier.deplacer(position_source, position_cible)
+        retour_apres_deplacement = self.damier.deplacer(position_source, position_cible)  # ok, prise ou erreur
 
 
         # Mettre à jour les attributs de la classe
@@ -259,19 +261,22 @@ class Partie:
         if retour_apres_deplacement == "ok":
             pass
         elif retour_apres_deplacement == "prise":
+            if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
             # Vérifier si peut prendre encore
+                self.doit_prendre = True
             # Sinon :
-            self.doit_prendre = False
-            self.position_source_selectionnee = None
-            self.position_source_forcee = None
+            else:
+                self.doit_prendre = False
+                self.position_source_selectionnee = None
+                self.position_source_forcee = None
         else:
             print("Il y a erreur dans le code!")
 
-
-        if self.couleur_joueur_courant == "blanc":
-            self.couleur_joueur_courant = "noir"
-        else:
-            self.couleur_joueur_courant = "blanc"
+        if self.doit_prendre == False:
+            if self.couleur_joueur_courant == "blanc":
+                self.couleur_joueur_courant = "noir"
+            else:
+                self.couleur_joueur_courant = "blanc"
 
     def jouer(self):
         """Démarre une partie. Tant que le joueur courant a des déplacements possibles (utilisez les méthodes
