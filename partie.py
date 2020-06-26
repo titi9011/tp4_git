@@ -64,7 +64,7 @@ class Partie:
             else:
                 return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez choisir une autre pièce."]
         else:
-                return [False, "Il n'y a pas de pièce sur la case que vous avez sélectionnée. Veuillez faire un autre choix."]
+            return [False, "Il n'y a pas de pièce sur la case que vous avez sélectionnée. Veuillez faire un autre choix."]
 
 
     def position_cible_valide(self, position_cible):
