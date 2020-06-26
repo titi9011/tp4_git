@@ -232,7 +232,7 @@ class Damier:
             bool: True si une pièce de la couleur reçue peut faire un déplacement standard, False autrement.
         """
         #TODO: À tester - compléter
-
+        # valider_deplacement_piece_couleur
         for i in range(8):
             for j in range(8):
                 if Position(i,j) in self.cases:
@@ -243,7 +243,7 @@ class Damier:
 
                         else:
                             print("p coul peut hop ", self.cases[Position(i, j)])
-                            return False
+        return False
 
     def piece_de_couleur_peut_faire_une_prise(self, couleur):
         """Vérifie si n'importe quelle pièce d'une certaine couleur reçue en argument a la possibilité de faire un
@@ -257,7 +257,7 @@ class Damier:
         """
         #TODO: À tester - compléter
 
-        poss_faire_prise = False
+        # poss_faire_prise = False
         for i in range(8):
             for j in range(8):
                 if Position(i, j) in self.cases:
@@ -268,10 +268,10 @@ class Damier:
                                 if Position.quatre_positions_diagonales(Position(i, j))[k] in self.cases:
                                     if self.cases[Position.quatre_positions_diagonales(Position(i, j))[k]].couleur != couleur:
                                         if Position.quatre_positions_sauts(Position(i, j))[k] not in self.cases:
-                                            poss_faire_prise = True
-                                            break
+                                            return True  # poss_faire_prise = True
 
-        return poss_faire_prise
+
+        return False
 
     def deplacer(self, position_source, position_cible):
         """Effectue le déplacement sur le damier. Si le déplacement est valide, on doit mettre à jour le dictionnaire
