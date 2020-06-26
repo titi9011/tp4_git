@@ -22,7 +22,7 @@ class Partie:
     """
     def __init__(self):
         """Constructeur de la classe Partie. Initialise les attributs à leur valeur par défaut. Le damier est construit
-        avec les pièces à leur valeur initiales, le joueur actif est le joueur blanc, et celui-ci n'est pas forcé
+        avec les pièces à leur valeur initiale, le joueur actif est le joueur blanc, et celui-ci n'est pas forcé
         de prendre une pièce adverse. Aucune position source n'est sélectionnée, et aucune position source n'est forcée.
 
         """
@@ -84,7 +84,7 @@ class Partie:
 
         # Damier.piece_peut_se_deplacer_vers(position_piece, position_cible)
         # Damier.piece_peut_faire_une_prise(position_piece)
-
+        return True
 
     def demander_positions_deplacement(self):
         """Demande à l'utilisateur les positions sources et cible, et valide ces positions. Cette méthode doit demander
