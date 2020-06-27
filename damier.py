@@ -71,7 +71,10 @@ class Damier:
         #TODO: À tester - compléter
 
         if position.ligne in range(8) and position.colonne in range(8):
+            #if (position.ligne + position.colonne) % 2 == 1:
             return True
+            #else:
+             #   return False
         else:
             return False
 
@@ -132,13 +135,16 @@ class Damier:
         # print("Type saute : ", position_cible.ligne)
         # print(position_cible.colonne)
         # x = input("?")
-        position_piece_mange = position_piece.position_mange(position_cible)
-        piece_mange = self.recuperer_piece_a_position(position_piece_mange)
-        # Si la position est dans le damier et s'il y a une pièce sur la case et si la position_cible n'est pas occupée"
-        if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
-            # S'il y a une pièce qui peut être mangée; cette pièce est adverse"
-            if position_piece_mange in self.cases and self.recuperer_piece_a_position(position_piece) != piece_mange:
-                return True
+        if (position_cible.ligne + position_cible.colonne) % 2 == 1:
+            position_piece_mange = position_piece.position_mange(position_cible)
+            piece_mange = self.recuperer_piece_a_position(position_piece_mange)
+            # Si la position est dans le damier et s'il y a une pièce sur la case et si la position_cible n'est pas occupée"
+            if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
+                # S'il y a une pièce qui peut être mangée; cette pièce est adverse"
+                if position_piece_mange in self.cases and self.recuperer_piece_a_position(position_piece) != piece_mange:
+                    return True
+                else:
+                    return False
             else:
                 return False
         else:
