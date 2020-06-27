@@ -1,4 +1,4 @@
-# Auteurs: À compéter
+# Auteurs: Thierry Blais et Bernard Sévigny
 
 from piece import Piece
 from position import Position
@@ -342,7 +342,24 @@ if __name__ == "__main__":
 
     assert not un_damier.piece_peut_sauter_vers(Position(5, 4), Position(3, 6))
 
+    assert un_damier.piece_peut_se_deplacer(Position(5, 2))
+    assert un_damier.piece_peut_se_deplacer(Position(2, 1))
+    assert not un_damier.piece_peut_se_deplacer(Position(6, 1))
 
-    print('Test unitaires passés avec succès!')
+
+    assert not un_damier.piece_peut_faire_une_prise(Position(6, 1))
+    assert not un_damier.piece_peut_faire_une_prise(Position(2, 5))
+
+
+    assert un_damier.piece_de_couleur_peut_se_deplacer("blanc")
+    assert un_damier.piece_de_couleur_peut_se_deplacer("noir")
+
+    assert not un_damier.piece_de_couleur_peut_faire_une_prise("blanc")
+    assert not un_damier.piece_de_couleur_peut_faire_une_prise("noir")
+
+    assert un_damier.deplacer(Position(5, 0), Position(4, 1))
+    assert un_damier.deplacer(Position(2, 1), Position(3, 0))
+
+    print('Tests unitaires passés avec succès!')
     # NOTEZ BIEN: Pour vous aider lors du développement, affichez le damier!
     print(un_damier)

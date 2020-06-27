@@ -1,4 +1,4 @@
-# Auteurs: À compéter
+# Auteurs: Thierry Blais et Bernard Sévigny
 
 
 class Position:

@@ -1,4 +1,4 @@
-# Auteurs: À compléter
+# Auteurs: Thierry Blais et Bernard Sévigny
 
 from damier import Damier
 from position import Position
@@ -142,12 +142,10 @@ class Partie:
                         valeur_non_valide = False
 
             position_source_selectionnee = "Position(" + str(self.ligne) + "," + str(self.colonne) + ")"
-            print("posn sélect :", position_source_selectionnee)  # temp
             position_source_selectionnee = eval(position_source_selectionnee)
+
             if self.position_source_valide(position_source_selectionnee)[0]:
-                print("PSS", position_source_selectionnee)  # temp
-                print("PSS", self.damier.piece_peut_faire_une_prise(position_source_selectionnee))  # temp
-                print("PSS", self.position_source_forcee)  # temp
+
                 if self.doit_prendre == True:
                     if self.position_source_forcee is None:
                         print("Compléter : S'assurer d'avoir une pièce qui peut prendre.")
@@ -160,9 +158,9 @@ class Partie:
                         else:
                             print("Vous devez prendre. La pièce choisie ne peut pas être sélectionnée")
 
-                elif self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
-                    verif_source_cible = False
-                    self.position_source_forcee = position_source_selectionnee
+                # elif self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
+                #    verif_source_cible = False
+                #    self.position_source_forcee = position_source_selectionnee
                 elif self.damier.piece_peut_se_deplacer(position_source_selectionnee):
                     verif_source_cible = False
                 else:
