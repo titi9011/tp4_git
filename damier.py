@@ -98,7 +98,7 @@ class Damier:
                 if position_cible in position_piece.quatre_positions_diagonales():
                     return True
                 else:
-
+                    print("si la piece est un pion noir 'x'")  # temp
                     return False
 
             elif self.recuperer_piece_a_position(position_piece).est_noire():
@@ -106,7 +106,6 @@ class Damier:
                     return True
                 else:
                     return False
-
             elif self.recuperer_piece_a_position(position_piece).est_blanche():
                 if position_cible in position_piece.positions_diagonales_haut():
                     return True

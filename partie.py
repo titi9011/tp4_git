@@ -58,11 +58,17 @@ class Partie:
 
         """
         #TODO: À tester - compléter
+
         if position_source in self.damier.cases:
-            if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
+            if self.doit_prendre == False:
+                if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
+                    return [True, ""]
+                else:
+                    return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez choisir une autre pièce."]
+            elif self.damier.piece_peut_faire_une_prise(position_source):
                 return [True, ""]
             else:
-                return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez choisir une autre pièce."]
+                return [False, "Vous devez choisir une pièce qui peut prendre une pièce adverse."]
         else:
             return [False, "Il n'y a pas de pièce sur la case que vous avez sélectionnée. Veuillez faire un autre choix."]
 
@@ -84,8 +90,11 @@ class Partie:
 
         # Damier.piece_peut_se_deplacer_vers(position_piece, position_cible)
         # Damier.piece_peut_faire_une_prise(position_piece)
-        print("position_cible à compléter")
-        return [True, "Message"]
+        if self.damier.position_est_dans_damier(position_cible):
+            return [True, ""]
+        else:
+            print("position_cible à compléter")
+            return [False, "La position choisie doit être dans le damier."]
 
     def demander_positions_deplacement(self):
         """Demande à l'utilisateur les positions sources et cible, et valide ces positions. Cette méthode doit demander
@@ -198,8 +207,12 @@ class Partie:
 
             position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
             if self.position_cible_valide(position_cible)[0]:
-                if self.damier.piece_peut_sauter_vers(position_source_selectionnee, position_cible):
-                    verif_source_cible = False
+
+                if self.doit_prendre == True:
+                    if self.damier.piece_peut_sauter_vers(position_source_selectionnee, position_cible):
+                        verif_source_cible = False
+                    else:
+                        print("La pièce choisie doit prendre une pièce adverse. La cible choisie doit être modifiée.")
                 elif self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
                     verif_source_cible = False
                 else:
