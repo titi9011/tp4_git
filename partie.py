@@ -64,7 +64,8 @@ class Partie:
                 if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
                     return [True, ""]
                 else:
-                    return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez choisir une autre pièce."]
+                    return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez "
+                                   "choisir une autre pièce."]
             elif self.damier.piece_peut_faire_une_prise(position_source):
                 return [True, ""]
             else:
@@ -86,14 +87,9 @@ class Partie:
         """
         #TODO: À compléter
 
-
-
-        # Damier.piece_peut_se_deplacer_vers(position_piece, position_cible)
-        # Damier.piece_peut_faire_une_prise(position_piece)
         if self.damier.position_est_dans_damier(position_cible):
             return [True, ""]
         else:
-            print("position_cible à compléter")
             return [False, "La position choisie doit être dans le damier."]
 
     def demander_positions_deplacement(self):
@@ -113,7 +109,8 @@ class Partie:
             valeur_non_valide = True
             while valeur_non_valide:
                 try:
-                    position_source = input("Quelle pièce désirez-vous déplacer? ").strip()
+                    position_source = input('Quelle pièce désirez-vous déplacer ("ligne" "colonne" séparées par un '
+                                            'espace)? ').strip()  # Ne considère que les caractères "0" et "2"
                     self.ligne = int(position_source[0])
                 except:
                     if ValueError:
@@ -129,8 +126,8 @@ class Partie:
                 valeur_non_valide = True
                 while valeur_non_valide:
                     try:
-                        colonne_test = input(
-                            "La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne!").strip()
+                        colonne_test = input('La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau '
+                                             'la colonne (Entrer un nombre entre "0" et "7")!').strip()
                         self.colonne = int(colonne_test)
                     except:
                         print("La pièce que vous désirez déplacer est dans la rangée {}.\n".format(self.ligne))
@@ -148,7 +145,6 @@ class Partie:
 
                 if self.doit_prendre == True:
                     if self.position_source_forcee is None:
-                        print("Compléter : S'assurer d'avoir une pièce qui peut prendre.")
                         verif_source_cible = False
                     else:
                         if self.position_source_forcee == position_source_selectionnee:
@@ -158,15 +154,12 @@ class Partie:
                         else:
                             print("Vous devez prendre. La pièce choisie ne peut pas être sélectionnée")
 
-                # elif self.damier.piece_peut_faire_une_prise(position_source_selectionnee):  #, position_cible):
-                #    verif_source_cible = False
-                #    self.position_source_forcee = position_source_selectionnee
                 elif self.damier.piece_peut_se_deplacer(position_source_selectionnee):
                     verif_source_cible = False
                 else:
                     print("La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez faire un autre choix.")
-            else:  # temp
-                print(self.position_source_valide(position_source_selectionnee)[1],"\n")  # temp
+            else:
+                print(self.position_source_valide(position_source_selectionnee)[1])
 
         verif_source_cible = True
         while verif_source_cible:
@@ -192,7 +185,7 @@ class Partie:
                     try:
                         colonne_test = input(
                             "La valeur entrée comme colonne est invalide. Veuillez entrer de nouveau la colonne! ").strip()
-                        print(colonne_test)
+
                         self.colonne = int(colonne_test)
                     except:
                         print("La pièce que vous désirez déplacer est dans la rangée {}.\n".format(self.ligne))
@@ -235,17 +228,17 @@ class Partie:
         """
 
         # Détermine si le joueur courant a la possibilité de prendre une pièce adverse.
-        #while True:  # True est temporaire
+
         if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
             self.doit_prendre = True
-            print("Doit prendre activé - forcée? ", self.position_source_forcee)
+
         # Affiche l'état du jeu
         print(self.damier)
         print("")
         print("Tour du joueur", self.couleur_joueur_courant, end=".")
         if self.doit_prendre:
             if self.position_source_forcee is None:
-                print(" Il doit prendre une pièce.")
+                print(" Le joueur doit prendre une pièce.")
             else:
                 print(" La pièce en position {} doit faire une autre prise.".format(self.position_source_forcee))
         else:
@@ -255,13 +248,8 @@ class Partie:
 
         # TODO: À compléter
 
-            print("tour 1")  # temp
         [position_source, position_cible] = self.demander_positions_deplacement()
-        print("tour 2\t")  # temp
-        print("Source :", position_source)  # temp
-        print(self.damier.position_est_dans_damier(position_source))  # temp
-        print("Cible : ", position_cible)  # temp
-        print(self.damier.position_est_dans_damier(position_cible))  # temp
+
         # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
 
         # TODO: À compléter
@@ -295,6 +283,7 @@ class Partie:
             else:
                 self.couleur_joueur_courant = "blanc"
 
+    @property
     def jouer(self):
         """Démarre une partie. Tant que le joueur courant a des déplacements possibles (utilisez les méthodes
         appriopriées!), un nouveau tour est joué.
@@ -305,25 +294,20 @@ class Partie:
 
         while self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant) or \
                 self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
-            print("Houba jeu : ", self.couleur_joueur_courant)
-            print("Houba jeu 2 :", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))
-            print("Houba jeu 3 : ", self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant))
 
+            print("\n")
             self.tour()
-            print("Houba jeu 4")
-            print("Houba jeu 5 : ", self.couleur_joueur_courant)
-            print("Houba jeu 6 :", self.damier.piece_de_couleur_peut_se_deplacer(self.couleur_joueur_courant))
+
         if self.couleur_joueur_courant == "blanc":
             return "noir"
         else:
             return "blanc"
 
-
 if __name__ == "__main__":
     # Point d'entrée du programme. On initialise une nouvelle partie, et on appelle la méthode jouer().
     partie = Partie()
 
-    gagnant = partie.jouer()
+    gagnant = partie.jouer
 
     print("------------------------------------------------------")
     print("Partie terminée! Le joueur gagnant est le joueur", gagnant)

@@ -92,4 +92,4 @@ if __name__ == '__main__':
     assert une_piece.est_blanche()
     assert not une_piece.est_noire()
 
-    print('Test unitaires passés avec succès!')
+    print('Tests unitaires passés avec succès!')

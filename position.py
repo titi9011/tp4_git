@@ -18,6 +18,7 @@ class Position:
         colonne (int): La colonne associée à la position
 
     """
+
     def __init__(self, ligne, colonne):  # object, colonne: object) -> object:
         """Constructeur de la classe Position. Initialise les deux attributs de la classe.
 
@@ -74,10 +75,18 @@ class Position:
         p4 = [Position(self.ligne + 2, self.colonne + 2)]
 
         return p1 + p2 + p3 + p4
-    
+
     def position_mange(self, other):
-        x = (self.ligne + other.ligne)/2
-        y = (self.colonne + other.colonne)/2
+        """Identifie la position de la pièce adverse qui sera enlevée lors d'une prise.
+
+        Arg:
+            other: Position cible que la pièce du joueur prendra après avoir fait la prise.
+
+        Returns:
+            Position de la pièce capturée
+        """
+        x = (self.ligne + other.ligne) / 2
+        y = (self.colonne + other.colonne) / 2
 
         return Position(x, y)
 
@@ -107,25 +116,27 @@ class Position:
 
 if __name__ == '__main__':
     print('Test unitaires de la classe "Position"...')
-    #test 1
+
+    # Test 1
     assert Position(4, 3) in Position(3, 2).positions_diagonales_bas()
     assert Position(3, 1) in Position(2, 2).positions_diagonales_bas()
 
-    #test 2
+    # Test 2
     assert Position(1, 3) in Position(2, 2).positions_diagonales_haut()
     assert Position(1, 1) in Position(2, 2).positions_diagonales_haut()
 
-    #test 3
+    # Test 3
     assert Position(3, 3) in Position(2, 2).quatre_positions_diagonales()
     assert Position(3, 1) in Position(2, 2).quatre_positions_diagonales()
     assert Position(1, 3) in Position(2, 2).quatre_positions_diagonales()
     assert Position(1, 1) in Position(2, 2).quatre_positions_diagonales()
 
-    #test 4
+    # Test 4
     assert Position(0, 4) in Position(2, 2).quatre_positions_sauts()
     assert Position(4, 0) in Position(2, 2).quatre_positions_sauts()
     assert Position(4, 4) in Position(2, 2).quatre_positions_sauts()
 
+    # Test 5
     assert Position(2, 2).position_mange(Position(0, 0)) == Position(1, 1)
 
     print('Tests unitaires passés avec succès!')
