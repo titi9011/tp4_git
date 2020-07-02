@@ -106,5 +106,3 @@ class CanvasDamier(Canvas):
         # On supprime les anciennes pièces et on ajoute les nouvelles.
         self.delete('piece')
         self.dessiner_pieces()
-
-n = CanvasDamier(Canvas)

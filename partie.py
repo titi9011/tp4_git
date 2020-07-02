@@ -283,7 +283,6 @@ class Partie:
             else:
                 self.couleur_joueur_courant = "blanc"
 
-    @property
     def jouer(self):
         """Démarre une partie. Tant que le joueur courant a des déplacements possibles (utilisez les méthodes
         appriopriées!), un nouveau tour est joué.
@@ -307,7 +306,7 @@ if __name__ == "__main__":
     # Point d'entrée du programme. On initialise une nouvelle partie, et on appelle la méthode jouer().
     partie = Partie()
 
-    gagnant = partie.jouer
+    gagnant = partie.jouer()
 
     print("------------------------------------------------------")
     print("Partie terminée! Le joueur gagnant est le joueur", gagnant)
