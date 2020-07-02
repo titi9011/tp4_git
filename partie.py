@@ -58,7 +58,7 @@ class Partie:
 
         """
         #TODO: À tester - compléter
-
+        print("Houba temp source valide 2")
         if position_source in self.damier.cases:
             if self.doit_prendre == False:
                 if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
@@ -283,7 +283,7 @@ class Partie:
             else:
                 self.couleur_joueur_courant = "blanc"
 
-    @property
+    #   @property
     def jouer(self):
         """Démarre une partie. Tant que le joueur courant a des déplacements possibles (utilisez les méthodes
         appriopriées!), un nouveau tour est joué.

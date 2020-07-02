@@ -107,4 +107,4 @@ class CanvasDamier(Canvas):
         self.delete('piece')
         self.dessiner_pieces()
 
-n = CanvasDamier(Canvas)
+# n = CanvasDamier(Canvas)
