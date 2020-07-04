@@ -58,7 +58,7 @@ class Partie:
 
         """
         #TODO: À tester - compléter
-        print("Houba temp source valide 2")
+
         if position_source in self.damier.cases:
             if self.doit_prendre == False:
                 if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
