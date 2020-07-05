@@ -76,14 +76,12 @@ class FenetrePartie(Tk):
         # test = drg()
 # test1 temp
 
-        try:
-            if self.flg == 0:
-                # verif_cible = True
-
+        try:  # Permet d'affecter le premier clic à la position source et le second à la cible.
+            if self.flg == 0:  # Génère l'erreur qui affecte le premier clic.
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
                 colonne = event.x // self.canvas_damier.n_pixels_par_case
                 self.position_cible = Position(ligne, colonne)
-                try:
+                try:  # Assure que la position cible soit valide.
                     print("Cible-87", self.position_cible)  # temp
                     print(self.doit_prendre)  # temp
                     if self.partie.position_cible_valide(self.position_cible)[0]:
@@ -105,7 +103,7 @@ class FenetrePartie(Tk):
                     else:
                         self.messages1['foreground'] = 'red'
                         self.messages1['text'] = self.partie.position_cible_valide(self.position_cible)[1]
-                except:
+                except:  # Affecte le premier clic à la position source et assure la validité du choix.
                     ligne = event.y // self.canvas_damier.n_pixels_par_case
                     colonne = event.x // self.canvas_damier.n_pixels_par_case
                     self.position_cible = Position(ligne, colonne)
@@ -114,7 +112,7 @@ class FenetrePartie(Tk):
                 print("114 ", retour_apres_deplacement)  # temp
                 # self.canvas_damier.actualiser()
 
-                del self.flg
+                del self.flg  # Libère le drapeau pour le tour suivant
                 if self.doit_prendre == False:
                     print(self.partie.couleur_joueur_courant)  # temp
                     if self.partie.couleur_joueur_courant == "blanc":
