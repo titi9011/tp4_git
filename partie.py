@@ -102,7 +102,6 @@ class Partie:
             Position, Position: Un couple de deux positions (source et cible).
 
         """
-        #TODO: À tester - compléter
 
         verif_source_cible = True
         while verif_source_cible:
@@ -244,32 +243,27 @@ class Partie:
         else:
             print("")
 
-        # Demander les positions
 
-        # TODO: À compléter
+        # Demander les positions
 
         [position_source, position_cible] = self.demander_positions_deplacement()
 
-        # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
 
-        # TODO: À compléter
+        # Effectue le déplacement (à l'aide de la méthode du damier appropriée)
 
         retour_apres_deplacement = self.damier.deplacer(position_source, position_cible)  # ok, prise ou erreur
 
 
-        # Mettre à jour les attributs de la classe
-        # TODO: À compléter
+        # Met à jour les attributs de la classe
 
-        # Thierry (et Bernard!), il faut mettre à jour les attributs :
         if retour_apres_deplacement == "ok":
             pass
         elif retour_apres_deplacement == "prise":
             if self.damier.piece_peut_faire_une_prise(position_cible):
-            #if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
-            # Vérifier si peut prendre encore
+
                 self.position_source_forcee = position_cible
                 self.doit_prendre = True
-            # Sinon :
+
             else:
                 self.doit_prendre = False
                 self.position_source_selectionnee = None
