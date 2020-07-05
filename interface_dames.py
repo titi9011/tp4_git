@@ -110,13 +110,15 @@ class FenetrePartie(Tk):
                         self.messages1['foreground'] = 'red'
                         self.messages1['text'] = self.partie.position_cible_valide(self.position_cible)[1]
                         1 / 0
-                except:  # Assure la validité du second clic affecté à la position cible.
-                    ligne = event.y // self.canvas_damier.n_pixels_par_case
-                    colonne = event.x // self.canvas_damier.n_pixels_par_case
-                    self.position_cible = Position(ligne, colonne)
-
+                except:
+                    1 / 0
+                else:  # Assure la validité du second clic affecté à la position cible.
+                    #ligne = event.y // self.canvas_damier.n_pixels_par_case
+                    #colonne = event.x // self.canvas_damier.n_pixels_par_case
+                    #self.position_cible = Position(ligne, colonne)
+                    pass
                 retour_apres_deplacement = self.damier.deplacer(self.position, self.position_cible)  # ok, prise ou erreur
-                print("112 ", retour_apres_deplacement)  # temp
+                print("121 ", retour_apres_deplacement)  # temp
                 # self.canvas_damier.actualiser()
 
                 del self.flg  # Libère le drapeau pour le tour suivant
@@ -155,7 +157,7 @@ class FenetrePartie(Tk):
                 self.canvas_damier.actualiser()
 
         except:
-            print("flg 158")  # temp
+            print("flg 160")  # temp
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
             self.position = Position(ligne, colonne)
