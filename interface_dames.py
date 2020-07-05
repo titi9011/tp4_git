@@ -71,9 +71,9 @@ class FenetrePartie(Tk):
         #    flg = 1
         # test temp
         #drag = (event.x, event.y)
+
         self.bind('<Button-1>')
         self.bind('B1-Motion')
-        # print("position 76", position)  # temp
         # print(self.selection_get('messages1'))
         # test = drg()
 # test1 temp
@@ -84,7 +84,7 @@ class FenetrePartie(Tk):
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
                 colonne = event.x // self.canvas_damier.n_pixels_par_case
                 self.position_cible = Position(ligne, colonne)
-                print("Cible", self.position_cible)  # temp
+                print("Cible (87)", self.position_cible)  # temp
                 print(self.doit_prendre)
                 if self.partie.position_cible_valide(self.position_cible)[0]:
                     print("90 ")  # temp
@@ -105,18 +105,19 @@ class FenetrePartie(Tk):
                 print(105)  # temp
                 retour_apres_deplacement = self.damier.deplacer(self.position, self.position_cible)  # ok, prise ou erreur
                 print("107 ", retour_apres_deplacement)  # temp
-                self.canvas_damier.redimensionner()
+                # self.canvas_damier.actualiser()
                 print(109)  # temp
                 del self.flg
-
+                print(111)
                 if self.doit_prendre == False:
-                    if self.couleur_joueur_courant == "blanc":
-                        self.couleur_joueur_courant = "noir"
+                    print(self.partie.couleur_joueur_courant)  # temp
+                    if self.partie.couleur_joueur_courant == "blanc":
+                        self.partie.couleur_joueur_courant = "noir"
                     else:
-                        self.couleur_joueur_courant = "blanc"
-
+                        self.partie.couleur_joueur_courant = "blanc"
+                    print(self.partie.couleur_joueur_courant)  # temp
                 if retour_apres_deplacement == "ok":
-                    pass
+                     pass
                 elif retour_apres_deplacement == "prise":
                     if self.damier.piece_peut_faire_une_prise(self.position_cible):
                         # if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
@@ -130,9 +131,20 @@ class FenetrePartie(Tk):
                         self.position_source_forcee = None
                 else:
                     print("Il y a erreur dans le code!")
+                print("134 ", retour_apres_deplacement)
+
+                self.titre_joueur = self.partie.couleur_joueur_courant
+                # self.titre_joueur["foreground"] = "red"
+                # self.title['foreground'] = 'red'
+                self.title("Jeu de dames. Le joueur " + self.titre_joueur + " joue!")
+
+                retour_apres_deplacement = self.damier.deplacer(self.position,
+                                                                self.position_cible)  # ok, prise ou erreur
+                print("143 ", retour_apres_deplacement)  # temp
+                self.canvas_damier.actualiser()
 
         except:
-            print("flg 135")  # temp
+            print("flg 147")  # temp
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
             self.position = Position(ligne, colonne)
