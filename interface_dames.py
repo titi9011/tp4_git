@@ -44,12 +44,12 @@ class FenetrePartie(Tk):
         self.titre_joueur = self.partie.couleur_joueur_courant
         # self.titre_joueur["foreground"] = "red"
         # self.title['foreground'] = 'red'
-        # self.title("Jeu de dames. Le joueur " + self.titre_joueur + " joue!")
-        self.messages = Label(self)
-        self.messages.grid_anchor("n")
-        self.messages.anchor("n")
-        self.messages['text'] = "Jeu de dames. Le joueur " + self.titre_joueur + " joue!"
-        # self.titre_joueur
+        self.title("Jeu de dames. Le joueur " + self.titre_joueur + " joue!")
+
+        # Initialisation des attributs
+        self.doit_prendre = False
+        self.position_source_selectionnee = None
+        self.position_source_forcee = None
 
         # Truc pour le redimensionnement automatique des éléments de la fenêtre.
         self.grid_columnconfigure(0, weight=1)
@@ -77,51 +77,78 @@ class FenetrePartie(Tk):
         # print(self.selection_get('messages1'))
         # test = drg()
 # test1 temp
+
         try:
-            print("flg 81 ", self.flg)  # temp
             if self.flg == 0:
                 print("flg 83")  # temp
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
                 colonne = event.x // self.canvas_damier.n_pixels_par_case
-                position_cible = Position(ligne, colonne)
-                print("Cible", position_cible)  # temp
-
-                if self.position_cible_valide(position_cible)[0]:
-                    print("90")  # temp
+                self.position_cible = Position(ligne, colonne)
+                print("Cible", self.position_cible)  # temp
+                print(self.doit_prendre)
+                if self.partie.position_cible_valide(self.position_cible)[0]:
+                    print("90 ")  # temp
                     if self.doit_prendre == True:
-                        if self.damier.piece_peut_sauter_vers(position_source_selectionnee, position_cible):
+                        if self.damier.piece_peut_sauter_vers(self.position, self.position_cible):
                             verif_source_cible = False
                         else:
                             print(
                                 "La pièce choisie doit prendre une pièce adverse. La cible choisie doit être modifiée.")
-                    elif self.damier.piece_peut_se_deplacer_vers(position_source_selectionnee, position_cible):
+                    elif self.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
                         verif_source_cible = False
+
                     else:
                         print("La pièce choisie ne peut pas être déplacée vers cette case.\n")
                 else:
-                    print(self.position_cible_valide(position_cible)[1])
+                    print(self.partie.position_cible_valide(self.position_cible)[1])
 
+                print(105)  # temp
+                retour_apres_deplacement = self.damier.deplacer(self.position, self.position_cible)  # ok, prise ou erreur
+                print("107 ", retour_apres_deplacement)  # temp
+                self.canvas_damier.redimensionner()
+                print(109)  # temp
                 del self.flg
 
+                if self.doit_prendre == False:
+                    if self.couleur_joueur_courant == "blanc":
+                        self.couleur_joueur_courant = "noir"
+                    else:
+                        self.couleur_joueur_courant = "blanc"
+
+                if retour_apres_deplacement == "ok":
+                    pass
+                elif retour_apres_deplacement == "prise":
+                    if self.damier.piece_peut_faire_une_prise(self.position_cible):
+                        # if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
+                        # Vérifier si peut prendre encore
+                        self.position_source_forcee = self.position_cible
+                        self.doit_prendre = True
+                    # Sinon :
+                    else:
+                        self.doit_prendre = False
+                        self.position_source_selectionnee = None
+                        self.position_source_forcee = None
+                else:
+                    print("Il y a erreur dans le code!")
 
         except:
-            print("flg 91")  # temp
+            print("flg 135")  # temp
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
-            position = Position(ligne, colonne)
-            if self.partie.position_source_valide(position)[0]:
+            self.position = Position(ligne, colonne)
+            if self.partie.position_source_valide(self.position)[0]:
                 self.messages1['foreground'] = 'black'
-                self.messages1['text'] = 'Pièce sélectionnée à la position {}.'.format( position)
-                ligne = event.y // self.canvas_damier.n_pixels_par_case
-                colonne = event.x // self.canvas_damier.n_pixels_par_case
-                position = Position(ligne, colonne)
+                self.messages1['text'] = 'Pièce sélectionnée à la position {}.'.format(self.position)
+                # ligne = event.y // self.canvas_damier.n_pixels_par_case
+                # colonne = event.x // self.canvas_damier.n_pixels_par_case
+                # position = Position(ligne, colonne)
                 # test_f = dnd.on_release()
 
                 if self.partie.doit_prendre == True:
                     if self.position_source_forcee is None:
                         pass  # verif_source_cible = False
                     else:
-                        if self.position_source_forcee == position:
+                        if self.position_source_forcee == self.position:
                             print("Vous devez prendre. La pièce en position {} a été sélectionnée.".format(
                                 self.position_source_forcee))
                                 # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
@@ -130,31 +157,38 @@ class FenetrePartie(Tk):
                             self.messages1['foreground'] = 'red'
                             self.messages1['text'] = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
 
-                elif self.damier.piece_peut_se_deplacer(position):
+                elif self.damier.piece_peut_se_deplacer(self.position):
                     pass  # verif_source_cible = False
                 else:
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez faire un autre choix."
             else:
                 self.messages1['foreground'] = 'red'
-                self.messages1['text'] = self.partie.position_source_valide(position)[1]
+                self.messages1['text'] = self.partie.position_source_valide(self.position)[1]
             # self.canvas_damier.actualiser()
-            print("Source 123 : ", position)
             self.flg = 0
 
 # _________ temp
 # test2 temp
 
-        # self.canvas_damier.actualiser()
-        # self.messages['foreground'] = 'black'
-        # self.messages['text'] = "Sélection : " + str(position)
+
+
+
+#        if self.doit_prendre == False:
+ #           if self.couleur_joueur_courant == "blanc":
+  #              self.couleur_joueur_courant = "noir"
+   #         else:
+    #            self.couleur_joueur_courant = "blanc"
+            # self.canvas_damier.actualiser()
+            # self.messages['foreground'] = 'black'
+            # self.messages['text'] = "Sélection : " + str(position)
 
 
 
 # ________ temp
 
 
-        # print("Cible : ", self.position_cible)
+        # print("Cible : ", position_cible)
 
         # On récupère l'information sur la pièce à l'endroit choisi.
             # piece = self.partie.damier.recuperer_piece_a_position(position)
