@@ -61,12 +61,15 @@ class CanvasDamier(Canvas):
         """Méthode qui dessine les pièces sur le canvas"""
 
         # Pour tout paire position, pièce:
+        print("c-64")  # temp
+        # print(self.damier.cases)  # temp
+        # print(self.damier.test_cases)  # temp
         for position, piece in self.damier.cases.items():
+
             # On dessine la pièce dans le canvas, au centre de la case. On utilise l'attribut "tags" pour être en
             # mesure de récupérer les éléments dans le canvas.
             coordonnee_y = position.ligne * self.n_pixels_par_case + self.n_pixels_par_case // 2
             coordonnee_x = position.colonne * self.n_pixels_par_case + self.n_pixels_par_case // 2
-
             # On utilise des caractères unicodes représentant des pièces
             if piece.est_blanche() and piece.est_pion():
                 icone = "\u26C0"
@@ -77,7 +80,7 @@ class CanvasDamier(Canvas):
             else:
                 icone = "\u26C3"
 
-            police_de_caractere = ('Deja Vu', self.n_pixels_par_case//2)
+            police_de_caractere = ('Deja Vu', self.n_pixels_par_case // 2)
             self.create_text(coordonnee_x, coordonnee_y, text=icone, font=police_de_caractere, tags='piece')
 
     def redimensionner(self, event):
@@ -99,6 +102,8 @@ class CanvasDamier(Canvas):
     def actualiser(self):
         """Méthode qui redessine le canvas (met à jour l'affichage du damier).
         """
+        print("c-105 ", self.damier.cases)  # temp
+        # print("c-106 ", Damier.test_cases)  # temp
         # On supprime les anciennes cases et on ajoute les nouvelles.
         self.delete('case')
         self.dessiner_cases()

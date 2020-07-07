@@ -90,7 +90,7 @@ class FenetrePartie(Tk):
                     if self.partie.position_cible_valide(self.position_cible)[0]:
                         self.messages1['foreground'] = 'black'
                         self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'.format(self.position, self.position_cible)
-                        print("90 ")  # temp
+                        print("93 ")  # temp
                         if self.doit_prendre == True:
                             if self.damier.piece_peut_sauter_vers(self.position, self.position_cible):
                                 print(93)  # verif_cible = False
@@ -100,7 +100,7 @@ class FenetrePartie(Tk):
                                  self.messages1['text'] = "La pièce choisie doit prendre une pièce adverse. La cible choisie doit être modifiée."
                                  1 / 0  # Génère une erreur pour modifier la position cible
                         elif self.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
-                            print("100 ", self.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))
+                            print("103 ", self.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))
                             # pass
                         else:
                             self.messages1['foreground'] = 'red'
@@ -110,16 +110,18 @@ class FenetrePartie(Tk):
                         self.messages1['foreground'] = 'red'
                         self.messages1['text'] = self.partie.position_cible_valide(self.position_cible)[1]
                         1 / 0
-                except:
+                except: # Assure la validité du second clic affecté à la position cible.
                     1 / 0
-                else:  # Assure la validité du second clic affecté à la position cible.
+                else:
                     #ligne = event.y // self.canvas_damier.n_pixels_par_case
                     #colonne = event.x // self.canvas_damier.n_pixels_par_case
                     #self.position_cible = Position(ligne, colonne)
                     pass
+
                 retour_apres_deplacement = self.damier.deplacer(self.position, self.position_cible)  # ok, prise ou erreur
-                print("121 ", retour_apres_deplacement)  # temp
-                # self.canvas_damier.actualiser()
+                print("i 122 ", retour_apres_deplacement)  # temp
+                print(self.damier.cases)  # temp
+                self.canvas_damier.actualiser()
 
                 del self.flg  # Libère le drapeau pour le tour suivant
                 if self.doit_prendre == False:
@@ -153,11 +155,13 @@ class FenetrePartie(Tk):
                 self.title("Jeu de dames. Le joueur " + self.titre_joueur + " joue!")
 
                 # retour_apres_deplacement = self.damier.deplacer(self.position,self.position_cible)  # ok, prise ou erreur
-                print("146 ", retour_apres_deplacement)  # temp
+                print("158 ", retour_apres_deplacement)  # temp
+                self.canvas_damier.actualiser()
+                print("i-160 ", self.damier.cases)  # temp
                 self.canvas_damier.actualiser()
 
         except:
-            print("flg 160")  # temp
+            print("flg 164")  # temp
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
             self.position = Position(ligne, colonne)

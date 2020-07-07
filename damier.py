@@ -269,7 +269,8 @@ class Damier:
                 "erreur" autrement.
         """
         # TODO: À tester - compléter
-
+        print("source ", self.cases)
+        print("cible ", position_cible)
         if not (not (position_cible.ligne == 0 and self.cases[
             Position(position_source.ligne, position_source.colonne)].couleur == "blanc") and not (
                 position_cible.ligne == 7 and self.cases[
@@ -281,6 +282,9 @@ class Damier:
             # self.cases[position_cible].couleur = self.cases[position_source].couleur
             # self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
             del self.cases[position_source]
+            print("source 2 ", self.cases)  # temp
+            print("cible 2 ", self.cases[position_cible])  # temp
+            self.test_cases = self.cases  # temp
             return "ok"
         elif abs(position_cible.ligne - position_source.ligne) == 2:
 
