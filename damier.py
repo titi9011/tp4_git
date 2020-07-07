@@ -279,12 +279,8 @@ class Damier:
 
         if abs(position_cible.ligne - position_source.ligne) == 1:
             self.cases[position_cible] = self.cases[position_source]
-            # self.cases[position_cible].couleur = self.cases[position_source].couleur
-            # self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
             del self.cases[position_source]
-            print("source 2 ", self.cases)  # temp
-            print("cible 2 ", self.cases[position_cible])  # temp
-            self.test_cases = self.cases  # temp
+            # self.test_cases = self.cases  # temp : test
             return "ok"
         elif abs(position_cible.ligne - position_source.ligne) == 2:
 

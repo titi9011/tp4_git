@@ -34,7 +34,7 @@ class FenetrePartie(Tk):
         self.canvas_damier = CanvasDamier(self, self.partie.damier, 60)
         self.canvas_damier.grid(sticky=NSEW)
         self.canvas_damier.bind('<Button-1>', self.selectionner)
-        # self.canvas_damier.bind('B1-Motion', self.enregistrer_position_cible())
+        # self.canvas_damier.bind('<B1-Button_release>', self.enregistrer_position_cible)
 
         # Ajout d'une étiquette d'information.
         self.messages1 = Label(self)
@@ -121,8 +121,8 @@ class FenetrePartie(Tk):
 
                 retour_apres_deplacement = self.damier.deplacer(self.position, self.position_cible)  # ok, prise ou erreur
                 print("i 122 ", retour_apres_deplacement)  # temp
-                print(self.damier.cases)  # temp
-                self.canvas_damier.actualiser()
+                print("i-123 ", self.damier.cases)  # temp
+                # self.canvas_damier.redimensionner()
 
                 del self.flg  # Libère le drapeau pour le tour suivant
                 if self.doit_prendre == False:
@@ -156,9 +156,10 @@ class FenetrePartie(Tk):
                 self.title("Jeu de dames. Le joueur " + self.titre_joueur + " joue!")
 
                 # retour_apres_deplacement = self.damier.deplacer(self.position,self.position_cible)  # ok, prise ou erreur
-                print("158 ", retour_apres_deplacement)  # temp
-                self.canvas_damier.actualiser()
-                print("i-160 ", self.damier.cases)  # temp
+                # print("i-159 ", self.damier.deplacer(self.position,self.position_cible))  # temp
+                # self.damier = Damier()  # temp
+                # self.canvas_damier.actualiser()
+
 
 
         except:
@@ -196,7 +197,7 @@ class FenetrePartie(Tk):
             else:
                 self.messages1['foreground'] = 'red'
                 self.messages1['text'] = self.partie.position_source_valide(self.position)[1]
-        #  self.canvas_damier.actualiser()
+        self.canvas_damier.actualiser()
 
 
 # _________ temp
@@ -237,7 +238,7 @@ class FenetrePartie(Tk):
         return position
 
     def enregistrer_position_cible(self):
-
+        print("test-release i-241")
         return position
 
 if __name__ == '__main__':
