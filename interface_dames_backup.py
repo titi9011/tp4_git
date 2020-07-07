@@ -237,7 +237,8 @@ class FenetrePartie(Tk):
         return position
 
     def enregistrer_position_cible(self):
-
+        print("Position_cible 219")
+        position = 1
         return position
 
 if __name__ == '__main__':

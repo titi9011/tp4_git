@@ -61,9 +61,6 @@ class CanvasDamier(Canvas):
         """Méthode qui dessine les pièces sur le canvas"""
 
         # Pour tout paire position, pièce:
-        print("c-64")  # temp
-        # print(self.damier.cases)  # temp
-        # print(self.damier.test_cases)  # temp
         for position, piece in self.damier.cases.items():
 
             # On dessine la pièce dans le canvas, au centre de la case. On utilise l'attribut "tags" pour être en
@@ -102,9 +99,7 @@ class CanvasDamier(Canvas):
     def actualiser(self):
         """Méthode qui redessine le canvas (met à jour l'affichage du damier).
         """
-        print("c-105 ", self.damier.cases)  # temp
-
-        # On supprime les anciennes cases et on ajoute les nouvelles.
+         # On supprime les anciennes cases et on ajoute les nouvelles.
         self.delete('case')
         self.dessiner_cases()
 
