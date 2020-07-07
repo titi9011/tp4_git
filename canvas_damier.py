@@ -103,7 +103,7 @@ class CanvasDamier(Canvas):
         """Méthode qui redessine le canvas (met à jour l'affichage du damier).
         """
         print("c-105 ", self.damier.cases)  # temp
-        # print("c-106 ", Damier.test_cases)  # temp
+
         # On supprime les anciennes cases et on ajoute les nouvelles.
         self.delete('case')
         self.dessiner_cases()
