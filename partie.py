@@ -92,6 +92,10 @@ class Partie:
         else:
             return [False, "La position choisie doit être dans le damier."]
 
+    # def validation_deplacement_interface(self):
+
+
+
     def demander_positions_deplacement(self):
         """Demande à l'utilisateur les positions sources et cible, et valide ces positions. Cette méthode doit demander
         les positions à l'utilisateur tant que celles-ci sont invalides.

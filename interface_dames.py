@@ -75,33 +75,52 @@ class FenetrePartie(Tk):
 
 
 
+
 # test1 temp
-        print("i-78 ", self.partie.damier.cases)
         try:  # Permet d'affecter le premier clic à la position source et le second à la cible.
             if self.flg == 0:  # Génère l'erreur qui affecte le premier clic.
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
                 colonne = event.x // self.canvas_damier.n_pixels_par_case
                 self.position_cible = Position(ligne, colonne)
-                print("Cible-84", self.position_cible)  # temp
+                print("Cible-i-85", self.position_cible)  # temp
                 try:  # Assure que la position cible soit valide.
                     ligne = event.y // self.canvas_damier.n_pixels_par_case
                     colonne = event.x // self.canvas_damier.n_pixels_par_case
                     self.position_cible = Position(ligne, colonne)
-                    print(self.doit_prendre)  # temp
+                    print("i-90", self.doit_prendre)  # temp
+
+
+
+
+                    if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
+                        self.doit_prendre = True
+                        print(97)
+
+                        if self.position_source_forcee is None:
+                            print(" Le joueur doit prendre une pièce.")
+                        else:
+                            print(" La pièce en position {} doit faire une autre prise.".format(
+                                self.position_source_forcee))
+
+
+
+
+
+
                     if self.partie.position_cible_valide(self.position_cible)[0]:
                         self.messages1['foreground'] = 'black'
                         self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'.format(self.position, self.position_cible)
-                        print("93 ")  # temp
+                        print("i-94 ")  # temp
                         if self.doit_prendre == True:
                             if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
-                                print(93)  # verif_cible = False
+                                print("i-97")  # verif_cible = False
                                 pass
                             else:
                                  self.messages1['foreground'] = 'red'
                                  self.messages1['text'] = "La pièce choisie doit prendre une pièce adverse. La cible choisie doit être modifiée."
                                  1 / 0  # Génère une erreur pour modifier la position cible
                         elif self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
-                            print("103 ", self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))  # temp
+                            print("i-104 ", self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))  # temp
                             # pass
                         else:
                             self.messages1['foreground'] = 'red'
@@ -120,18 +139,17 @@ class FenetrePartie(Tk):
                     pass
 
                 retour_apres_deplacement = self.partie.damier.deplacer(self.position, self.position_cible)  # ok, prise ou erreur
-                print("i 122 ", retour_apres_deplacement)  # temp
-                print("i-123 ", self.partie.damier.cases)  # temp
-                # self.canvas_damier.redimensionner()
+
+
 
                 del self.flg  # Libère le drapeau pour le tour suivant
                 if self.doit_prendre == False:
-                    print(self.partie.couleur_joueur_courant)  # temp
+                    print("i-128 ", self.partie.couleur_joueur_courant)  # temp
                     if self.partie.couleur_joueur_courant == "blanc":
                         self.partie.couleur_joueur_courant = "noir"
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
-                    print(self.partie.couleur_joueur_courant)  # temp
+                    print("i-133 ", self.partie.couleur_joueur_courant)  # temp
                 if retour_apres_deplacement == "ok":
                      pass
                 elif retour_apres_deplacement == "prise":
@@ -148,7 +166,7 @@ class FenetrePartie(Tk):
                 else:
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = "Il y a erreur dans le code!"
-                print("138 ", retour_apres_deplacement)  # temp
+                print("i-138 ", retour_apres_deplacement)  # temp
 
                 self.titre_joueur = self.partie.couleur_joueur_courant
                 # self.titre_joueur["foreground"] = "red"
@@ -193,7 +211,8 @@ class FenetrePartie(Tk):
                     self.flg = 0
                 else:
                     self.messages1['foreground'] = 'red'
-                    self.messages1['text'] = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez faire un autre choix."
+                    self.messages1['text'] = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
+                                             "faire un autre choix. "
             else:
                 self.messages1['foreground'] = 'red'
                 self.messages1['text'] = self.partie.position_source_valide(self.position)[1]
