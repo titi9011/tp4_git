@@ -28,7 +28,7 @@ class FenetrePartie(Tk):
 
         # La partie
         self.partie = Partie()
-        self.damier = Damier()
+        # self.damier = Damier()
 
         # Création du canvas damier.
         self.canvas_damier = CanvasDamier(self, self.partie.damier, 60)
@@ -76,7 +76,7 @@ class FenetrePartie(Tk):
 
 
 # test1 temp
-        print("i-78 ", self.damier.cases)
+        print("i-78 ", self.partie.damier.cases)
         try:  # Permet d'affecter le premier clic à la position source et le second à la cible.
             if self.flg == 0:  # Génère l'erreur qui affecte le premier clic.
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
@@ -93,15 +93,15 @@ class FenetrePartie(Tk):
                         self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'.format(self.position, self.position_cible)
                         print("93 ")  # temp
                         if self.doit_prendre == True:
-                            if self.damier.piece_peut_sauter_vers(self.position, self.position_cible):
+                            if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
                                 print(93)  # verif_cible = False
                                 pass
                             else:
                                  self.messages1['foreground'] = 'red'
                                  self.messages1['text'] = "La pièce choisie doit prendre une pièce adverse. La cible choisie doit être modifiée."
                                  1 / 0  # Génère une erreur pour modifier la position cible
-                        elif self.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
-                            print("103 ", self.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))  # temp
+                        elif self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
+                            print("103 ", self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))  # temp
                             # pass
                         else:
                             self.messages1['foreground'] = 'red'
@@ -119,9 +119,9 @@ class FenetrePartie(Tk):
                     #self.position_cible = Position(ligne, colonne)
                     pass
 
-                retour_apres_deplacement = self.damier.deplacer(self.position, self.position_cible)  # ok, prise ou erreur
+                retour_apres_deplacement = self.partie.damier.deplacer(self.position, self.position_cible)  # ok, prise ou erreur
                 print("i 122 ", retour_apres_deplacement)  # temp
-                print("i-123 ", self.damier.cases)  # temp
+                print("i-123 ", self.partie.damier.cases)  # temp
                 # self.canvas_damier.redimensionner()
 
                 del self.flg  # Libère le drapeau pour le tour suivant
@@ -135,8 +135,8 @@ class FenetrePartie(Tk):
                 if retour_apres_deplacement == "ok":
                      pass
                 elif retour_apres_deplacement == "prise":
-                    if self.damier.piece_peut_faire_une_prise(self.position_cible):
-                        # if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
+                    if self.partie.damier.piece_peut_faire_une_prise(self.position_cible):
+                        # if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
                         # Vérifier si peut prendre encore
                         self.position_source_forcee = self.position_cible
                         self.doit_prendre = True
@@ -189,7 +189,7 @@ class FenetrePartie(Tk):
                             self.messages1['foreground'] = 'red'
                             self.messages1['text'] = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
 
-                elif self.damier.piece_peut_se_deplacer(self.position):
+                elif self.partie.damier.piece_peut_se_deplacer(self.position):
                     self.flg = 0
                 else:
                     self.messages1['foreground'] = 'red'

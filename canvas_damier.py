@@ -3,7 +3,6 @@
 from tkinter import Tk, Canvas
 from position import Position
 
-
 class CanvasDamier(Canvas):
     """Interface graphique de la partie de dames.
 
