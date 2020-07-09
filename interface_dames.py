@@ -39,8 +39,8 @@ class FenetrePartie(Tk):
         # Ajout d'une étiquette d'information.
         self.messages1 = Label(self)
         self.messages1.grid()
-        self.messages1['foreground'] = 'black'
-        self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
+        self.messages1['foreground'] = 'blue'
+        # self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
         self.colonne_damier_reel = "abcdefgh"
 
         # Initialisation des attributs
@@ -202,7 +202,8 @@ class FenetrePartie(Tk):
             if self.partie.position_source_valide(self.position)[0]:
                 self.messages1['foreground'] = 'black'
                 position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
-                self.messages1['text'] = 'Pièce sélectionnée à la position {}.'.format(position_source_damier_reel)
+                self.messages1[
+                    'text'] = 'Vous devez prendre. La pièce en position ' + position_source_damier_reel + ' a été sélectionnée.'
                 # ligne = event.y // self.canvas_damier.n_pixels_par_case
                 # colonne = event.x // self.canvas_damier.n_pixels_par_case
                 # position = Position(ligne, colonne)
@@ -214,7 +215,7 @@ class FenetrePartie(Tk):
                     else:
                         if self.position_source_forcee == self.position:
                             self.messages1['foreground'] = 'red'
-                            self.messages1['text'] = "Vous devez prendre. La pièce en position ", self.position_source_forcee, " a été sélectionnée."
+                            self.messages1['text'] = "Vous devez prendre. La pièce en position ", position_source_damier_reel, " a été sélectionnée."
                             self.flg = 0
                                 # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
                                 # verif_source_cible = False
@@ -232,6 +233,13 @@ class FenetrePartie(Tk):
                 self.messages1['foreground'] = 'red'
                 self.messages1['text'] = self.partie.position_source_valide(self.position)[1]
         self.canvas_damier.actualiser()
+
+        # Fin de partie
+        if self.partie.damier.piece_de_couleur_peut_se_deplacer(self.partie.couleur_joueur_courant) or \
+                self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
+            pass
+        else:
+            self.title("Jeu de dames. La partie est terminée!")
 
 
 # _________ temp

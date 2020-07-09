@@ -22,30 +22,30 @@ class Damier:
         self.n_colonnes = 8
 
         self.cases = {
-            Position(7, 0): Piece("blanc", "pion"),
-            Position(7, 2): Piece("blanc", "pion"),
-            Position(7, 4): Piece("blanc", "pion"),
-            Position(7, 6): Piece("blanc", "pion"),
-            Position(6, 1): Piece("blanc", "pion"),
-            Position(6, 3): Piece("blanc", "pion"),
-            Position(6, 5): Piece("blanc", "pion"),
-            Position(6, 7): Piece("blanc", "pion"),
-            Position(5, 0): Piece("blanc", "pion"),
-            Position(5, 2): Piece("blanc", "pion"),
-            Position(5, 4): Piece("blanc", "pion"),
-            Position(5, 6): Piece("blanc", "pion"),
-            Position(2, 1): Piece("noir", "pion"),
-            Position(2, 3): Piece("noir", "pion"),
-            Position(2, 5): Piece("noir", "pion"),
-            Position(2, 7): Piece("noir", "pion"),
+            Position(4, 1): Piece("blanc", "pion"),
+#            Position(7, 2): Piece("blanc", "pion"),
+ #           Position(7, 4): Piece("blanc", "pion"),
+  #          Position(7, 6): Piece("blanc", "pion"),
+   #         Position(6, 1): Piece("blanc", "pion"),
+    #        Position(6, 3): Piece("blanc", "pion"),
+     #       Position(6, 5): Piece("blanc", "pion"),
+      #      Position(6, 7): Piece("blanc", "pion"),
+       #     Position(5, 0): Piece("blanc", "pion"),
+        #    Position(5, 2): Piece("blanc", "pion"),
+         #   Position(5, 4): Piece("blanc", "pion"),
+          #  Position(5, 6): Piece("blanc", "pion"),
+            Position(3, 2): Piece("noir", "pion"),
+#            Position(2, 3): Piece("noir", "pion"),
+ #           Position(2, 5): Piece("noir", "pion"),
+  #          Position(2, 7): Piece("noir", "pion"),
             Position(1, 0): Piece("noir", "pion"),
             Position(1, 2): Piece("noir", "pion"),
-            Position(1, 4): Piece("noir", "pion"),
-            Position(1, 6): Piece("noir", "pion"),
-            Position(0, 1): Piece("noir", "pion"),
-            Position(0, 3): Piece("noir", "pion"),
-            Position(0, 5): Piece("noir", "pion"),
-            Position(0, 7): Piece("noir", "pion"),
+     #       Position(1, 4): Piece("noir", "pion"),
+      #      Position(1, 6): Piece("noir", "pion"),
+       #     Position(0, 1): Piece("noir", "pion"),
+        #    Position(0, 3): Piece("noir", "pion"),
+         #   Position(0, 5): Piece("noir", "pion"),
+          #  Position(0, 7): Piece("noir", "pion"),
         }
 
     def recuperer_piece_a_position(self, position):
@@ -244,6 +244,7 @@ class Damier:
                             if self.position_est_dans_damier(Position(i, j).quatre_positions_sauts()[k]):
 
                                 if Position.quatre_positions_diagonales(Position(i, j))[k] in self.cases:
+
                                     if self.cases[Position.quatre_positions_diagonales(Position(i, j))[k]].couleur != couleur:
                                         if Position.quatre_positions_sauts(Position(i, j))[k] not in self.cases:
                                             return True
