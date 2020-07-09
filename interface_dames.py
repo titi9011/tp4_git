@@ -40,7 +40,7 @@ class FenetrePartie(Tk):
         self.messages1 = Label(self)
         self.messages1.grid()
         self.messages1['foreground'] = 'blue'
-        # self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
+        self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
         self.colonne_damier_reel = "abcdefgh"
 
         # Initialisation des attributs
@@ -49,10 +49,7 @@ class FenetrePartie(Tk):
         self.position_source_forcee = None
 
         # Nom de la fenêtre («title» est une méthode de la classe de base «Tk»)
-        if self.doit_prendre == False:
-            self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
-        else:
-            self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
+        self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
         self.title("Jeu de dames. Le joueur " + self.titre_joueur)
 
         # Truc pour le redimensionnement automatique des éléments de la fenêtre.
@@ -173,9 +170,11 @@ class FenetrePartie(Tk):
                         self.partie.couleur_joueur_courant = "noir"
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
-                self.titre_joueur = self.partie.couleur_joueur_courant
-
-                self.title("Jeu de dames. Le joueur " + self.titre_joueur + " joue!")
+                    self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
+                    self.title("Jeu de dames. Le joueur " + self.titre_joueur)
+                else:
+                    self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
+                    self.title("Jeu de dames. Le joueur " + self.titre_joueur)
 
                 del self.flg  # Libère le drapeau pour le tour suivant
                 # retour_apres_deplacement = self.damier.deplacer(self.position,self.position_cible)  # ok, prise ou erreur
@@ -189,6 +188,8 @@ class FenetrePartie(Tk):
                 print("i-185 == 97")
 
                 if self.position_source_forcee is None:
+                    self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
+                    self.title("Jeu de dames. Le joueur " + self.titre_joueur)
                     print(" Le joueur doit prendre une pièce.")
                 else:
                     print(" La pièce en position {} doit faire une autre prise.".format(
@@ -202,8 +203,8 @@ class FenetrePartie(Tk):
             if self.partie.position_source_valide(self.position)[0]:
                 self.messages1['foreground'] = 'black'
                 position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
-                self.messages1[
-                    'text'] = 'Vous devez prendre. La pièce en position ' + position_source_damier_reel + ' a été sélectionnée.'
+                self.messages1['text'] = 'Vous devez prendre. La pièce en position '\
+                              + position_source_damier_reel + ' doit être sélectionnée.'
                 # ligne = event.y // self.canvas_damier.n_pixels_par_case
                 # colonne = event.x // self.canvas_damier.n_pixels_par_case
                 # position = Position(ligne, colonne)
@@ -240,7 +241,12 @@ class FenetrePartie(Tk):
             pass
         else:
             self.title("Jeu de dames. La partie est terminée!")
-
+            self.messages1['foreground'] = 'orange'
+            if self.partie.couleur_joueur_courant == "blanc":
+                self.partie.couleur_joueur_courant = "noir"
+            else:
+                self.partie.couleur_joueur_courant = "blanc"
+            self.messages1['text'] = "Le joueur " + self.partie.couleur_joueur_courant + " a gagné!"
 
 # _________ temp
 # test2 temp
