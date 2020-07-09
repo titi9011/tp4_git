@@ -77,7 +77,7 @@ class FenetrePartie(Tk):
 # test1 temp
         try:  # Permet d'affecter le premier clic à la position source et le second à la cible.
             if self.flg == 0:  # Génère l'erreur qui affecte le premier clic.
-                # del self.flg
+
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
                 colonne = event.x // self.canvas_damier.n_pixels_par_case
                 self.position_cible = Position(ligne, colonne)
