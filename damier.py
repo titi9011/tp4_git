@@ -268,7 +268,7 @@ class Damier:
             str: "ok" si le déplacement a été effectué sans prise, "prise" si une pièce adverse a été prise, et
                 "erreur" autrement.
         """
-        # TODO: À tester - compléter
+
         print("d-272 - source ", self.cases)
         print("d-273 - cible ", position_cible)
         if not (not (position_cible.ligne == 0 and self.cases[
