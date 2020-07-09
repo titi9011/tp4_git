@@ -41,17 +41,19 @@ class FenetrePartie(Tk):
         self.messages1.grid()
         self.messages1['foreground'] = 'black'
         self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
-
-        # Nom de la fenêtre («title» est une méthode de la classe de base «Tk»)
-        self.titre_joueur = self.partie.couleur_joueur_courant
-        # self.titre_joueur["foreground"] = "red"
-        # self.title['foreground'] = 'red'
-        self.title("Jeu de dames. Le joueur " + self.titre_joueur + " joue!")
+        self.colonne_damier_reel = "abcdefgh"
 
         # Initialisation des attributs
         self.doit_prendre = False
         self.position_source_selectionnee = None
         self.position_source_forcee = None
+
+        # Nom de la fenêtre («title» est une méthode de la classe de base «Tk»)
+        if self.doit_prendre == False:
+            self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
+        else:
+            self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
+        self.title("Jeu de dames. Le joueur " + self.titre_joueur)
 
         # Truc pour le redimensionnement automatique des éléments de la fenêtre.
         self.grid_columnconfigure(0, weight=1)
@@ -102,15 +104,17 @@ class FenetrePartie(Tk):
                     #        print(" La pièce en position {} doit faire une autre prise.".format(
                      #           self.position_source_forcee))
 
-                    print("i-105", self.position)
-                    print("i-106", self.position_cible)
+                    print("i-105", type(self.position.colonne))
+                    print("i-106", str(self.position_cible.ligne))
                     print("i-107",  self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible))
 
 
 
                     if self.partie.position_cible_valide(self.position_cible)[0]:  # À enlever
                         self.messages1['foreground'] = 'black'
-                        self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'.format(self.position, self.position_cible)
+                        position_source_damier_reel =self.colonne_damier_reel[self.position.colonne] +  str(8 - self.position.ligne)
+                        position_cible_damier_reel = self.colonne_damier_reel[self.position_cible.colonne] + str(8 - self.position_cible.ligne)
+                        self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'.format(position_source_damier_reel, position_cible_damier_reel)
 
                         if self.doit_prendre == True:
                             if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
@@ -197,7 +201,8 @@ class FenetrePartie(Tk):
             print("i-197 ", self.partie.position_source_valide(self.position))
             if self.partie.position_source_valide(self.position)[0]:
                 self.messages1['foreground'] = 'black'
-                self.messages1['text'] = 'Pièce sélectionnée à la position {}.'.format(self.position)
+                position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
+                self.messages1['text'] = 'Pièce sélectionnée à la position {}.'.format(position_source_damier_reel)
                 # ligne = event.y // self.canvas_damier.n_pixels_par_case
                 # colonne = event.x // self.canvas_damier.n_pixels_par_case
                 # position = Position(ligne, colonne)
