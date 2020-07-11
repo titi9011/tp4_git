@@ -269,17 +269,6 @@ class FenetrePartie(Tk):
                 self.partie.couleur_joueur_courant = "blanc"
             self.messages1['text'] = "Le joueur " + self.partie.couleur_joueur_courant + " a gagné!"
 
-# _________ temp
-# test2 temp
-
-#        if self.doit_prendre == False:
- #           if self.couleur_joueur_courant == "blanc":
-  #              self.couleur_joueur_courant = "noir"
-   #         else:
-    #            self.couleur_joueur_courant = "blanc"
-            # self.canvas_damier.actualiser()
-            # self.messages['foreground'] = 'black'
-            # self.messages['text'] = "Sélection : " + str(position)
 
     def valider_prise_obligee(self):
         if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
@@ -287,14 +276,12 @@ class FenetrePartie(Tk):
 
             if self.position_source_forcee is None:
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
-                # self.title("Jeu de dames. Le joueur " + self.titre_joueur)
 
             else:
                 position_source_damier_reel = self.colonne_damier_reel[self.position_source_forcee.colonne] + str(
                     8 - self.position_source_forcee.ligne)
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue. La pièce en position "\
                                     + position_source_damier_reel + " doit faire une prise!"
-                # self.title("Jeu de dames. Le joueur " + self.titre_joueur)
             return [True, self.titre_joueur]
 
         else:
@@ -308,20 +295,16 @@ class FenetrePartie(Tk):
             else:
                 if self.position_source_forcee == self.position:
                     self.messages1['foreground'] = 'red'
-                    texte_message1 = "Vous devez prendre. La pièce en position " + position_source_damier_reel\
+                    texte_messages1 = "Vous devez prendre. La pièce en position " + position_source_damier_reel\
                                          + " a été sélectionnée."
-                    self.flg = 0
-                    # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
-                    # verif_source_cible = False
+
                 else:
-                    # self.messages1['foreground'] = 'red'
-                    texte_message1 = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
+                    texte_messages1 = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
                 return [False, texte_messages1]
         elif self.partie.damier.piece_peut_se_deplacer(self.position):
             return [True, texte_messages1]
         else:
-            # self.messages1['foreground'] = 'red'
-            texte_message1 = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
+            texte_messages1 = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
                                          "faire un autre choix. "
             return [False, texte_messages1]
 
@@ -342,6 +325,6 @@ class FenetrePartie(Tk):
 
 
 if __name__ == '__main__':
-    # Point d'entrée principal du TP4.
+    # Point d'entrée principal du jeu de dame et de l'affichage du damier.
     fenetre = FenetrePartie()
     fenetre.mainloop()
