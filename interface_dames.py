@@ -28,7 +28,6 @@ class FenetrePartie(Tk):
 
         # La partie
         self.partie = Partie()
-        # self.damier = Damier()
 
         # Création du canvas damier.
         self.canvas_damier = CanvasDamier(self, self.partie.damier, 60)
@@ -273,9 +272,6 @@ class FenetrePartie(Tk):
 # _________ temp
 # test2 temp
 
-
-
-
 #        if self.doit_prendre == False:
  #           if self.couleur_joueur_courant == "blanc":
   #              self.couleur_joueur_courant = "noir"
@@ -285,89 +281,65 @@ class FenetrePartie(Tk):
             # self.messages['foreground'] = 'black'
             # self.messages['text'] = "Sélection : " + str(position)
 
-
-    def valider_et_enregistrer_position_source(self, position):
-
+    def valider_prise_obligee(self):
         if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
             self.doit_prendre = True
-            print("i-185 == 97")
 
             if self.position_source_forcee is None:
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
-                self.title("Jeu de dames. Le joueur " + self.titre_joueur)
-                # print(" Le joueur doit prendre une pièce.")
+                # self.title("Jeu de dames. Le joueur " + self.titre_joueur)
+
             else:
                 position_source_damier_reel = self.colonne_damier_reel[self.position_source_forcee.colonne] + str(
                     8 - self.position_source_forcee.ligne)
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue. La pièce en position "\
                                     + position_source_damier_reel + " doit faire une prise!"
-                self.title("Jeu de dames. Le joueur " + self.titre_joueur)
+                # self.title("Jeu de dames. Le joueur " + self.titre_joueur)
+            return [True, self.titre_joueur]
 
-        print("flg i-192")  # temp
-        ligne = event.y // self.canvas_damier.n_pixels_par_case
-        colonne = event.x // self.canvas_damier.n_pixels_par_case
-        self.position = Position(ligne, colonne)
-        print("i-196 ", self.position)
-        print("i-197 ", self.partie.position_source_valide(self.position))
-        if self.partie.position_source_valide(self.position)[0]:
-            self.messages1['foreground'] = 'black'
-            position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
-            self.messages1['text'] = 'La pièce en position ' + position_source_damier_reel + ' a été sélectionnée. ' \
-                                                                        'Cliquez sur la cible désirée. '
-            # ligne = event.y // self.canvas_damier.n_pixels_par_case
-            # colonne = event.x // self.canvas_damier.n_pixels_par_case
-            # position = Position(ligne, colonne)
-            # test_f = dnd.on_release()
-            print("i-205", self.doit_prendre)
-            if self.doit_prendre == True:
-                if self.position_source_forcee is None:
-                    self.flg = 0
-                else:
-                    if self.position_source_forcee == self.position:
-                        self.messages1['foreground'] = 'red'
-                        self.messages1[
-                            'text'] = "Vous devez prendre. La pièce en position " + position_source_damier_reel + " a été sélectionnée."
-                        self.flg = 0
-                        # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
-                        # verif_source_cible = False
-                    else:
-                        self.messages1['foreground'] = 'red'
-                        self.messages1['text'] = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
-
-            elif self.partie.damier.piece_peut_se_deplacer(self.position):
-                self.flg = 0
-            else:
-                self.messages1['foreground'] = 'red'
-                self.messages1['text'] = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
-                                         "faire un autre choix. "
         else:
-            self.messages1['foreground'] = 'red'
-            self.messages1['text'] = self.partie.position_source_valide(self.position)[1]
+            return [False, ""]
 
-        return position
+    def valider_et_enregistrer_position_source(self):
+        position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
+        if self.doit_prendre == True:
+            if self.position_source_forcee is None:
+                return [False, texte_messages1]
+            else:
+                if self.position_source_forcee == self.position:
+                    self.messages1['foreground'] = 'red'
+                    texte_message1 = "Vous devez prendre. La pièce en position " + position_source_damier_reel\
+                                         + " a été sélectionnée."
+                    self.flg = 0
+                    # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
+                    # verif_source_cible = False
+                else:
+                    # self.messages1['foreground'] = 'red'
+                    texte_message1 = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
+                return [False, texte_messages1]
+        elif self.partie.damier.piece_peut_se_deplacer(self.position):
+            return [True, texte_messages1]
+        else:
+            # self.messages1['foreground'] = 'red'
+            texte_message1 = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
+                                         "faire un autre choix. "
+            return [False, texte_messages1]
 
     def valider_et_enregistrer_position_cible(self):
-
         if self.doit_prendre == True:
             if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
-                print("i-116")  # verif_cible = False # temp
-                pass
+                return [True, ""]
+
             else:
-                self.messages1['foreground'] = 'red'
-                self.messages1[
-                    'text'] = "La pièce choisie doit prendre une pièce adverse. La cible choisie doit être modifiée."
-                1 / 0  # Génère une erreur pour modifier la position cible
+                texte_messages1 = "La pièce choisie doit prendre une pièce adverse. La cible choisie doit être modifiée."
+                return [False, texte_messages1]
+
         elif self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
-            print("i-123 ", self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))  # temp
-            # pass
+             return [True, ""]
         else:
-            self.messages1['foreground'] = 'red'
-            self.messages1['text'] = "La pièce choisie ne peut pas être déplacée vers cette case."
-            1 / 0
+            texte_messages1 = "La pièce choisie ne peut pas être déplacée vers cette case."
+        return [False, texte_messages1]
 
-
-
-        return position
 
 if __name__ == '__main__':
     # Point d'entrée principal du TP4.
