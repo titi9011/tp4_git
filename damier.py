@@ -92,7 +92,7 @@ class Damier:
         #TODO: À tester - compléter
 
         #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupée
-        if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
+        if self.position_est_dans_damier(position_cible) and position_piece in self.cases and not position_cible in self.cases:
 
             if self.recuperer_piece_a_position(position_piece).est_dame():
                 if position_cible in position_piece.quatre_positions_diagonales():
