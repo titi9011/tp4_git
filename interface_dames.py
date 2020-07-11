@@ -271,6 +271,13 @@ class FenetrePartie(Tk):
 
 
     def valider_prise_obligee(self):
+        """
+        Détermine si le joueur actif doit ou non faire une prise. Rend la prise obligatoire dans le choix
+        de la position source.
+        return:
+                [0] : True ou False
+                [1] : Message à afficher si le joueur doit faire une prise.
+        """
         if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
             self.doit_prendre = True
 
@@ -288,6 +295,14 @@ class FenetrePartie(Tk):
             return [False, ""]
 
     def valider_et_enregistrer_position_source(self):
+        """
+        S'assure que la position source doit faire une prise, si c'est le cas, sinon que la pièce choisie est de la
+        couleur du joueur et qu'elle peut se déplacer.
+
+        return:
+                [0] : True ou False
+                [1] : Message à afficher si la source n'est pas valide.
+        """
         position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
         if self.doit_prendre == True:
             if self.position_source_forcee is None:
@@ -309,6 +324,14 @@ class FenetrePartie(Tk):
             return [False, texte_messages1]
 
     def valider_et_enregistrer_position_cible(self):
+        """
+        S'assure que la pièce choisie comme position source peut se déplacer à la position cible, soit en faisant
+        une prise ou en se déplaçant.
+
+        return:
+                [0] : True ou False
+                [1] : Message à afficher si la cible n'est pas valide.
+        """
         if self.doit_prendre == True:
             if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
                 return [True, ""]
