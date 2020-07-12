@@ -79,7 +79,7 @@ class FenetrePartie(Tk):
                 colonne = event.x // self.canvas_damier.n_pixels_par_case
                 self.position_cible = Position(ligne, colonne)
                 print("Cible-i-85", self.position_cible)  # temp
-                try:  # Assure que la position cible soit valide.
+                try:  # Affecte le clic à la position cible et s'assure que la position cible soit valide.
                     ligne = event.y // self.canvas_damier.n_pixels_par_case
                     colonne = event.x // self.canvas_damier.n_pixels_par_case
                     self.position_cible = Position(ligne, colonne)
@@ -181,42 +181,37 @@ class FenetrePartie(Tk):
                 # self.canvas_damier.actualiser()
 
         except:
-            if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
-                self.doit_prendre = True
-                print("i-185 == 97")
+            print("i-185 == 97")
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
             self.position = Position(ligne, colonne)
             position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
-            if self.doit_prendre:
-                if self.position_source_forcee is None:
-                    self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
-                    self.title("Jeu de dames. Le joueur " + self.titre_joueur)
-                    print(" Le joueur doit prendre une pièce.")
-                    self.messages1['foreground'] = 'blue'
-                    if self.partie.damier.piece_peut_faire_une_prise(self.position):
-                        self.messages1['text'] = 'La pièce sélectionnée en position ' \
+            if self.valider_prise_obligee()[0]:
+                self.title("Jeu de dames. Le joueur " + self.valider_prise_obligee()[1])
+                if self.partie.damier.piece_peut_faire_une_prise(self.position):
+                    self.messages1['foreground'] = 'black'
+                    self.messages1['text'] = 'La pièce sélectionnée en position ' \
                                                  + position_source_damier_reel + ' peut faire une prise.'
-                        print("i-197 ", position_source_damier_reel)
-                    else:
-                        print("i-199 ", position_source_damier_reel)
-                        self.messages1['text'] = 'Sélectionnez une pièce qui peut faire une prise.'
+                    print("i-197 ", position_source_damier_reel)
                 else:
-                    # position_source_damier_reel = self.colonne_damier_reel[self.position_source_forcee.colonne] + str(
-                       # 8 - self.position_source_forcee.ligne)
-                    self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
-                    self.title("Jeu de dames. Le joueur " + self.titre_joueur)
+                    print("i-199 ", position_source_damier_reel)
+                    self.messages1['foreground'] = 'red'
+                    self.messages1['text'] = 'Sélectionnez une pièce qui peut faire une prise.'
+
             else:
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
                 self.title("Jeu de dames. Le joueur " + self.titre_joueur)
-                # print(" La pièce en position {} doit faire une autre prise.".format(self.position_source_forcee))
-            print("flg i-212")  # temp
-       #     ligne = event.y // self.canvas_damier.n_pixels_par_case
-       #     colonne = event.x // self.canvas_damier.n_pixels_par_case
-       #     self.position = Position(ligne, colonne)
-            print("i-216 ", self.position)
-            print("i-217 ", self.partie.position_source_valide(self.position))
+            print("flg i-203")  # temp
+
+            print("i-205 ", self.position)
+            print("i-206 ", self.partie.position_source_valide(self.position))
             if self.partie.position_source_valide(self.position)[0]:
+     #           if self.valider_et_enregistrer_position_source()[0]:
+    #                self.flg = 0
+   #             else:
+  #                  self.messages1['foreground'] = 'red'
+ #                   self.messages1['text'] = self.valider_et_enregistrer_position_source()[1]
+
                 if self.doit_prendre == True:
                     if self.position_source_forcee is None:
                         self.flg = 0
@@ -280,7 +275,6 @@ class FenetrePartie(Tk):
         """
         if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
             self.doit_prendre = True
-
             if self.position_source_forcee is None:
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
 
@@ -306,6 +300,7 @@ class FenetrePartie(Tk):
         position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
         if self.doit_prendre == True:
             if self.position_source_forcee is None:
+                texte_messages1 = "Vous devez prendre. La pièce en position " + position_source_damier_reel + " a été sélectionnée."
                 return [False, texte_messages1]
             else:
                 if self.position_source_forcee == self.position:
@@ -317,6 +312,9 @@ class FenetrePartie(Tk):
                     texte_messages1 = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
                 return [False, texte_messages1]
         elif self.partie.damier.piece_peut_se_deplacer(self.position):
+            self.messages1['foreground'] = 'black'
+            texte_messages1 = 'La pièce en position ' + position_source_damier_reel \
+                                       + ' a été sélectionnée. Cliquez sur la cible désirée. '
             return [True, texte_messages1]
         else:
             texte_messages1 = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
