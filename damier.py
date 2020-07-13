@@ -32,7 +32,7 @@ class Damier:
             Position(6, 7): Piece("blanc", "pion"),
             Position(5, 0): Piece("blanc", "pion"),
             Position(5, 2): Piece("blanc", "pion"),
-            Position(5, 4): Piece("blanc", "pion"),
+            Position(3, 4): Piece("blanc", "pion"),
             Position(5, 6): Piece("blanc", "pion"),
             Position(2, 1): Piece("noir", "pion"),
             Position(2, 3): Piece("noir", "pion"),
@@ -294,6 +294,20 @@ class Damier:
             return "prise"
         else:
             return "erreur"
+
+    def print_damier(self, dic):
+
+        s = " +-0-+-1-+-2-+-3-+-4-+-5-+-6-+-7-+\n"
+        for i in range(0, 8):
+            s += str(i)+"| "
+            for j in range(0, 8):
+                if Position(i, j) in dic:
+                    s += str(dic[Position(i, j)])+" | "
+                else:
+                    s += "  | "
+            s += "\n +---+---+---+---+---+---+---+---+\n"
+
+        return print(s)
 
     def __repr__(self):
         """Cette méthode spéciale permet de modifier le comportement d'une instance de la classe Damier pour
