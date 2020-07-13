@@ -206,42 +206,45 @@ class FenetrePartie(Tk):
             print("i-205 ", self.position)
             print("i-206 ", self.partie.position_source_valide(self.position))
             if self.partie.position_source_valide(self.position)[0]:
-     #           if self.valider_et_enregistrer_position_source()[0]:
-    #                self.flg = 0
-   #             else:
-  #                  self.messages1['foreground'] = 'red'
- #                   self.messages1['text'] = self.valider_et_enregistrer_position_source()[1]
-
-                if self.doit_prendre == True:
-                    if self.position_source_forcee is None:  # C'est une première prise
-                        self.flg = 0
-                    else:
-                        if self.position_source_forcee == self.position:  # Indique une prise successive
-                            self.messages1['foreground'] = 'red'
-                            self.messages1['text'] = "Vous devez prendre. La pièce en position " \
-                                                     + position_source_damier_reel + " a été sélectionnée."
-                            self.flg = 0
-                            # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
-                            # verif_source_cible = False
-                        else:
-                            self.messages1['foreground'] = 'red'
-                            self.messages1[
-                                'text'] = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
-
-                else:
+                if self.valider_et_enregistrer_position_source()[0]:
                     self.messages1['foreground'] = 'black'
-                    #position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
-                    self.messages1['text'] = 'La pièce en position ' + position_source_damier_reel \
-                                         + ' a été sélectionnée. Cliquez sur la cible désirée. '
+                    self.messages1['text'] = self.valider_et_enregistrer_position_source()[1]
+                    self.flg = 0  # Valide la position source et autorise la sélection de la cible
+                else:
+                    self.messages1['foreground'] = 'red'
+                    self.messages1['text'] = self.valider_et_enregistrer_position_source()[1]
 
-                    print("i-205", self.doit_prendre)  # temp
 
-                    if self.partie.damier.piece_peut_se_deplacer(self.position):
-                        self.flg = 0
-                    else:
-                        self.messages1['foreground'] = 'red'
-                        self.messages1['text'] = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
-                                             "faire un autre choix. "
+#                if self.doit_prendre == True:
+ #                   if self.position_source_forcee is None:  # C'est une première prise
+  #                      self.flg = 0
+   #                 else:
+    #                    if self.position_source_forcee == self.position:  # Indique une prise successive
+     #                       self.messages1['foreground'] = 'red'
+      #                      self.messages1['text'] = "Vous devez prendre. La pièce en position " \
+       #                                              + position_source_damier_reel + " a été sélectionnée."
+        #                    self.flg = 0
+         #                   # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
+          #                  # verif_source_cible = False
+           #             else:
+            #                self.messages1['foreground'] = 'red'
+             #               self.messages1[
+              #                  'text'] = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
+
+#                else:
+ #                   self.messages1['foreground'] = 'black'
+  #                  #position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
+   #                 self.messages1['text'] = 'La pièce en position ' + position_source_damier_reel \
+    #                                    + ' a été sélectionnée. Cliquez sur la cible désirée. '
+
+#                    print("i-205", self.doit_prendre)  # temp
+#
+ #                   if self.partie.damier.piece_peut_se_deplacer(self.position):
+  #                      self.flg = 0
+   #                 else:
+    #                    self.messages1['foreground'] = 'red'
+     #                   self.messages1['text'] = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
+      #                                       "faire un autre choix. "
             else:
                 self.messages1['foreground'] = 'red'
                 self.messages1['text'] = self.partie.position_source_valide(self.position)[1]
