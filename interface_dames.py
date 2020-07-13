@@ -300,16 +300,17 @@ class FenetrePartie(Tk):
         position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
         if self.doit_prendre == True:
             if self.position_source_forcee is None:
-                texte_messages1 = "Vous devez prendre. La pièce en position " + position_source_damier_reel + " a été sélectionnée."
+                texte_messages1 = "Vous devez prendre. Assurez-vous que la pièce sélectionnée, en position " \
+                                  + position_source_damier_reel + " peut prendre."
                 return [True, texte_messages1]
             else:
                 if self.position_source_forcee == self.position:
                     self.messages1['foreground'] = 'red'
-                    texte_messages1 = "Vous devez prendre. La pièce en position " + position_source_damier_reel\
-                                         + " a été sélectionnée."
+                    texte_messages1 = "Vous devez prendre à nouveau. La pièce en position "\
+                                      + position_source_damier_reel + " a été sélectionnée."
                     return [True, texte_messages1]
                 else:
-                    texte_messages1 = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
+                    texte_messages1 = "Vous devez prendre à nouveau. La pièce choisie ne peut pas être sélectionnée."
                     return [False, texte_messages1]
         elif self.partie.damier.piece_peut_se_deplacer(self.position):
             self.messages1['foreground'] = 'black'
