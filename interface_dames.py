@@ -83,7 +83,7 @@ class FenetrePartie(Tk):
                     ligne = event.y // self.canvas_damier.n_pixels_par_case
                     colonne = event.x // self.canvas_damier.n_pixels_par_case
                     self.position_cible = Position(ligne, colonne)
-                    print("i-90", self.doit_prendre)  # temp
+                    print("i-90 - doit prendre : ", self.doit_prendre)  # temp
 
 
 
@@ -98,13 +98,12 @@ class FenetrePartie(Tk):
                     #        print(" La pièce en position {} doit faire une autre prise.".format(
                      #           self.position_source_forcee))
 
-                    print("i-105", type(self.position.colonne))  # temp
                     print("i-106", str(self.position_cible.ligne))  # temp
-                    print("i-107",  self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible))  # temp
+                    print("i-107 - peut sauter vers : ",  self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible))  # temp
 
 
-
-                    if self.partie.position_cible_valide(self.position_cible)[0]:  # À enlever
+                 #   if self.valider_et_enregistrer_position_cible()[0]:
+                    if self.partie.position_cible_valide(self.position_cible)[0]:  # Maintenant inutile. À enlever
                         self.messages1['foreground'] = 'black'
                         position_source_damier_reel =self.colonne_damier_reel[self.position.colonne] +  str(8 - self.position.ligne)
                         position_cible_damier_reel = self.colonne_damier_reel[self.position_cible.colonne] + str(8 - self.position_cible.ligne)
