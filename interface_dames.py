@@ -213,10 +213,10 @@ class FenetrePartie(Tk):
  #                   self.messages1['text'] = self.valider_et_enregistrer_position_source()[1]
 
                 if self.doit_prendre == True:
-                    if self.position_source_forcee is None:
+                    if self.position_source_forcee is None:  # C'est une première prise
                         self.flg = 0
                     else:
-                        if self.position_source_forcee == self.position:
+                        if self.position_source_forcee == self.position:  # Indique une prise successive
                             self.messages1['foreground'] = 'red'
                             self.messages1['text'] = "Vous devez prendre. La pièce en position " \
                                                      + position_source_damier_reel + " a été sélectionnée."
@@ -233,11 +233,8 @@ class FenetrePartie(Tk):
                     #position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
                     self.messages1['text'] = 'La pièce en position ' + position_source_damier_reel \
                                          + ' a été sélectionnée. Cliquez sur la cible désirée. '
-                    # ligne = event.y // self.canvas_damier.n_pixels_par_case
-                    # colonne = event.x // self.canvas_damier.n_pixels_par_case
-                    # position = Position(ligne, colonne)
-                    # test_f = dnd.on_release()
-                    print("i-205", self.doit_prendre)
+
+                    print("i-205", self.doit_prendre)  # temp
 
                     if self.partie.damier.piece_peut_se_deplacer(self.position):
                         self.flg = 0
@@ -275,10 +272,10 @@ class FenetrePartie(Tk):
         """
         if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
             self.doit_prendre = True
-            if self.position_source_forcee is None:
+            if self.position_source_forcee is None:  # C'est une première prise
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
 
-            else:
+            else:  # Indique une prise successive
                 position_source_damier_reel = self.colonne_damier_reel[self.position_source_forcee.colonne] + str(
                     8 - self.position_source_forcee.ligne)
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue. La pièce en position "\
@@ -301,16 +298,16 @@ class FenetrePartie(Tk):
         if self.doit_prendre == True:
             if self.position_source_forcee is None:
                 texte_messages1 = "Vous devez prendre. La pièce en position " + position_source_damier_reel + " a été sélectionnée."
-                return [False, texte_messages1]
+                return [True, texte_messages1]
             else:
                 if self.position_source_forcee == self.position:
                     self.messages1['foreground'] = 'red'
                     texte_messages1 = "Vous devez prendre. La pièce en position " + position_source_damier_reel\
                                          + " a été sélectionnée."
-
+                    return [True, texte_messages1]
                 else:
                     texte_messages1 = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
-                return [False, texte_messages1]
+                    return [False, texte_messages1]
         elif self.partie.damier.piece_peut_se_deplacer(self.position):
             self.messages1['foreground'] = 'black'
             texte_messages1 = 'La pièce en position ' + position_source_damier_reel \
