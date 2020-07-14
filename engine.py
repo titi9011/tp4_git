@@ -89,9 +89,18 @@ class Engine():
     def iteration_dic(self, dic):
         dic_noir = self.dic_noir(dic)
         list_dic = []
-        for position in list(dic_noir.keys()):
-            dic_position = self.dic_une_piece(position, dic)
-            self.print_damier(dic_position[0])
+        for position in range((len(dic_noir))):
+            print(position)
+            position_simple = list(dic_noir.keys())[position]
+            print(type(position_simple))
+            if type(position_simple) == type(Position(5, 4)):
+                dic_position = self.dic_une_piece(position_simple, dic)
+                self.print_damier(dic_position[0])
+            else:
+                print(position)
+                for position_profond in list(dic_noir.keys())[position]:
+                    dic_position = self.dic_une_piece(position_profond, dic)
+                    self.print_damier(dic_position[0])
 
 
 

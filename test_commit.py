@@ -1,2 +1,4 @@
 dic = {'thierry': 0, 'martin': 1}
-print(list(dic.keys()))
+dic2 = {'rebecka': 2}
+
+print(list())
