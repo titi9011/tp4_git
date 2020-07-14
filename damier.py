@@ -34,7 +34,7 @@ class Damier:
             Position(5, 2): Piece("blanc", "pion"),
             Position(3, 4): Piece("blanc", "pion"),
             Position(5, 6): Piece("blanc", "pion"),
-            Position(2, 1): Piece("noir", "pion"),
+            Position(3, 2): Piece("noir", "pion"),
             Position(2, 3): Piece("noir", "pion"),
             Position(2, 5): Piece("noir", "pion"),
             Position(2, 7): Piece("noir", "pion"),
@@ -133,7 +133,7 @@ class Damier:
             position_piece_mange = position_piece.position_mange(position_cible)
             piece_mange = self.recuperer_piece_a_position(position_piece_mange)
             # Si la position est dans le damier, s'il y a une pièce sur la case et si la position_cible est libre"
-            if self.position_est_dans_damier(position_piece) and position_piece in self.cases and not position_cible in self.cases:
+            if self.position_est_dans_damier(position_cible) and position_piece in self.cases and not position_cible in self.cases:
                 # Si une pièce adverse peut être mangée"
                 if position_piece_mange in self.cases and self.recuperer_piece_a_position(position_piece) != piece_mange:
                     return True

@@ -65,6 +65,7 @@ class Engine():
         #si la piece peut faire un saut
         for position_cible in position_source.quatre_positions_sauts():
             if Damier().piece_peut_sauter_vers(position_source, position_cible):
+                print(position_cible)
                 nouveau_dic = dict(dic)
                 nouveau_dic[position_cible] = nouveau_dic[position_source]
                 del nouveau_dic[position_source]
@@ -83,26 +84,32 @@ class Engine():
         else:
             #ajout des positions classique
             dic_classique = self.cases_jouable(position_source, dic)
+            print(dic_classique)
             list_dic += dic_classique
         return list_dic
     
     def iteration_dic(self, dic):
         dic_noir = self.dic_noir(dic)
         list_dic = []
-        for position in range((len(dic_noir))):
+        for position in range(len(dic_noir)):
             print(position)
+            #position_simple c'est toutes les positions des pièces noirs
             position_simple = list(dic_noir.keys())[position]
-            print(type(position_simple))
-            if type(position_simple) == type(Position(5, 4)):
-                dic_position = self.dic_une_piece(position_simple, dic)
-                self.print_damier(dic_position[0])
-            else:
-                print(position)
-                for position_profond in list(dic_noir.keys())[position]:
-                    dic_position = self.dic_une_piece(position_profond, dic)
-                    self.print_damier(dic_position[0])
+            #dic_position c'est toutes les dictionnaires associers aux déplacements d'une pièce (dans une liste)
+            dic_position = self.dic_une_piece(position_simple, dic)
+            for position_profonde in dic_position:
+                self.print_damier(position_profonde)
 
 
 
 dic = FenetrePartie().partie.damier.cases
-Engine().iteration_dic(dic)
+Engine().print_damier(dic)
+#Engine().iteration_dic(dic)
+
+#dic_rep = Engine().dic_une_piece(Position(2, 3), dic)
+#Engine().print_damier(dic_rep[0])
+
+rep = Engine().cases_jouable_saut(Position(2, 3), dic)
+Engine().print_damier(rep[0])
+Engine().print_damier(rep[1])
+
