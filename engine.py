@@ -7,9 +7,11 @@ from damier import Damier
 class Engine():
 
     #initialisation de l'arbre des possibilités
-    def __init__(self, dic):
-        self.dic = dic
+    def __init__(self):
+        pass
 
+    def print_damier(self, dic):
+        return Damier().print_damier(dic)
 
     def dic_blanc(self, dic):
         dic_blanc = {}
@@ -69,21 +71,29 @@ class Engine():
                 #on supprime la pièce mangé
                 piece_mange = position_source.position_mange(position_cible)
                 del nouveau_dic[piece_mange]
-
                 list_dic.append(nouveau_dic)
         return list_dic
 
-        
-    def dic(self):
-        return self.partie.damier.cases
+    def dic_une_piece(self, position_source, dic):
+        list_dic = []
+        #ajout des sauts
+        dic_saut = self.cases_jouable_saut(position_source, dic)
+        if dic_saut != []:
+            list_dic += dic_saut
+        else:
+            #ajout des positions classique
+            dic_classique = self.cases_jouable(position_source, dic)
+            list_dic += dic_classique
+        return list_dic
     
-    def print_damier_actuel(self):
-        return print(self.partie.damier)
+    def iteration_dic(self, dic):
+        dic_noir = self.dic_noir(dic)
+        list_dic = []
+        for position in list(dic_noir.keys()):
+            dic_position = self.dic_une_piece(position, dic)
+            self.print_damier(dic_position[0])
 
-    def print_damier(self, dic):
-        return self.partie.damier.print_damier(dic)
 
-Engine().print_damier_actuel()
 
-print(Engine().cases_jouable_saut(Position(2, 3)))
-Engine().print_damier(Engine().cases_jouable_saut(Position(2, 3))[0])
+dic = FenetrePartie().partie.damier.cases
+Engine().iteration_dic(dic)
