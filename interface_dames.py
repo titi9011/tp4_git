@@ -79,32 +79,32 @@ class FenetrePartie(Tk):
                 print("i-89 - peut sauter vers : ",  self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible))  # temp
 
 
-             #   if self.valider_et_enregistrer_position_cible()[0]:
-                if self.partie.position_cible_valide(self.position_cible)[0]:  # Maintenant inutile. À enlever
-                    self.messages1['foreground'] = 'black'
-                    position_source_damier_reel =self.colonne_damier_reel[self.position.colonne]\
+                self.messages1['foreground'] = 'black'
+                position_source_damier_reel =self.colonne_damier_reel[self.position.colonne]\
                                                  + str(8 - self.position.ligne)
-                    position_cible_damier_reel = self.colonne_damier_reel[self.position_cible.colonne]\
+                position_cible_damier_reel = self.colonne_damier_reel[self.position_cible.colonne]\
                                                  + str(8 - self.position_cible.ligne)
-                    self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'\
+                self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'\
                         .format(position_source_damier_reel, position_cible_damier_reel)
 
-                    if self.doit_prendre == True:
-                        if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
-                            print("i-116")  # verif_cible = False
-                            pass
-                        else:
-                            self.messages1['foreground'] = 'red'
-                            self.messages1['text'] = "La pièce choisie doit prendre une pièce adverse. La cible " \
-                                                     "choisie doit être modifiée. "
-                            raise ValueError  # Génère une erreur pour modifier la position cible
-                    elif self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
-                        print("i-123 ", self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))  # temp
-                        # pass
-                    else:
-                        self.messages1['foreground'] = 'red'
-                        self.messages1['text'] = "La pièce choisie ne peut pas être déplacée vers cette case."
-                        raise ValueError
+                if not self.valider_et_enregistrer_position_cible()[0]:
+ #               if self.partie.position_cible_valide(self.position_cible)[0]:  # Maintenant inutile. À enlever
+  #                  if self.doit_prendre == True:
+   #                     if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
+    #                        print("i-116")  # verif_cible = False
+     #                       pass
+      #                  else:
+       #                     self.messages1['foreground'] = 'red'
+        #                    self.messages1['text'] = "La pièce choisie doit prendre une pièce adverse. La cible " \
+         #                                            "choisie doit être modifiée. "
+          #                  raise ValueError  # Génère une erreur pour modifier la position cible
+           #         elif self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
+            #            print("i-123 ", self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))  # temp
+             #           # pass
+              #      else:
+                    self.messages1['foreground'] = 'red'
+                    self.messages1['text'] = self.valider_et_enregistrer_position_cible()[1]
+                    raise ValueError
                     # else:
                     #    self.messages1['foreground'] = 'red'
                     #    self.messages1['text'] = self.partie.position_cible_valide(self.position_cible)[1]
@@ -120,11 +120,6 @@ class FenetrePartie(Tk):
 
                 retour_apres_deplacement = self.partie.damier.deplacer(self.position, self.position_cible)
                     # ok, prise ou erreur
-
-                # del self.flg  # Libère le drapeau pour le tour suivant
-
-
-
 
                 if retour_apres_deplacement == "ok":
                      pass
