@@ -3,6 +3,8 @@ from position import Position
 from piece import Piece
 from interface_dames import FenetrePartie
 from damier import Damier
+from random import randrange
+from time import sleep
 
 class Engine():
 
@@ -22,19 +24,19 @@ class Engine():
         #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupée
         if Damier().position_est_dans_damier(position_cible) and position_piece in dic and not position_cible in dic:
 
-            if Damier().recuperer_piece_a_position(position_piece).est_dame():
+            if dic[position_piece].est_dame():
                 if position_cible in position_piece.quatre_positions_diagonales():
                     return True
                 else:
 
                     return False
 
-            elif Damier().recuperer_piece_a_position(position_piece).est_noire():
+            elif dic[position_piece].est_noire():
                 if position_cible in position_piece.positions_diagonales_bas():
                     return True
                 else:
                     return False
-            elif Damier().recuperer_piece_a_position(position_piece).est_blanche():
+            elif dic[position_piece].est_blanche():
                 if position_cible in position_piece.positions_diagonales_haut():
                     return True
                 else:
@@ -173,21 +175,28 @@ class Engine():
             return list_dic_saut
         else:
             return list_dic
+    
+    def debutant_noir(self, dic):
+        list_dic = self.iteration_dic_noir(dic)
+        numero_dic_choisit = randrange(len(list_dic))
+        dic_choisit = list_dic[numero_dic_choisit]
+        return dic_choisit
 
-    def verification_plusieurs_prises(self, dic):
-        pass
+    def debutant_blanc(self, dic):
+        list_dic = self.iteration_dic_blanc(dic)
+        numero_dic_choisit = randrange(len(list_dic))
+        dic_choisit = list_dic[numero_dic_choisit]
+        return dic_choisit
+
+
 
 
 dic = FenetrePartie().partie.damier.cases
 Engine().print_damier(dic)
-#Engine().iteration_dic(dic)
 
-#dic_rep = Engine().dic_une_piece(Position(2, 3), dic)
-#Engine().print_damier(dic_rep[0])
+for i in range(40):
+    dic = Engine().debutant_noir(dic)
+    Engine().print_damier(dic)
+    dic = Engine().debutant_blanc(dic)
+    Engine().print_damier(dic)
 
-#list_dic, saut = Engine().dic_une_piece(Position(2, 1), dic)
-#print(saut)
-#Engine().print_dic_list(list_dic)
-
-dic = Engine().solution(dic)
-print(dic)

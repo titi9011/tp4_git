@@ -1,5 +1,7 @@
-dic = {'thierry': 0, 'martin': 1}
-dic2 = {'rebecka': 2}
+from random import randrange
 
-x = list(dic.keys())
-print(x)
+list = [1, 2, 4, 5]
+
+element_choisit = randrange(len(list))
+
+print(element_choisit)
