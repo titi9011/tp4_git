@@ -94,7 +94,8 @@ class Engine():
                 #si la pièce doit être promue
                 if position_cible.cases_promotion():
                     nouveau_dic = dict(dic)
-                    nouveau_dic[position_cible] = nouveau_dic[position_source].promouvoir()
+                    nouveau_dic[position_cible] = nouveau_dic[position_source]
+                    nouveau_dic[position_cible].promouvoir()
                     del nouveau_dic[position_source]
                     list_dic.append(nouveau_dic)
                 #sinon
@@ -123,7 +124,8 @@ class Engine():
                 #si pièce doit être promue
                 if position_cible.cases_promotion():
                     nouveau_dic = dict(dic)
-                    nouveau_dic[position_cible] = nouveau_dic[position_source].promouvoir()
+                    nouveau_dic[position_cible] = nouveau_dic[position_source]
+                    nouveau_dic[position_cible].promouvoir()
                     del nouveau_dic[position_source]
                     #on supprime la pièce mangé
                     piece_mange = position_source.position_mange(position_cible)
@@ -212,7 +214,7 @@ class Engine():
 dic = FenetrePartie().partie.damier.cases
 Engine().print_damier(dic)
 
-for i in range(40):
+for i in range(60):
     dic = Engine().debutant_noir(dic)
     Engine().print_damier(dic)
     dic = Engine().debutant_blanc(dic)
