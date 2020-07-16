@@ -91,10 +91,18 @@ class Engine():
         #si la piece peut faire un déplacement classique
         for position_cible in position_source.quatre_positions_diagonales():
             if self.piece_peut_se_deplacer_vers_modif(position_source, position_cible, dic):
-                nouveau_dic = dict(dic)
-                nouveau_dic[position_cible] = nouveau_dic[position_source]
-                del nouveau_dic[position_source]
-                list_dic.append(nouveau_dic)
+                #si la pièce doit être promue
+                if position_cible.cases_promotion():
+                    nouveau_dic = dict(dic)
+                    nouveau_dic[position_cible] = nouveau_dic[position_source].promouvoir()
+                    del nouveau_dic[position_source]
+                    list_dic.append(nouveau_dic)
+                #sinon
+                else:
+                    nouveau_dic = dict(dic)
+                    nouveau_dic[position_cible] = nouveau_dic[position_source]
+                    del nouveau_dic[position_source]
+                    list_dic.append(nouveau_dic)
         return list_dic
 
     def cases_jouable_saut(self, position_source, dic):
@@ -112,13 +120,23 @@ class Engine():
         #si la piece peut faire un saut
         for position_cible in position_source.quatre_positions_sauts():
             if self.piece_peut_sauter_vers_modif(position_source, position_cible, dic):
-                nouveau_dic = dict(dic)
-                nouveau_dic[position_cible] = nouveau_dic[position_source]
-                del nouveau_dic[position_source]
-                #on supprime la pièce mangé
-                piece_mange = position_source.position_mange(position_cible)
-                del nouveau_dic[piece_mange]
-                list_dic.append(nouveau_dic)
+                #si pièce doit être promue
+                if position_cible.cases_promotion():
+                    nouveau_dic = dict(dic)
+                    nouveau_dic[position_cible] = nouveau_dic[position_source].promouvoir()
+                    del nouveau_dic[position_source]
+                    #on supprime la pièce mangé
+                    piece_mange = position_source.position_mange(position_cible)
+                    del nouveau_dic[piece_mange]
+                    list_dic.append(nouveau_dic)
+                else:
+                    nouveau_dic = dict(dic)
+                    nouveau_dic[position_cible] = nouveau_dic[position_source]
+                    del nouveau_dic[position_source]
+                    #on supprime la pièce mangé
+                    piece_mange = position_source.position_mange(position_cible)
+                    del nouveau_dic[piece_mange]
+                    list_dic.append(nouveau_dic)
         return list_dic
 
     def dic_une_piece(self, position_source, dic):

@@ -89,6 +89,12 @@ class Position:
         y = (self.colonne + other.colonne) / 2
 
         return Position(x, y)
+    
+    def cases_promotion(self):
+        if self.ligne == 0 or self.ligne == 8:
+            return True
+        else:
+            return False
 
     def __eq__(self, other):
         """Méthode spéciale indiquant à Python comment vérifier si deux positions sont égales. On compare simplement

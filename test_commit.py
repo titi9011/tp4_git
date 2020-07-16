@@ -1,7 +1,8 @@
 from random import randrange
+from piece import Piece
 
-list = [1, 2, 4, 5]
-
-element_choisit = randrange(len(list))
-
-print(element_choisit)
+x = Piece('noir', 'pion')
+print(x)
+x.promouvoir()
+print(x)
+print(type(x))
