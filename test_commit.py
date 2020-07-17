@@ -1,10 +1,14 @@
-from random import randrange
-from piece import Piece
+class mere:
+    def __init__(self):
+        self.x = 0
+        self.y = 10
+    def sprint(self):
+        return 'p'
 
-x = Piece('noir', 'pion')
-dic = {'position': x}
 
-dic['position'].promouvoir()
-dic['position'].promouvoir()
+class fille(mere):
+    def __init__(self):
+        super().__init__()
+        self.y = 9
 
-print(dic['position'])
+print(fille().x)

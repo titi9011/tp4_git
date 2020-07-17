@@ -209,14 +209,13 @@ class Engine():
         return dic_choisit
 
 
+if __name__ == "__main__":
 
-
-dic = FenetrePartie().partie.damier.cases
-Engine().print_damier(dic)
-
-for i in range(60):
-    dic = Engine().debutant_noir(dic)
-    Engine().print_damier(dic)
-    dic = Engine().debutant_blanc(dic)
+    dic = FenetrePartie().partie.damier.cases
     Engine().print_damier(dic)
 
+    for i in range(60):
+        dic = Engine().debutant_noir(dic)
+        Engine().print_damier(dic)
+        dic = Engine().debutant_blanc(dic)
+        Engine().print_damier(dic)
