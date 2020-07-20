@@ -225,14 +225,38 @@ class Engine():
                             score_max = score
                             position_choisit = dictionnaire
         return position_choisit
+    
+    def avance_blanc(self, dic):
+        score_max = 0
+        position_choisit = None
+        list_dic, point = self.iteration_dic_blanc(dic)
+        for dictionnaire in list_dic:
+            deuxieme_list_dic, deuxieme_point = self.iteration_dic_noir(dictionnaire)
+            for deuxieme_dictionnaire in deuxieme_list_dic:
+                troisieme_list_dic, troisieme_point = self.iteration_dic_blanc(deuxieme_dictionnaire)
+                for troisieme_dictionnaire in troisieme_list_dic:
+                    quatrieme_list_dic, quatrieme_point = self.iteration_dic_noir(troisieme_dictionnaire)
+                    for quatrieme_dicionnaire in quatrieme_list_dic:
+                        cinquieme_list_dic, cinquieme_point = self.iteration_dic_blanc(quatrieme_dicionnaire)
+                        score = point - deuxieme_point + troisieme_point - quatrieme_point + cinquieme_point
+                        if score > score_max:
+                            score_max = score
+                            position_choisit = dictionnaire
+        return position_choisit
+    
 
 if __name__ == "__main__":
     dic = FenetrePartie().partie.damier.cases
     Engine().print_damier(dic)
 
-    x = Engine().avance(dic)
-    Engine().print_damier(x)
-    
+    for i in range(10):
+        dic = Engine().avance(dic)
+        Engine().print_damier(dic)
+        dic = Engine().avance_blanc(dic)
+        Engine().print_damier(dic)
+
+
+
 #    for i in range(200):
 #        dic = Engine().debutant_noir(dic)
 #        Engine().print_damier(dic)
