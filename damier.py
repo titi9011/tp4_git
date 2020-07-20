@@ -31,7 +31,7 @@ class Damier:
             Position(6, 5): Piece("blanc", "pion"),
             Position(6, 7): Piece("blanc", "pion"),
             Position(5, 0): Piece("blanc", "pion"),
-            Position(3, 2): Piece("blanc", "pion"),
+            Position(5, 2): Piece("blanc", "pion"),
             Position(5, 4): Piece("blanc", "pion"),
             Position(5, 6): Piece("blanc", "pion"),
             Position(2, 1): Piece("noir", "pion"),

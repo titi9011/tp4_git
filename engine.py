@@ -171,9 +171,9 @@ class Engine():
                 for position_profonde in dic_position:
                     list_dic.append(position_profonde)
         if list_dic_saut != []:
-            return list_dic_saut
+            return list_dic_saut, 1
         else:
-            return list_dic
+            return list_dic, 0
 
     def iteration_dic_blanc(self, dic):
         dic_blanc = self.dic_blanc(dic)
@@ -192,31 +192,49 @@ class Engine():
                 for position_profonde in dic_position:
                     list_dic.append(position_profonde)
         if list_dic_saut != []:
-            return list_dic_saut
+            return list_dic_saut, 1
         else:
-            return list_dic
+            return list_dic, 0
     
     def debutant_noir(self, dic):
-        list_dic = self.iteration_dic_noir(dic)
+        list_dic, saut = self.iteration_dic_noir(dic)
         numero_dic_choisit = randrange(len(list_dic))
         dic_choisit = list_dic[numero_dic_choisit]
         return dic_choisit
 
     def debutant_blanc(self, dic):
-        list_dic = self.iteration_dic_blanc(dic)
+        list_dic, saut = self.iteration_dic_blanc(dic)
         numero_dic_choisit = randrange(len(list_dic))
         dic_choisit = list_dic[numero_dic_choisit]
         return dic_choisit
-
+    
+    def avance(self, dic):
+        score_max = 0
+        position_choisit = None
+        list_dic, point = self.iteration_dic_noir(dic)
+        for dictionnaire in list_dic:
+            deuxieme_list_dic, deuxieme_point = self.iteration_dic_blanc(dictionnaire)
+            for deuxieme_dictionnaire in deuxieme_list_dic:
+                troisieme_list_dic, troisieme_point = self.iteration_dic_noir(deuxieme_dictionnaire)
+                for troisieme_dictionnaire in troisieme_list_dic:
+                    quatrieme_list_dic, quatrieme_point = self.iteration_dic_blanc(troisieme_dictionnaire)
+                    for quatrieme_dicionnaire in quatrieme_list_dic:
+                        cinquieme_list_dic, cinquieme_point = self.iteration_dic_noir(quatrieme_dicionnaire)
+                        score = point - deuxieme_point + troisieme_point - quatrieme_point + cinquieme_point
+                        if score > score_max:
+                            score_max = score
+                            position_choisit = dictionnaire
+        return position_choisit
 
 if __name__ == "__main__":
-
     dic = FenetrePartie().partie.damier.cases
     Engine().print_damier(dic)
 
-    for i in range(200):
-        dic = Engine().debutant_noir(dic)
-        Engine().print_damier(dic)
-        dic = Engine().debutant_blanc(dic)
-        Engine().print_damier(dic)
-        print(i)
+    x = Engine().avance(dic)
+    Engine().print_damier(x)
+    
+#    for i in range(200):
+#        dic = Engine().debutant_noir(dic)
+#        Engine().print_damier(dic)
+#        dic = Engine().debutant_blanc(dic)
+#        Engine().print_damier(dic)
