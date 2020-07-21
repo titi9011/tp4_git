@@ -1,4 +1,4 @@
-# Auteurs: À compléter
+# Auteurs: Thierry Blais et Bernard Sévigny
 
 from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
@@ -315,13 +315,12 @@ class FenetrePartie(Tk):
 
     def aide(self):
         fenetre_A = Tk()
-        # self.texte_aide = Label()
-
-        # self.texte_aide['foreground'] = 'blue'
-        # self.texte_aide['text'] = 'Houba!'
-        # self.texte_aide.grid(fenetre_A)
-        # self.bouton1_C = Button(self, text='Quitter', command=self.quit)
-        # self.bouton1_C.grid(fenetre_A)
+        texte_aide = Label(fenetre_A)
+        texte_aide['foreground'] = 'blue'
+        texte_aide['text'] = 'Houba!'
+        texte_aide.grid()
+        bouton2_A = Button(fenetre_A, text='Quitter', command=self.quit)
+        bouton2_A.grid()
         fenetre_A.mainloop()
 
 if __name__ == '__main__':
