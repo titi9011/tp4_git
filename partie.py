@@ -92,7 +92,7 @@ class Partie:
         else:
             return [False, "La position choisie doit être dans le damier."]
 
-    # def validation_deplacement_interface(self):
+
 
 
 
@@ -200,10 +200,10 @@ class Partie:
                         valeur_non_valide = False
 
             position_cible = eval("Position(" + str(self.ligne) + ", " + str(self.colonne) + ")")
-            if self.position_cible_valide(position_cible)[0]:
 
+            if self.position_cible_valide(position_cible)[0]:
                 if self.doit_prendre == True:
-                    if self.damier.piece_peut_sauter_vers(position_source_selectionnee, position_cible):
+                    if self.damier.piece_peut_sauter_vers(position_source_selectionnee, position_cible, self.couleur_joueur_courant):
                         verif_source_cible = False
                     else:
                         print("La pièce choisie doit prendre une pièce adverse. La cible choisie doit être modifiée.")
@@ -303,6 +303,7 @@ class Partie:
 
 if __name__ == "__main__":
     # Point d'entrée du programme. On initialise une nouvelle partie, et on appelle la méthode jouer().
+    # print(position_cible_valide(Position(0, 0)[0]))
     partie = Partie()
 
     gagnant = partie.jouer()

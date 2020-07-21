@@ -1,11 +1,10 @@
 # Auteurs: À compléter
 
-from tkinter import Tk, Label, NSEW, dnd
-# import tkinter.dnd
+from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
-from damier import Damier
+# from damier import Damier
 
 class FenetrePartie(Tk):
     """Interface graphique de la partie de dames.
@@ -42,6 +41,12 @@ class FenetrePartie(Tk):
         self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
         self.colonne_damier_reel = "abcdefgh"
 
+        # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
+        self.bouton1_A = Button(self, text = 'Aide', command = self.aide)
+        self.bouton1_B = Button(self, text = 'Quitter', command = self.quit)
+        self.bouton1_A.grid()
+        self.bouton1_B.grid()
+
         # Initialisation des attributs
         self.doit_prendre = False
         self.position_source_selectionnee = None
@@ -71,13 +76,6 @@ class FenetrePartie(Tk):
                 colonne = event.x // self.canvas_damier.n_pixels_par_case  # On trouve le numéro de ligne/colonne en
                     # divisant les positions en y/x par le nombre de pixels par case.
                 self.position_cible = Position(ligne, colonne)
-
-#                try:  # Affecte le clic à la position cible et s'assure que la position cible est valide.
-                print("i-86 - doit prendre : ", self.doit_prendre)  # temp
-
-                print("i-88", str(self.position_cible.ligne))  # temp
-                print("i-89 - peut sauter vers : ",  self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible))  # temp
-
 
                 self.messages1['foreground'] = 'black'
                 position_source_damier_reel =self.colonne_damier_reel[self.position.colonne]\
@@ -125,8 +123,7 @@ class FenetrePartie(Tk):
                      pass
                 elif retour_apres_deplacement == "prise":
                     if self.partie.damier.piece_peut_faire_une_prise(self.position_cible):
-                        # if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
-                        # Vérifier si peut prendre encore
+
                         print("i-158 peut prendre encore", self.partie.damier.piece_peut_faire_une_prise(self.position_cible))  # temp
                         self.position_source_forcee = self.position_cible
                         self.doit_prendre = True
@@ -138,7 +135,7 @@ class FenetrePartie(Tk):
                 else:
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = "Il y a erreur dans le code!"
-                print("i-166 ", retour_apres_deplacement)  # temp
+
                 if self.doit_prendre == False:
                     if self.partie.couleur_joueur_courant == "blanc":
                         self.partie.couleur_joueur_courant = "noir"
@@ -165,16 +162,14 @@ class FenetrePartie(Tk):
                     self.messages1['foreground'] = 'black'
                     self.messages1['text'] = 'La pièce sélectionnée en position ' \
                                                  + position_source_damier_reel + ' peut faire une prise.'
-                    print("i-197 ", position_source_damier_reel)  # temp
+
                 else:
-                    print("i-199 ", position_source_damier_reel)  # temp
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = 'Sélectionnez une pièce qui peut faire une prise.'
 
             else:
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
                 self.title("Jeu de dames. Le joueur " + self.titre_joueur)
-            print("flg i-203")  # temp
 
             if self.partie.position_source_valide(self.position)[0]:
                 if self.valider_et_enregistrer_position_source()[0]:
@@ -303,7 +298,9 @@ class FenetrePartie(Tk):
                 [1] : Message à afficher si la cible n'est pas valide.
         """
         if self.doit_prendre == True:
-            if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
+            print("i-305 : ", self.partie.couleur_joueur_courant)
+            if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible,
+                                                         self.partie.couleur_joueur_courant):
                 return [True, ""]
 
             else:
@@ -316,6 +313,16 @@ class FenetrePartie(Tk):
             texte_messages1 = "La pièce choisie ne peut pas être déplacée vers cette case."
         return [False, texte_messages1]
 
+    def aide(self):
+        fenetre_A = Tk()
+        # self.texte_aide = Label()
+
+        # self.texte_aide['foreground'] = 'blue'
+        # self.texte_aide['text'] = 'Houba!'
+        # self.texte_aide.grid(fenetre_A)
+        # self.bouton1_C = Button(self, text='Quitter', command=self.quit)
+        # self.bouton1_C.grid(fenetre_A)
+        fenetre_A.mainloop()
 
 if __name__ == '__main__':
     # Point d'entrée principal du jeu de dame et de l'affichage du damier.

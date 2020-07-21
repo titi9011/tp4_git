@@ -114,7 +114,7 @@ class Damier:
         else:
             return False
 
-    def piece_peut_sauter_vers(self, position_piece, position_cible):
+    def piece_peut_sauter_vers(self, position_piece, position_cible, couleur_joueur):
         """Cette méthode détermine si une pièce (à la position reçue) peut sauter vers une certaine position cible.
         On parle ici d'un déplacement qui "mange" une pièce adverse.
         Une pièce doit être positionnée à la position_piece reçue en argument (retourner False autrement).
@@ -124,14 +124,19 @@ class Damier:
         Args:
             position_piece (Position): La position de la pièce source du saut.
             position_cible (Position): La position cible du saut.
+            couleur: Couleur du joueur courant.
         Returns:
             bool: True si la pièce peut sauter vers la position cible, False autrement.
         """
-        #TODO: À tester - compléter
 
         position_piece_mange = position_piece.position_mange(position_cible)
         piece_mange = self.recuperer_piece_a_position(position_piece_mange)
         # Si la position est dans le damier, s'il y a une pièce sur la case et si la position_cible est libre"            
+        if position_piece_mange != position_piece and position_piece_mange in self.cases:
+            if self.cases[position_piece_mange].couleur ==  couleur_joueur:
+                return False
+            else:
+                return True
         if self.position_est_dans_damier(position_cible) and position_piece in self.cases and not position_cible in self.cases:
             # Si une pièce adverse peut être mangée"
             if position_piece_mange in self.cases and self.recuperer_piece_a_position(position_piece) != piece_mange:
@@ -267,8 +272,6 @@ class Damier:
                 "erreur" autrement.
         """
 
-        print("d-272 - source ", self.cases)
-        print("d-273 - cible ", position_cible)
         if not (not (position_cible.ligne == 0 and self.cases[
             Position(position_source.ligne, position_source.colonne)].couleur == "blanc") and not (
                 position_cible.ligne == 7 and self.cases[
@@ -278,16 +281,12 @@ class Damier:
         if abs(position_cible.ligne - position_source.ligne) == 1:
             self.cases[position_cible] = self.cases[position_source]
             del self.cases[position_source]
-            # self.test_cases = self.cases  # temp : test
             return "ok"
         elif abs(position_cible.ligne - position_source.ligne) == 2:
 
             self.cases[position_cible] = self.cases[position_source]
-            # self.cases[position_cible].couleur = self.cases[position_source].couleur
-            # self.cases[position_cible].type_de_piece = self.cases[position_source].type_de_piece
             del self.cases[position_source]
             del self.cases[Position.position_mange(position_source, position_cible)]
-            print("d-292")
             return "prise"
         else:
             return "erreur"
@@ -338,13 +337,14 @@ if __name__ == "__main__":
     assert not un_damier.position_est_dans_damier(Position(-1, 2))
 
     # Test 3
+    assert not un_damier.piece_peut_se_deplacer_vers(Position(0, 0), Position(1, 1))
     assert un_damier.piece_peut_se_deplacer_vers(Position(2, 1), Position(3, 0))
     assert un_damier.piece_peut_se_deplacer_vers(Position(5, 0), Position(4, 1))
     assert not un_damier.piece_peut_se_deplacer_vers(Position(6, 1), Position(5, 2))
     assert not un_damier.piece_peut_se_deplacer_vers(Position(0, 7), Position(1, 6))
 
     # Test 4
-    assert not un_damier.piece_peut_sauter_vers(Position(5, 4), Position(3, 6))
+    assert not un_damier.piece_peut_sauter_vers(Position(5, 4), Position(3, 6), "blanc")
 
     # Test 5
     assert un_damier.piece_peut_se_deplacer(Position(5, 2))
@@ -364,8 +364,8 @@ if __name__ == "__main__":
     assert not un_damier.piece_de_couleur_peut_faire_une_prise("noir")
 
     # Test 9
-    # assert un_damier.deplacer(Position(5, 0), Position(4, 1))
-    # assert un_damier.deplacer(Position(2, 1), Position(3, 0))
+    print(un_damier.deplacer(Position(6, 1), Position(5, 0)))
+    assert un_damier.deplacer(Position(2, 1), Position(3, 0)) == 'ok'
 
     print('Tests unitaires passés avec succès!')
     # NOTEZ BIEN: Pour vous aider lors du développement, affichez le damier!
