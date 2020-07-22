@@ -42,12 +42,12 @@ class FenetrePartie(Tk):
         self.colonne_damier_reel = "abcdefgh"
 
         # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
-        self.bouton1_A = Button(self, text = 'Aide', command = self.aide)
+        self.bouton1_A = Button(self, text = 'Aide', command = self.aide,)
         self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
-        self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)  # Créer bouton afficher une partie sauvegardée
-        self.bouton1_A.grid()
-        self.bouton1_B.grid()
-        self.bouton1_C.grid()
+        self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
+        self.bouton1_A.grid(row=2, column=0, pady=5)
+        self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)
+        self.bouton1_C.grid(row=2, column=1, pady=5)
 
         # Initialisation des attributs
         self.doit_prendre = False
@@ -367,15 +367,19 @@ class FenetrePartie(Tk):
         self.fenetre_3 = Tk()
         self.fenetre_3.title("Pourquoi quitter?")
 
-        # texte_a = Message(self.fenetre_3)
-
-        bouton3_A = Button(self.fenetre_3, text='Quitter', command=self.quit)
-        bouton3_B = Button(self.fenetre_3, text='Quitter', command=self.quit)
-        bouton3_C = Button(self.fenetre_3, text='Quitter', command=self.quit)
+        texte_3 = Message(self.fenetre_3)
+        texte_3['text'] = "Si vous ouvrez une nouvelle partie, une partie non terminée sera accessible et " \
+                          "il sera possible de jouer deux parties à la fois!\n En annulant, vous retournez à" \
+                          " la partie déjà ouverte."
+        texte_3.grid()
+        bouton3_A = Button(self.fenetre_3, text='Quitter et sauvegarder', command=self.sauvegarde_partie)
+        bouton3_B = Button(self.fenetre_3, text='Quitter sans sauvegarder', command=self.quit)
+        bouton3_C = Button(self.fenetre_3, text='Nouvelle partie', command=self.nouvelle_partie)
+        bouton3_D = Button(self.fenetre_3, text='Annuler', command=self.fenetre_quit_annulee)
         bouton3_A.grid()
         bouton3_B.grid()
         bouton3_C.grid()
-        print(374)  # temp
+        bouton3_D.grid()
         self.fenetre_3.tkraise()
         # Boutons à activer :
             # Quitter et sauvegarder
@@ -384,10 +388,23 @@ class FenetrePartie(Tk):
             # Annuler et revenir à la partie
 
     def sauvegarde_partie(self):
-        pass
+        print("Houba hop")  # temp
+
+    def nouvelle_partie(self):
+        self.fenetre_3.withdraw()
+        fenetre = FenetrePartie()
+        fenetre.mainloop()
 
     def partie_sauvegardee(self):
         print("Houba")  # temp
+
+    def fenetre_quit_annulee(self):
+        """
+        Méthode appelée par le bouton "Annuler" de la fenêtre "Quitter".
+        Permet de fermer la fenêtre en permettant aux joueurs de retourner au jeu déjà commencé.
+        """
+        self.fenetre_3.withdraw()
+
 
 if __name__ == '__main__':
     # Point d'entrée principal du jeu de dame et de l'affichage du damier.
