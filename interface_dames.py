@@ -44,8 +44,10 @@ class FenetrePartie(Tk):
         # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
         self.bouton1_A = Button(self, text = 'Aide', command = self.aide)
         self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
+        self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvcgardee)  # Créer bouton afficher une partie sauvegardée
         self.bouton1_A.grid()
         self.bouton1_B.grid()
+        self.bouton1_C.grid()
 
         # Initialisation des attributs
         self.doit_prendre = False
@@ -328,8 +330,6 @@ class FenetrePartie(Tk):
         bouton2_A.grid()
         fenetre_A.mainloop()
 
-
-
     def quitter_damier(self):
         fenetre_B = Tk()
         # Boutons à activer :
@@ -342,6 +342,8 @@ class FenetrePartie(Tk):
     def sauvegarde_partie(self):
         pass
 
+    def partie_sauvcgardee(self):
+        print("Houba")
 
 if __name__ == '__main__':
     # Point d'entrée principal du jeu de dame et de l'affichage du damier.
