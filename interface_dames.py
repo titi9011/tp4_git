@@ -44,7 +44,7 @@ class FenetrePartie(Tk):
         # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
         self.bouton1_A = Button(self, text = 'Aide', command = self.aide)
         self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
-        self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvcgardee)  # Créer bouton afficher une partie sauvegardée
+        self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)  # Créer bouton afficher une partie sauvegardée
         self.bouton1_A.grid()
         self.bouton1_B.grid()
         self.bouton1_C.grid()
@@ -316,34 +316,78 @@ class FenetrePartie(Tk):
         return [False, texte_messages1]
 
     def aide(self):
-        fenetre_A = Tk()
-        texte_aide = Message(fenetre_A)
-        texte_aide['foreground'] = 'blue'
+        """
+        Fait apparaître une fenêtre contextuelle présentant, sous la forme d'un texte, l'aide à l'utilisation
+        du programme damier ainsi que les règlements applicables.
+        Le bouton "Quitter" permet de fermer la fenêtre et de retourner au damier.
+        """
+        self.fenetre_2 = Tk()
+        self.fenetre_2.title("Aide et règlements")
+
+        texte_aide0 = Message(self.fenetre_2)
+        texte_aide0['foreground'] = 'brown'
+        texte_aide0['text'] = "Aide"
+
+        texte_aide1 = Message(self.fenetre_2)
+        texte_aide1['foreground'] = 'blue'
+
+        texte_aide2 = Message(self.fenetre_2)
+        texte_aide2['foreground'] = 'brown'
+
+        texte_aide3 = Message(self.fenetre_2)
+        texte_aide3['foreground'] = 'blue'
+
         Extrait_aide = open("Aide_reglements.txt", 'r', encoding="utf-8")
-        texte_extrait = Extrait_aide.readlines()  # .remove('{')  # .strip('}')
-        texte_aide['text'] = texte_extrait[0]
-        for i in range(1, len(texte_extrait)):
-            texte_aide['text'] = texte_aide['text'] + texte_extrait[i]
+        texte_extrait = Extrait_aide.readlines()
+        texte_aide1['text'] = texte_extrait[0]
+        for i in range(1, 4):
+            texte_aide1['text'] = texte_aide1['text'] + texte_extrait[i]
+
+        texte_aide2['text'] = texte_extrait[4]
+        texte_aide3['text'] = texte_extrait[5]
+        for i in range(6, len(texte_extrait)):
+              texte_aide3['text'] = texte_aide3['text'] + texte_extrait[i]
         Extrait_aide.close()
-        texte_aide.grid()
-        bouton2_A = Button(fenetre_A, text='Quitter', command=fenetre_A.quit)
+        texte_aide0.grid()
+        texte_aide1.grid()
+        texte_aide2.grid()
+        texte_aide3.grid()
+        bouton2_A = Button(self.fenetre_2, text='Quitter', command=self.fenetre_aide_quit)
         bouton2_A.grid()
-        fenetre_A.mainloop()
+        self.fenetre_2.tkraise()  # mainloop()
+
+    def fenetre_aide_quit(self):
+        """
+        Méthode appelée par le bouton "Quitter" de la fenêtre "Aide et règlements".
+        Permet de fermer la fenêtre en permettant aux joueurs de retourner au jeu déjà commencé.
+        """
+        self.fenetre_2.withdraw()
 
     def quitter_damier(self):
-        fenetre_B = Tk()
+        self.fenetre_3 = Tk()
+        self.fenetre_3.title("Pourquoi quitter?")
+
+        # texte_a = Message(self.fenetre_3)
+
+        bouton3_A = Button(self.fenetre_3, text='Quitter', command=self.quit)
+        bouton3_B = Button(self.fenetre_3, text='Quitter', command=self.quit)
+        bouton3_C = Button(self.fenetre_3, text='Quitter', command=self.quit)
+        bouton3_A.grid()
+        bouton3_B.grid()
+        bouton3_C.grid()
+        print(374)  # temp
+        self.fenetre_3.tkraise()
         # Boutons à activer :
             # Quitter et sauvegarder
             # Quitter sans sauvegarder
             # Nouvelle partie
             # Annuler et revenir à la partie
-        fenetre_B.mainloop()
 
     def sauvegarde_partie(self):
         pass
 
-    def partie_sauvcgardee(self):
-        print("Houba")
+    def partie_sauvegardee(self):
+        print("Houba")  # temp
 
 if __name__ == '__main__':
     # Point d'entrée principal du jeu de dame et de l'affichage du damier.
