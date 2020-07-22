@@ -91,7 +91,7 @@ class Position:
         return Position(x, y)
     
     def cases_promotion(self):
-        if self.ligne == 0 or self.ligne == 8:
+        if self.ligne == 0 or self.ligne == 7:
             return True
         else:
             return False
@@ -99,7 +99,6 @@ class Position:
     def __eq__(self, other):
         """Méthode spéciale indiquant à Python comment vérifier si deux positions sont égales. On compare simplement
         la ligne et la colonne de l'objet actuel et de l'autre objet.
-
         """
         return self.ligne == other.ligne and self.colonne == other.colonne
 

@@ -1,2 +1,2 @@
-x = '10', 6
-print(x[1])
+if True and False or True and True:
+    print('C')

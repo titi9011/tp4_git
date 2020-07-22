@@ -93,12 +93,16 @@ class Engine():
             # Si la position est dans le damier, s'il y a une pièce sur la case et si la position_cible est libre"            
             if Damier().position_est_dans_damier(position_cible) and position_piece in dic and not position_cible in dic:
                 # Si la piece est adverse
-                if position_piece_mange in dic and str(dic[position_piece]) != str(piece_mange):
+                if dic[position_piece].est_noire() and piece_mange.est_blanche():
+                    return True
+                elif dic[position_piece].est_blanche() and piece_mange.est_noire():
                     return True
                 else:
                     return False
             else:
                 return False
+        else:
+            return False
 
     def dic_blanc(self, dic):
         """Permet de filtrer seulement les pièces blanches d'un dictionnaire.
@@ -346,7 +350,9 @@ class Engine():
         score_max = 0
         position_choisit = None
         list_dic, point = self.iteration_dic_blanc(dic)
+        print(list_dic)
         for dictionnaire in list_dic:
+            print(dictionnaire)
             deuxieme_list_dic, deuxieme_point = self.iteration_dic_noir(dictionnaire)
             for deuxieme_dictionnaire in deuxieme_list_dic:
                 troisieme_list_dic, troisieme_point = self.iteration_dic_blanc(deuxieme_dictionnaire)
@@ -365,10 +371,12 @@ if __name__ == "__main__":
     dic = FenetrePartie().partie.damier.cases
     Engine().print_damier(dic)
 
-    for i in range(10):
+    for i in range(3):
         dic = Engine().avance(dic)
+        print('coup noir')
         Engine().print_damier(dic)
-        dic = Engine().debutant_blanc(dic)
+        dic = Engine().avance_blanc(dic)
+        print('coup blanc')
         Engine().print_damier(dic)
 
 
