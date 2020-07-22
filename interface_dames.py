@@ -43,7 +43,7 @@ class FenetrePartie(Tk):
 
         # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
         self.bouton1_A = Button(self, text = 'Aide', command = self.aide)
-        self.bouton1_B = Button(self, text = 'Quitter', command = self.quit)
+        self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
         self.bouton1_A.grid()
         self.bouton1_B.grid()
 
@@ -317,7 +317,7 @@ class FenetrePartie(Tk):
         fenetre_A = Tk()
         texte_aide = Message(fenetre_A)
         texte_aide['foreground'] = 'blue'
-        Extrait_aide = open("Aide_reglements.txt", 'r')
+        Extrait_aide = open("Aide_reglements.txt", 'r', encoding="utf-8")
         texte_extrait = Extrait_aide.readlines()  # .remove('{')  # .strip('}')
         texte_aide['text'] = texte_extrait[0]
         for i in range(1, len(texte_extrait)):
@@ -327,6 +327,17 @@ class FenetrePartie(Tk):
         bouton2_A = Button(fenetre_A, text='Quitter', command=fenetre_A.quit)
         bouton2_A.grid()
         fenetre_A.mainloop()
+
+
+
+    def quitter_damier(self):
+        fenetre_B = Tk()
+        # Boutons à activer :
+            # Quitter et sauvegarder
+            # Quitter sans sauvegarder
+            # Nouvelle partie
+            # Annuler et revenir à la partie
+        fenetre_B.mainloop()
 
     def sauvegarde_partie(self):
         pass
