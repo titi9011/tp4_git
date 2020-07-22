@@ -307,6 +307,15 @@ class Engine():
         return dic_choisit
     
     def avance(self, dic):
+        """Détermine quatre coups à l'avance le nombre de point de points des noirs.
+            La méthode choisit le coup qui maximise les points des noirs.
+
+        Args:
+            dic (dict): Dictionnaire des positions.
+
+        Returns:
+            (dict): Le coup choisit par le programme.
+        """
         score_max = 0
         position_choisit = None
         list_dic, point = self.iteration_dic_noir(dic)
@@ -325,6 +334,15 @@ class Engine():
         return position_choisit
     
     def avance_blanc(self, dic):
+        """Détermine quatre coups à l'avance le nombre de point de points des blanc.
+            La méthode choisit le coup qui maximise les points des blancs.
+
+        Args:
+            dic (dict): Dictionnaire des positions.
+            
+        Returns:
+            (dict): Le coup choisit par le programme.
+        """
         score_max = 0
         position_choisit = None
         list_dic, point = self.iteration_dic_blanc(dic)
