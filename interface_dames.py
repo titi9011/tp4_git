@@ -315,13 +315,22 @@ class FenetrePartie(Tk):
 
     def aide(self):
         fenetre_A = Tk()
-        texte_aide = Label(fenetre_A)
+        texte_aide = Message(fenetre_A)
         texte_aide['foreground'] = 'blue'
-        texte_aide['text'] = 'Houba!'
+        Extrait_aide = open("Aide_reglements.txt", 'r')
+        texte_extrait = Extrait_aide.readlines()  # .remove('{')  # .strip('}')
+        texte_aide['text'] = texte_extrait[0]
+        for i in range(1, len(texte_extrait)):
+            texte_aide['text'] = texte_aide['text'] + texte_extrait[i]
+        Extrait_aide.close()
         texte_aide.grid()
-        bouton2_A = Button(fenetre_A, text='Quitter', command=self.quit)
+        bouton2_A = Button(fenetre_A, text='Quitter', command=fenetre_A.quit)
         bouton2_A.grid()
         fenetre_A.mainloop()
+
+    def sauvegarde_partie(self):
+        pass
+
 
 if __name__ == '__main__':
     # Point d'entrée principal du jeu de dame et de l'affichage du damier.
