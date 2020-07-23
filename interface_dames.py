@@ -331,11 +331,11 @@ class FenetrePartie(Tk):
         bouton3_C.grid(row=5, column=0, sticky=W)
         bouton3_D.grid(row=5, column=0, sticky=E)
         self.fenetre_3.tkraise()
-        # Boutons à activer :
-            # Quitter et sauvegarder
-            # Quitter sans sauvegarder
-            # Nouvelle partie
-            # Annuler et revenir à la partie
+        # Boutons activés :
+            # A. Quitter et sauvegarder
+            # B. Quitter sans sauvegarder
+            # C. Nouvelle partie
+            # D. Annuler et revenir à la partie
 
     def sauvegarde_partie(self):
         """
