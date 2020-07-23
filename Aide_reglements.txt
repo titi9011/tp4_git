@@ -1,5 +1,7 @@
+Aide
 1. La pièce devant être déplacée est identifiée par un clic gauche de la souris.
 2. Il est possible de modifier le choix de la pièce avant de choisir une cible ou si la cible choisie n'est pas valide.
+3. Lorsque la cible ne sera pas autorisée, la position source devra être confirmée à nouveau.
 
 Règlements
 Déplacement des pièces :
@@ -13,8 +15,7 @@ Prise des pièces de l'adversaire :
 1. Un pion ou une dame prennent un pion adverse en sautant par dessus vers la case vide située derrière celui-ci.
 2. Le pion adverse sera enlevé du damier.
 3. La prise peut également s'effectuer en arrière.
-4. Si, après avoir pris un premier pion, il est possible de prendre à nouveau en position de prise, il est obligatoire
-    de continuer.
+4. Si, après avoir pris un premier pion, il est possible de prendre à nouveau en position de prise, il est obligatoire de continuer.
 5. La prise est obligatoire.
 
 Fin de partie :
