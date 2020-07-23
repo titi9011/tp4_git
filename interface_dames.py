@@ -397,14 +397,29 @@ class FenetrePartie(Tk):
             # Annuler et revenir à la partie
 
     def sauvegarde_partie(self):
+        """
+        Méthode appelée par le bouton "Quitter et sauvegarder" de la fenêtre "Quitter".
+        Permet de sauvegarder la partie au point où elle était rendue.
+        """
+        #TODO À compléter
         print("Houba hop")  # temp
 
     def nouvelle_partie(self):
+        """
+        Méthode appelée par le bouton "Nouvelle partie" de la fenêtre "Quitter".
+        Ouvre une autre fenêtre de jeu sans fermer le damier déjà commencé,
+        permettant aux joueurs de jouer plusieurs parties simultanées.
+        """
         self.fenetre_3.withdraw()
         fenetre = FenetrePartie()
         fenetre.mainloop()
 
     def partie_sauvegardee(self):
+        #TODO À compléter
+        """
+        Méthode appelée par le bouton "Partie sauvegardée" de la fenêtre principale.
+        Permet d'ouvrir une partie non complétée au point où elle avait été arrêtée.
+        """
         print("Houba")  # temp
 
     def fenetre_quit_annulee(self):
