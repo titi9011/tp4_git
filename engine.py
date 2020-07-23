@@ -297,19 +297,21 @@ def avance(dic):
     score_max = 0
     position_choisit = None
     list_dic, point = iteration_dic_noir(dic)
-    list_dic2 = deepcopy(list_dic)
-    for dictionnaire in range(len(list_dic)):
-        deuxieme_list_dic, deuxieme_point = iteration_dic_blanc(list_dic[dictionnaire])
-        for deuxieme_dictionnaire in deuxieme_list_dic:
+    for dictionnaire in list_dic:
+        deuxieme_list_dic, deuxieme_point = iteration_dic_blanc(dictionnaire)
+        deuxieme_list_dic2 = deepcopy(deuxieme_list_dic)
+        for deuxieme_dictionnaire in deuxieme_list_dic2:
             troisieme_list_dic, troisieme_point = iteration_dic_noir(deuxieme_dictionnaire)
-            for troisieme_dictionnaire in troisieme_list_dic:
+            troisieme_list_dic2 = deepcopy(troisieme_list_dic)
+            for troisieme_dictionnaire in troisieme_list_dic2:
                 quatrieme_list_dic, quatrieme_point = iteration_dic_blanc(troisieme_dictionnaire)
-                for quatrieme_dicionnaire in quatrieme_list_dic:
+                quatrieme_list_dic2 = deepcopy(quatrieme_list_dic)
+                for quatrieme_dicionnaire in quatrieme_list_dic2:
                     cinquieme_list_dic, cinquieme_point = iteration_dic_noir(quatrieme_dicionnaire)
                     score = point - deuxieme_point + troisieme_point - quatrieme_point + cinquieme_point
                     if score > score_max:
                         score_max = score
-                        position_choisit = list_dic2[dictionnaire]
+                        position_choisit = dictionnaire
     return position_choisit
   
 def avance_blanc(dic):
@@ -324,19 +326,21 @@ def avance_blanc(dic):
     score_max = 0
     position_choisit = None
     list_dic, point = iteration_dic_blanc(dic)
-    list_dic2 = deepcopy(list_dic)
-    for dictionnaire in range(len(list_dic)):
-        deuxieme_list_dic, deuxieme_point = iteration_dic_noir(list_dic[dictionnaire])
-        for deuxieme_dictionnaire in deuxieme_list_dic:
+    for dictionnaire in list_dic:
+        deuxieme_list_dic, deuxieme_point = iteration_dic_noir(dictionnaire)
+        deuxieme_list_dic2 = deepcopy(deuxieme_list_dic)
+        for deuxieme_dictionnaire in deuxieme_list_dic2:
             troisieme_list_dic, troisieme_point = iteration_dic_blanc(deuxieme_dictionnaire)
-            for troisieme_dictionnaire in troisieme_list_dic:
+            troisieme_list_dic2 = deepcopy(troisieme_list_dic)
+            for troisieme_dictionnaire in troisieme_list_dic2:
                 quatrieme_list_dic, quatrieme_point = iteration_dic_noir(troisieme_dictionnaire)
-                for quatrieme_dicionnaire in quatrieme_list_dic:
-                    cinquieme_list_dic, cinquieme_point = iteration_dic_blanc(quatrieme_dicionnaire)
+                quatrieme_list_dic2 = deepcopy(quatrieme_list_dic)
+                for quatrieme_dicionnaire2 in quatrieme_list_dic2:
+                    cinquieme_list_dic, cinquieme_point = iteration_dic_blanc(quatrieme_dicionnaire2)
                     score = point - deuxieme_point + troisieme_point - quatrieme_point + cinquieme_point
                     if score > score_max:
                         score_max = score
-                        position_choisit = list_dic2[dictionnaire]
+                        position_choisit = dictionnaire
                          
     return position_choisit
     
@@ -345,10 +349,10 @@ if __name__ == "__main__":
     dic = FenetrePartie().partie.damier.cases
     print_damier(dic)
 
-    for i in range(10):
+    for i in range(1000):
         dic = avance(dic)
         print('coup noir')
         print_damier(dic)
-        dic = debutant_blanc(dic)
+        dic = avance_blanc(dic)
         print('coup blanc')
         print_damier(dic)
