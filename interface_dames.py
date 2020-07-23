@@ -46,8 +46,8 @@ class FenetrePartie(Tk):
         self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
         self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
         self.bouton1_A.grid(row=2, column=0, pady=5)
-        self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)
-        self.bouton1_C.grid(row=2, column=1, pady=5)
+        self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)  # , sticky=E)
+        self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
 
         # Initialisation des attributs
         self.doit_prendre = False
@@ -300,7 +300,6 @@ class FenetrePartie(Tk):
                 [1] : Message à afficher si la cible n'est pas valide.
         """
         if self.doit_prendre == True:
-            print("i-305 : ", self.partie.couleur_joueur_courant)
             if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible,
                                                          self.partie.couleur_joueur_courant):
                 return [True, ""]
@@ -403,6 +402,9 @@ class FenetrePartie(Tk):
         """
         #TODO À compléter
         print("Houba hop")  # temp
+        print(self.partie.couleur_joueur_courant)
+        print(self.partie.damier.cases)
+
 
     def nouvelle_partie(self):
         """

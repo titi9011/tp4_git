@@ -64,8 +64,8 @@ class Partie:
                 if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
                     return [True, ""]
                 else:
-                    return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Veuillez "
-                                   "choisir une autre pièce."]
+                    return [False, "Le pion sur la case n'est pas de la couleur qui vous a été attribuée. Choisissez"
+                                   " une autre pièce."]
             elif self.damier.piece_peut_faire_une_prise(position_source):
                 return [True, ""]
             else:
