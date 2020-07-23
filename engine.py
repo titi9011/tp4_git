@@ -20,7 +20,7 @@ def print_damier(dic):
     return Damier().print_damier(dic)
     
 def print_dic_list(list_dic):
-    """Afficher une list de damier.
+    """Afficher une liste de damiers.
      Args:
         list_dic (list): Liste de plusieurs dictionnaires.
      Returns:
@@ -125,13 +125,13 @@ def dic_noir(dic):
 #détermine les cases qu'une pièce peut jouer
 #retourne la nouvelle position et la piece à supprimer
 def cases_jouable(position_source, dic):
-    """Détermine les déplacements classiques possiblent.
+    """Détermine les déplacements classiques possibles.
      Args:
         position_source (dict): Clef et valeur d'une pièce.
         dic (dict): Dictionnaire des positions.
      Returns: 
         (list): Une liste de dictionnaire représentant les 
-        positions obtenablent en déplacant la pièce en queston.
+        positions possibles en déplacant la pièce en question.
     """
     #list des déplacement possible (dict)
     list_dic = []
@@ -153,13 +153,13 @@ def cases_jouable(position_source, dic):
                 list_dic.append(nouveau_dic)
     return list_dic
 def cases_jouable_saut(position_source, dic):
-    """Détermine les sauts possiblent.
+    """Détermine les sauts possibles.
     Args:
         position_source (dict): Clef et valeur d'une pièce.
         dic (dict): Dictionnaire des positions.
     Returns: 
-        (list): Une liste de dictionnaire représentant 
-        les positions obtenablent en déplaçant la pièce en queston.
+        (list): Une liste de dictionnaires représentant
+        les positions possibles en déplaçant la pièce en question.
     """
     #list des déplacement possible (dict)
     list_dic = []
@@ -187,33 +187,33 @@ def cases_jouable_saut(position_source, dic):
     return list_dic
 
 def dic_une_piece(position_source, dic):
-    """Détermine les déplacements et les sauts possiblent.
+    """Détermine les déplacements et les sauts possibles.
     Args:
         position_source (dict): Clef et valeur d'une pièce.
         dic (dict): Dictionnaire des positions.
     Returns:
-        (list), (bool): La liste des coups possiblent, True si les coups
+        (list), (bool): La liste des coups possibles, True si les coups
             sont des sauts et False s'ils sont des déplacements classiques.
     """
     list_dic = []
-    #ajout des sauts
+    # Ajout des sauts
     dic_saut = cases_jouable_saut(position_source, dic)
     if dic_saut != []:
         list_dic += dic_saut
         return list_dic, True
     else:
-        #ajout des positions classique
+        # Ajout des positions classique
         dic_classique = cases_jouable(position_source, dic)
         list_dic += dic_classique
         return list_dic, False
 
 def iteration_dic_noir(dic):
-    """Détermine l'assemble des coups possibles pour les noirs.
+    """Détermine l'ensemble des coups possibles pour les noirs.
     Args:
-        dic (dict): Distionnaire des positions.
+        dic (dict): Dictionnaire des positions.
     Returns:
-        (list), (int): Liste des coups possiblent pour le joueur noirs,
-            Point attribué à un saut.
+        (list), (int): Liste des coups possibles pour le joueur noir,
+                       Point attribué à un saut.
     """
     dictionnaire_noir = dic_noir(dic)
     list_dic_saut = []
@@ -287,12 +287,12 @@ def debutant_blanc(dic):
     return dic_choisit
   
 def avance(dic):
-    """Détermine quatre coups à l'avance le nombre de point de points des noirs.
+    """Détermine quatre coups à l'avance le nombre de points des noirs.
         La méthode choisit le coup qui maximise les points des noirs.
     Args:
         dic (dict): Dictionnaire des positions.
     Returns:
-        (dict): Le coup choisit par le programme.
+        (dict): Le coup choisi par le programme.
     """
     score_max = 0
     position_choisit = None
@@ -318,13 +318,13 @@ def avance(dic):
     return position_choisit
   
 def avance_blanc(dic):
-    """Détermine quatre coups à l'avance le nombre de point de points des blancs.
+    """Détermine quatre coups à l'avance le nombre de points des blancs.
         La méthode choisit le coup qui maximise les points des blancs.
     Args:
         dic (dict): Dictionnaire des positions.
           
     Returns:
-        (dict): Le coup choisit par le programme.
+        (dict): Le coup choisi par le programme.
     """
     score_max = 0
     position_choisit = None

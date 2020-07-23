@@ -343,23 +343,33 @@ class FenetrePartie(Tk):
         Permet de sauvegarder la partie au point où elle était rendue.
         """
         #TODO À compléter
-        print("Houba hop")  # temp
         self.fenetre_4 = Tk()
-        self.fenetre_4.geometry("460x230")  # Ajuster
+        self.fenetre_4.geometry("460x130")  # Ajuster
         self.fenetre_4.title("Fichier de sauvegarde")
         print(self.partie.couleur_joueur_courant)
         print(self.partie.damier.cases)
         nom_fichier_sauvegarde = "Houbahop"  # Compléter
         texte_4_A = Label(self.fenetre_4)
         texte_4_B = Label(self.fenetre_4)
+        texte_4_C = Label(self.fenetre_4)
         texte_4_A['foreground'] = 'blue'
         texte_4_B['foreground'] = 'green'
+        texte_4_C['foreground'] = 'blue'
         texte_4_A['text'] = "La partie que vous quittez a été sauvegardée dans le fichier "
-        texte_4_B['text'] = nom_fichier_sauvegarde + "!"
+        texte_4_B['text'] = nom_fichier_sauvegarde  # + "!"
+        texte_4_C['text'] = "!"
         texte_4_A.grid(row=0, column=0)
         texte_4_B.grid(row=0, column=1)
+        texte_4_C.grid(row=0, column=2)
+        bouton4_A = Button(self.fenetre_4, text='Quitter le jeu', command=self.quit)
+        bouton4_B = Button(self.fenetre_4, text='Retour au jeu', command=self.retour_jeu)
+        bouton4_A.grid(row=2, column=0, sticky=SW)
+        bouton4_B.grid(row=2, column=0, sticky=SE)
         self.fenetre_4.tkraise()
 
+    def retour_jeu(self):
+        self.fenetre_3.withdraw()
+        self.fenetre_4.withdraw()
 
     def nouvelle_partie(self):
         """
