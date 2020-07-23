@@ -1,3 +1,4 @@
+Aide
 1. La pièce devant être déplacée est identifiée par un clic gauche de la souris.
 2. Il est possible de modifier le choix de la pièce avant de choisir une cible ou si la cible choisie n'est pas valide.
 3. Lorsque la cible ne sera pas autorisée, la position source devra être confirmée à nouveau.

@@ -326,9 +326,8 @@ class FenetrePartie(Tk):
 
         texte_aide0 = Message(self.fenetre_2)
         texte_aide0['foreground'] = 'brown'
-        texte_aide0['text'] = "Aide"
 
-        texte_aide1 = Message(self.fenetre_2)
+        texte_aide1 = Message(self.fenetre_2, width=492)
         texte_aide1['foreground'] = 'blue'
 
         texte_aide2 = Message(self.fenetre_2)
@@ -339,19 +338,20 @@ class FenetrePartie(Tk):
 
         Extrait_aide = open("Aide_reglements.txt", 'r', encoding="utf-8")
         texte_extrait = Extrait_aide.readlines()
-        texte_aide1['text'] = texte_extrait[0]
-        for i in range(1, 4):
+        texte_aide0['text'] = texte_extrait[0]
+        texte_aide1['text'] = texte_extrait[1]
+        for i in range(2, 5):
             texte_aide1['text'] = texte_aide1['text'] + texte_extrait[i]
 
-        texte_aide2['text'] = texte_extrait[4]
-        texte_aide3['text'] = texte_extrait[5]
-        for i in range(6, len(texte_extrait)):
+        texte_aide2['text'] = texte_extrait[5]
+        texte_aide3['text'] = texte_extrait[6]
+        for i in range(7, len(texte_extrait)):
               texte_aide3['text'] = texte_aide3['text'] + texte_extrait[i]
         Extrait_aide.close()
         texte_aide0.grid()
-        texte_aide1.grid()
+        texte_aide1.grid(sticky=W)
         texte_aide2.grid()
-        texte_aide3.grid()
+        texte_aide3.grid(sticky=W)
         bouton2_A = Button(self.fenetre_2, text='Quitter', command=self.fenetre_aide_quit)
         bouton2_A.grid()
         self.fenetre_2.tkraise()  # mainloop()
@@ -365,7 +365,7 @@ class FenetrePartie(Tk):
 
     def quitter_damier(self):
         self.fenetre_3 = Tk()
-        self.fenetre_3.geometry("500x400")
+        self.fenetre_3.geometry("460x230")
         self.fenetre_3.title("Pourquoi quitter?")
 
         # texte_3_A = Message(self.fenetre_3)
@@ -373,22 +373,22 @@ class FenetrePartie(Tk):
         texte_3_B = Label(self.fenetre_3)
         texte_3_C = Label(self.fenetre_3)
         texte_3_D = Label(self.fenetre_3)
-        texte_3_A['text'] = "Si vous ouvrez une nouvelle partie, la partie non terminée que vous venez de quitter"
+        texte_3_A['text'] = "1- Si vous ouvrez une nouvelle partie, la partie non terminée que vous venez de quitter"
         texte_3_B['text'] = "sera encore accessible et il sera possible de jouer deux parties à la fois!\n "
-        texte_3_C['text'] = "En annulant, vous retournez à la partie déjà ouverte.\n "
-        texte_3_D['text'] = "Si vous quittez sans sauvegarder, toutes les parties seront fermées."
+        texte_3_C['text'] = "2- En annulant, vous retournez à la partie déjà ouverte.\n "
+        texte_3_D['text'] = "3- Si vous quittez sans sauvegarder, toutes les parties seront fermées."
         texte_3_A.grid(sticky=W)
         texte_3_B.grid(sticky=W)
-        texte_3_C.grid()
-        texte_3_D.grid()
+        texte_3_C.grid(sticky=W)
+        texte_3_D.grid(sticky=W)
         bouton3_A = Button(self.fenetre_3, text='Quitter et sauvegarder', command=self.sauvegarde_partie)
         bouton3_B = Button(self.fenetre_3, text='Quitter sans sauvegarder', command=self.quit)
         bouton3_C = Button(self.fenetre_3, text='Nouvelle partie', command=self.nouvelle_partie)
         bouton3_D = Button(self.fenetre_3, text='Annuler', command=self.fenetre_quit_annulee)
         bouton3_A.grid(row=4, column=0, pady=10, sticky=W)
-        bouton3_B.grid(row=4, column=1, pady=10, sticky=W)
+        bouton3_B.grid(row=4, column=0, pady=10, sticky=E)
         bouton3_C.grid(row=5, column=0, sticky=W)
-        bouton3_D.grid(row=5, column=1)
+        bouton3_D.grid(row=5, column=0, sticky=E)
         self.fenetre_3.tkraise()
         # Boutons à activer :
             # Quitter et sauvegarder
