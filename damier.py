@@ -128,7 +128,6 @@ class Damier:
         Returns:
             bool: True si la pièce peut sauter vers la position cible, False autrement.
         """
-
         position_piece_mange = position_piece.position_mange(position_cible)
         piece_mange = self.recuperer_piece_a_position(position_piece_mange)
         # Si la position est dans le damier, s'il y a une pièce sur la case et si la position_cible est libre"            

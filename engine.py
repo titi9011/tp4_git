@@ -348,7 +348,7 @@ def avance_blanc(dic):
         numero_dic_choisit = randrange(len(list_dic))
         position_choisit = list_dic[numero_dic_choisit]
     return position_choisit
-    
+
 
 if __name__ == "__main__":
     dic = FenetrePartie().partie.damier.cases
