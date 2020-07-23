@@ -312,6 +312,9 @@ def avance(dic):
                     if score > score_max:
                         score_max = score
                         position_choisit = dictionnaire
+    if position_choisit == None:
+        numero_dic_choisit = randrange(len(list_dic))
+        position_choisit = list_dic[numero_dic_choisit]
     return position_choisit
   
 def avance_blanc(dic):
@@ -341,7 +344,9 @@ def avance_blanc(dic):
                     if score > score_max:
                         score_max = score
                         position_choisit = dictionnaire
-                         
+    if position_choisit == None:
+        numero_dic_choisit = randrange(len(list_dic))
+        position_choisit = list_dic[numero_dic_choisit]
     return position_choisit
     
 
