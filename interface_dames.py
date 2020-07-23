@@ -368,6 +368,11 @@ class FenetrePartie(Tk):
         self.fenetre_4.tkraise()
 
     def retour_jeu(self):
+        """
+        Méthode appelée par le bouton "Retour au jeu" de la fenêtre "Quitter et sauvegarder".
+        Ferme la fenêtre confirmant le nom du fichier de sauvegarde sans fermer ni le damier déjà commencé
+        ni la fenêtre contextuelle, permettant aux joueurs de retourner à la partie en cours.
+        """
         self.fenetre_3.withdraw()
         self.fenetre_4.withdraw()
 
