@@ -49,8 +49,24 @@ class Damier:
             Position(0, 7): Piece("noir", "pion"),
         }
 
-    def modifier_dic(self, dic):
-        self.cases = dic
+    def str_piece(self, piece):
+        if str(piece) == 'x':
+            return 'Piece("noir", "pion")'
+        if str(piece) == 'X':
+            return 'Piece("noir", "dame")'
+        if str(piece) == 'o':
+            return 'Piece("blanc", "pion")'
+        if str(piece) == 'O':
+            return 'Piece("blanc", "blanc")'
+
+    def str_position(self, position):
+        return 'Position' + str(position)
+
+    def str_dic(self, dic):
+        new_dic = {}
+        for position, piece in dic.items():
+            new_dic[str_position(position)] = str_piece(piece)
+        return str(new_dic)
 
     def recuperer_piece_a_position(self, position):
         """Récupère une pièce dans le damier à partir d'une position.
