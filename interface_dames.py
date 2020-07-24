@@ -30,7 +30,15 @@ class FenetrePartie(Tk):
         self.partie = Partie()
 
         # Création du canvas damier.
-        self.canvas_damier = CanvasDamier(self, self.partie.damier, 60)
+        try:
+            if self.activation_partie_sauvegardee == 1:
+                damier_affiche = self.partie.damier_1
+                print("i-36")
+                del self.activation_partie_sauvegardee
+        except:
+            damier_affiche = self.partie.damier.dic
+
+        self.canvas_damier = CanvasDamier(self, damier_affiche, 60)
         self.canvas_damier.grid(sticky=NSEW)
         self.canvas_damier.bind('<Button-1>', self.selectionner)
         # self.canvas_damier.bind('<B1-Button_release>', self.enregistrer_position_cible)
@@ -347,7 +355,7 @@ class FenetrePartie(Tk):
         self.fenetre_4.geometry("500x130")
         self.fenetre_4.title("Fichier de sauvegarde")
         # Sauvegarde de plusieurs parties à la même date
-        # Le nom des fichiers indique la date de la sauvegarde
+        # Le nom des fichiers contient la date de la sauvegarde
         n_fich = 1
         while os.path.isfile("Sauvegarde-" + str(date.today()) + "(" + str(n_fich) + ").txt"):
             n_fich += 1
@@ -379,15 +387,6 @@ class FenetrePartie(Tk):
         bouton4_B.grid(row=2, column=0, sticky=SE)
         self.fenetre_4.tkraise()
 
-    def retour_jeu(self):
-        """
-        Méthode appelée par le bouton "Retour au jeu" de la fenêtre "Quitter et sauvegarder".
-        Ferme la fenêtre confirmant le nom du fichier de sauvegarde sans fermer ni le damier déjà commencé
-        ni la fenêtre contextuelle, permettant aux joueurs de retourner à la partie en cours.
-        """
-        self.fenetre_3.withdraw()
-        self.fenetre_4.withdraw()
-
     def nouvelle_partie(self):
         """
         Méthode appelée par le bouton "Nouvelle partie" de la fenêtre "Quitter".
@@ -409,23 +408,41 @@ class FenetrePartie(Tk):
         self.fenetre_5.title("Fichiers sauvegardés")
 
         texte_5_A = Label(self.fenetre_5)
+        bouton5_A = Button(self.fenetre_5, text='Annuler', command=self.ouverture_fich_annulee)
 
-
-        liste_fich = Listbox(self.fenetre_5)
+        self.liste_fich = Listbox(self.fenetre_5, width=27, selectmode=SINGLE)
         fich_insere = 0
         for nom_fich in os.listdir():
             if nom_fich[0:10] == "Sauvegarde":
-                liste_fich.insert(END, nom_fich)
+                self.liste_fich.insert(END, nom_fich)
                 fich_insere +=1
         if fich_insere != 0:
-            texte_5_A['foreground'] = 'red'
-            texte_5_A['text'] = "Liste des fichiers de sauvegarde dans le répertoire du projet :"
-        else:
             texte_5_A['foreground'] = 'purple'
+            texte_5_A['text'] = "Liste des fichiers de sauvegarde dans le répertoire du projet :"
+            self.liste_fich.grid(row=2, column=0)
+            self.liste_fich.bind('<Double-Button-1>', lambda event : self.ouvrir_sauvegarde())
+
+        else:
+            texte_5_A['foreground'] = 'red'
             texte_5_A['text'] = "Il n'y a pas de fichiers de sauvegarde dans le répertoire du projet."
         texte_5_A.grid(row=0, column=0)  # Ajuster
-
+        bouton5_A.grid(row=2, column=1, sticky=N)
         self.fenetre_5.tkraise()
+
+    def ouvrir_sauvegarde(self):
+        self.index_fich_select = self.liste_fich.curselection()[0]
+
+        nom_fichier = open(self.liste_fich.get(self.index_fich_select), "r")
+        self.partie.couleur_joueur_courant = nom_fichier.readline()
+        self.partie.damier_1 = nom_fichier.readline()
+        print("Couleur : ", self.partie.couleur_joueur_courant)
+        print("Damier : ",  self.partie.damier_1)
+        nom_fichier.close()
+
+        self.fenetre_5.withdraw()
+        self.activation_partie_sauvegardee = 1
+        fenetre = FenetrePartie()
+        fenetre.mainloop()
 
     def fenetre_quit_annulee(self):
         """
@@ -434,6 +451,21 @@ class FenetrePartie(Tk):
         """
         self.fenetre_3.withdraw()
 
+    def retour_jeu(self):
+        """
+        Méthode appelée par le bouton "Retour au jeu" de la fenêtre "Quitter et sauvegarder".
+        Ferme la fenêtre confirmant le nom du fichier de sauvegarde sans fermer ni le damier déjà commencé
+        ni la fenêtre contextuelle, permettant aux joueurs de retourner à la partie en cours.
+        """
+        self.fenetre_3.withdraw()
+        self.fenetre_4.withdraw()
+
+    def ouverture_fich_annulee(self):
+        """
+        Méthode appelée par le bouton "Annuler" de la fenêtre "Quitter".
+        Permet de fermer la fenêtre en permettant aux joueurs de retourner au jeu déjà commencé.
+        """
+        self.fenetre_5.withdraw()
 
 if __name__ == '__main__':
     # Point d'entrée principal du jeu de dame et de l'affichage du damier.

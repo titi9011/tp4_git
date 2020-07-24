@@ -20,7 +20,8 @@ class Damier:
         """
         self.n_lignes = 8
         self.n_colonnes = 8
-
+        #if self.partie.activation_partie_sauvegardee != None:
+        print("Damier Houba d-24")
         self.cases = {
             Position(7, 0): Piece("blanc", "pion"),
             Position(7, 2): Piece("blanc", "pion"),
