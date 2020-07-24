@@ -6,6 +6,7 @@ from partie import Partie
 from position import Position
 from datetime import date
 import os
+from ast import literal_eval
 
 class FenetrePartie(Tk):
     """Interface graphique de la partie de dames.
@@ -30,15 +31,17 @@ class FenetrePartie(Tk):
         self.partie = Partie()
 
         # Création du canvas damier.
-        #try:
-         #   if self.activation_partie_sauvegardee == 1:
-          #      damier_affiche = partie.damier_1
-           #     print("i-36")
-            #    del self.activation_partie_sauvegardee
-        #except:
-        damier_affiche = self.partie.damier  # .dic
-
-        self.canvas_damier = CanvasDamier(self, damier_affiche, 60)
+        try:
+            print(self.activation_partie_sauvegardee)
+            if self.activation_partie_sauvegardee == 1:
+                damier_actuel = self.damier_ouvert
+                print("i-37")
+        except:
+            damier_actuel = self.partie.damier
+            print("i-40")
+            # print("41", self.damier_ouvert)
+           # print(self.activation_partie_sauvegardee)
+        self.canvas_damier = CanvasDamier(self, damier_actuel, 60)
         self.canvas_damier.grid(sticky=NSEW)
         self.canvas_damier.bind('<Button-1>', self.selectionner)
         # self.canvas_damier.bind('<B1-Button_release>', self.enregistrer_position_cible)
@@ -364,7 +367,7 @@ class FenetrePartie(Tk):
         fichier_partie = open(nom_fichier_sauvegarde, "w")
         fichier_partie.write(str(self.partie.couleur_joueur_courant))
         fichier_partie.write("\n")
-        fichier_partie.write(str(self.partie.damier.cases))
+        fichier_partie.write(self.partie.damier.str_dic(self.partie.damier.cases))
         fichier_partie.close()
 
         texte_4_A = Label(self.fenetre_4)
@@ -404,13 +407,13 @@ class FenetrePartie(Tk):
         Permet d'ouvrir une partie non complétée au point où elle avait été arrêtée.
         """
         self.fenetre_5 = Tk()
-        self.fenetre_5.geometry("500x130")  # Ajuster
+        self.fenetre_5.geometry("400x230")  # Ajuster
         self.fenetre_5.title("Fichiers sauvegardés")
 
         texte_5_A = Label(self.fenetre_5)
         bouton5_A = Button(self.fenetre_5, text='Annuler', command=self.ouverture_fich_annulee)
 
-        self.liste_fich = Listbox(self.fenetre_5, width=27, selectmode=SINGLE)
+        self.liste_fich = Listbox(self.fenetre_5, width=27, height=10, selectmode=SINGLE)
         fich_insere = 0
         for nom_fich in os.listdir():
             if nom_fich[0:10] == "Sauvegarde":
@@ -435,14 +438,13 @@ class FenetrePartie(Tk):
 
         nom_fichier = open(self.liste_fich.get(self.index_fich_select), "r")
         self.partie.couleur_joueur_courant = nom_fichier.readline()
-        self.partie.damier.modifier_dic(nom_fichier.readline())
-#        print("Couleur : ", self.partie.couleur_joueur_courant)
- #       print("Damier : ",  partie.damier_1)
+        damier_cases = nom_fichier.readline()
+        self.damier_ouvert = literal_eval(damier_cases)
         nom_fichier.close()
-        self.canvas_damier.actualiser()
         self.fenetre_5.withdraw()
-        # self.activation_partie_sauvegardee = 1
-        fenetre = FenetrePartie()
+        self.activation_partie_sauvegardee = 1
+        print("i-443")
+        fenetre = FenetrePartie()  # self.canvas_damier.actualiser()
         fenetre.mainloop()
 
     def fenetre_quit_annulee(self):

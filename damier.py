@@ -65,7 +65,7 @@ class Damier:
     def str_dic(self, dic):
         new_dic = {}
         for position, piece in dic.items():
-            new_dic[str_position(position)] = str_piece(piece)
+            new_dic[self.str_position(position)] = self.str_piece(piece)
         return str(new_dic)
 
     def recuperer_piece_a_position(self, position):
