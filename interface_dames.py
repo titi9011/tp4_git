@@ -30,13 +30,13 @@ class FenetrePartie(Tk):
         self.partie = Partie()
 
         # Création du canvas damier.
-        try:
-            if self.activation_partie_sauvegardee == 1:
-                damier_affiche = self.partie.damier_1
-                print("i-36")
-                del self.activation_partie_sauvegardee
-        except:
-            damier_affiche = self.partie.damier.dic
+        #try:
+         #   if self.activation_partie_sauvegardee == 1:
+          #      damier_affiche = partie.damier_1
+           #     print("i-36")
+            #    del self.activation_partie_sauvegardee
+        #except:
+        damier_affiche = self.partie.damier  # .dic
 
         self.canvas_damier = CanvasDamier(self, damier_affiche, 60)
         self.canvas_damier.grid(sticky=NSEW)
@@ -434,13 +434,13 @@ class FenetrePartie(Tk):
 
         nom_fichier = open(self.liste_fich.get(self.index_fich_select), "r")
         self.partie.couleur_joueur_courant = nom_fichier.readline()
-        self.partie.damier_1 = nom_fichier.readline()
-        print("Couleur : ", self.partie.couleur_joueur_courant)
-        print("Damier : ",  self.partie.damier_1)
+        self.partie.damier.modifier_dic(nom_fichier.readline())
+#        print("Couleur : ", self.partie.couleur_joueur_courant)
+ #       print("Damier : ",  partie.damier_1)
         nom_fichier.close()
-
+        self.canvas_damier.actualiser()
         self.fenetre_5.withdraw()
-        self.activation_partie_sauvegardee = 1
+        # self.activation_partie_sauvegardee = 1
         fenetre = FenetrePartie()
         fenetre.mainloop()
 
