@@ -4,7 +4,7 @@ from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
-# from damier import Damier
+from datetime import date
 
 class FenetrePartie(Tk):
     """Interface graphique de la partie de dames.
@@ -344,23 +344,31 @@ class FenetrePartie(Tk):
         """
         #TODO À compléter
         self.fenetre_4 = Tk()
-        self.fenetre_4.geometry("460x130")  # Ajuster
+        self.fenetre_4.geometry("490x130")
         self.fenetre_4.title("Fichier de sauvegarde")
-        print(self.partie.couleur_joueur_courant)
-        print(self.partie.damier.cases)
-        nom_fichier_sauvegarde = "Houbahop"  # Compléter
+
+        nom_fichier_sauvegarde = "Sauvegarde-" + str(date.today()) + "10.txt"
+
+        fichier_partie = open(nom_fichier_sauvegarde, "w")
+        fichier_partie.write(str(self.partie.couleur_joueur_courant))
+        fichier_partie.write("\n")
+        fichier_partie.write(str(self.partie.damier.cases))
+        fichier_partie.close()
+
         texte_4_A = Label(self.fenetre_4)
         texte_4_B = Label(self.fenetre_4)
         texte_4_C = Label(self.fenetre_4)
+        texte_4_D = Label(self.fenetre_4)
         texte_4_A['foreground'] = 'blue'
         texte_4_B['foreground'] = 'green'
         texte_4_C['foreground'] = 'blue'
-        texte_4_A['text'] = "La partie que vous quittez a été sauvegardée dans le fichier "
+        texte_4_A['text'] = "La partie que vous quittez a été sauvegardée dans le fichier : "
         texte_4_B['text'] = nom_fichier_sauvegarde  # + "!"
         texte_4_C['text'] = "!"
         texte_4_A.grid(row=0, column=0)
         texte_4_B.grid(row=0, column=1)
         texte_4_C.grid(row=0, column=2)
+        texte_4_D.grid(row=1, column=0)
         bouton4_A = Button(self.fenetre_4, text='Quitter le jeu', command=self.quit)
         bouton4_B = Button(self.fenetre_4, text='Retour au jeu', command=self.retour_jeu)
         bouton4_A.grid(row=2, column=0, sticky=SW)
