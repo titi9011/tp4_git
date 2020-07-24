@@ -5,3 +5,4 @@ class Un_joueur(FenetrePartie):
     def __init__(self):
         super.__init__()
         
+        

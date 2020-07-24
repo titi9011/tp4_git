@@ -1,8 +1,7 @@
-from copy import copy
+from damier import Damier
 
-test_dic = {'thierry': 0}
+x = Damier()
 
-test_dic2 = copy(test_dic)
+x.modifier_dic({})
 
-del test_dic['thierry']
-print(test_dic2)
+print(x)

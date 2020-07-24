@@ -48,6 +48,9 @@ class Damier:
             Position(0, 7): Piece("noir", "pion"),
         }
 
+    def modifier_dic(self, dic):
+        self.cases = dic
+
     def recuperer_piece_a_position(self, position):
         """Récupère une pièce dans le damier à partir d'une position.
         Args:
