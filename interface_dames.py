@@ -5,6 +5,7 @@ from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
 from datetime import date
+import os
 
 class FenetrePartie(Tk):
     """Interface graphique de la partie de dames.
@@ -342,12 +343,15 @@ class FenetrePartie(Tk):
         Méthode appelée par le bouton "Quitter et sauvegarder" de la fenêtre "Quitter".
         Permet de sauvegarder la partie au point où elle était rendue.
         """
-        #TODO À compléter
         self.fenetre_4 = Tk()
-        self.fenetre_4.geometry("490x130")
+        self.fenetre_4.geometry("500x130")
         self.fenetre_4.title("Fichier de sauvegarde")
-
-        nom_fichier_sauvegarde = "Sauvegarde-" + str(date.today()) + "10.txt"
+        # Sauvegarde de plusieurs parties à la même date
+        # Le nom des fichiers indique la date de la sauvegarde
+        n_fich = 1
+        while os.path.isfile("Sauvegarde-" + str(date.today()) + "(" + str(n_fich) + ").txt"):
+            n_fich += 1
+        nom_fichier_sauvegarde = "Sauvegarde-" + str(date.today()) + "(" + str(n_fich) + ").txt"
 
         fichier_partie = open(nom_fichier_sauvegarde, "w")
         fichier_partie.write(str(self.partie.couleur_joueur_courant))
@@ -400,7 +404,16 @@ class FenetrePartie(Tk):
         Méthode appelée par le bouton "Partie sauvegardée" de la fenêtre principale.
         Permet d'ouvrir une partie non complétée au point où elle avait été arrêtée.
         """
-        print("Houba")  # temp
+        self.fenetre_5 = Tk()
+        self.fenetre_5.geometry("500x130")  # Ajuster
+        self.fenetre_5.title("Fichiers sauvegardés")
+
+        texte_5 = Label(self.fenetre_5)
+        texte_5['foreground'] = 'purple'
+        texte_5['text'] = "Houba!"  # Compléter
+        texte_5.grid(row=0, column=0)  # Ajuster
+
+        self.fenetre_5.tkraise()
 
     def fenetre_quit_annulee(self):
         """
