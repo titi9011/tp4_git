@@ -408,10 +408,22 @@ class FenetrePartie(Tk):
         self.fenetre_5.geometry("500x130")  # Ajuster
         self.fenetre_5.title("Fichiers sauvegardés")
 
-        texte_5 = Label(self.fenetre_5)
-        texte_5['foreground'] = 'purple'
-        texte_5['text'] = "Houba!"  # Compléter
-        texte_5.grid(row=0, column=0)  # Ajuster
+        texte_5_A = Label(self.fenetre_5)
+
+
+        liste_fich = Listbox(self.fenetre_5)
+        fich_insere = 0
+        for nom_fich in os.listdir():
+            if nom_fich[0:10] == "Sauvegarde":
+                liste_fich.insert(END, nom_fich)
+                fich_insere +=1
+        if fich_insere != 0:
+            texte_5_A['foreground'] = 'red'
+            texte_5_A['text'] = "Liste des fichiers de sauvegarde dans le répertoire du projet :"
+        else:
+            texte_5_A['foreground'] = 'purple'
+            texte_5_A['text'] = "Il n'y a pas de fichiers de sauvegarde dans le répertoire du projet."
+        texte_5_A.grid(row=0, column=0)  # Ajuster
 
         self.fenetre_5.tkraise()
 
