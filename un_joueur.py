@@ -1,9 +1,10 @@
 from engine import avance
 from interface_dames import FenetrePartie
+from partie import Partie
 
 class Un_joueur(FenetrePartie):
     def __init__(self):
-        super.__init__()
+        super().__init__()
     
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier. La méthode appelle les méthodes vérifiant la validité
@@ -14,7 +15,6 @@ class Un_joueur(FenetrePartie):
             event (tkinter.Event): Objet décrivant l'évènement qui a causé l'appel de la méthode.
 
         """
-
         try:  # Permet d'affecter le premier clic à la position source et le second à la cible.
             if self.flg == 0:  # Génère l'erreur qui affecte le premier clic.
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
@@ -57,7 +57,9 @@ class Un_joueur(FenetrePartie):
 
                 if self.doit_prendre == False:
                     if self.partie.couleur_joueur_courant == "blanc":
-                        self.partie.couleur_joueur_courant = "noir"
+#                        self.partie.couleur_joueur_courant = "noir"
+                        self.partie.damier.cases = avance(self.partie.damier.cases)
+                        self.canvas_damier.actualiser()
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
                     self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
@@ -120,5 +122,7 @@ class Un_joueur(FenetrePartie):
         
 
 if __name__ == '__main__':
-    fenetre = FenetrePartie()
-    fenetre.mainloop()
+    #self.canvas_damier.actualiser()
+    #self.mainloop()
+    fenetre_1 = Un_joueur()
+    fenetre_1.mainloop()

@@ -4,9 +4,9 @@ from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
+# from un_joueur import Un_joueur
 from datetime import date
 import os
-from ast import literal_eval
 from pickle import dump, load
 
 class FenetrePartie(Tk):
@@ -48,9 +48,11 @@ class FenetrePartie(Tk):
         self.bouton1_A = Button(self, text = 'Aide', command = self.aide,)
         self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
         self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
+#        self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.un_joueur.Un_joueur())  # Activer
         self.bouton1_A.grid(row=2, column=0, pady=5)
         self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)  # , sticky=E)
         self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
+#        self.bouton1_D.grid(row=2, column=0, pady=5)  # Activer
 
         # Initialisation des attributs
         self.doit_prendre = False
@@ -74,7 +76,6 @@ class FenetrePartie(Tk):
             event (tkinter.Event): Objet décrivant l'évènement qui a causé l'appel de la méthode.
 
         """
-
         try:  # Permet d'affecter le premier clic à la position source et le second à la cible.
             if self.flg == 0:  # Génère l'erreur qui affecte le premier clic.
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
@@ -120,6 +121,7 @@ class FenetrePartie(Tk):
                         self.partie.couleur_joueur_courant = "noir"
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
+
                     self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
                     self.title("Jeu de dames. Le joueur " + self.titre_joueur)
                 else:
@@ -128,8 +130,7 @@ class FenetrePartie(Tk):
 
                 del self.flg  # Libère le drapeau pour le tour suivant
 
-
-        except:
+        except:  # Permet de valider la position source et déterminer si une prise doit être faite.
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
             self.position = Position(ligne, colonne)
@@ -176,7 +177,6 @@ class FenetrePartie(Tk):
             else:
                 self.partie.couleur_joueur_courant = "blanc"
             self.messages1['text'] = "Le joueur " + self.partie.couleur_joueur_courant + " a gagné!"
-
 
     def valider_prise_obligee(self):
         """
