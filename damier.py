@@ -65,7 +65,7 @@ class Damier:
     def str_dic(self, dic):
         new_dic = {}
         for position, piece in dic.items():
-            new_dic[str_position(position)] = str_piece(piece)
+            new_dic[self.str_position(position)] = self.str_piece(piece)
         return str(new_dic)
 
     def recuperer_piece_a_position(self, position):
@@ -152,7 +152,7 @@ class Damier:
         piece_mange = self.recuperer_piece_a_position(position_piece_mange)
         # Si la position est dans le damier, s'il y a une pièce sur la case et si la position_cible est libre"            
         if position_piece_mange != position_piece and position_piece_mange in self.cases:
-            if self.cases[position_piece_mange].couleur ==  couleur_joueur:
+            if self.cases[position_piece_mange].couleur == couleur_joueur:
                 return False
             else:
                 return True

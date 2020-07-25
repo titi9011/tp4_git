@@ -59,9 +59,8 @@ class CanvasDamier(Canvas):
     def dessiner_pieces(self):
         """Méthode qui dessine les pièces sur le canvas"""
 
-        # Pour tout paire position, pièce:
+        # Pour toute paire "position, pièce" :
         for position, piece in self.damier.cases.items():
-
             # On dessine la pièce dans le canvas, au centre de la case. On utilise l'attribut "tags" pour être en
             # mesure de récupérer les éléments dans le canvas.
             coordonnee_y = position.ligne * self.n_pixels_par_case + self.n_pixels_par_case // 2
