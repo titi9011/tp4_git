@@ -353,7 +353,7 @@ def avance_blanc(dic):
         position_choisit = list_dic[numero_dic_choisit]
     return position_choisit
 
-def prise_obligatoire_noir(dic):
+def prise_obligatoire_noir(piece_qui_bouge, dic):
     prise = False
     dictionnaire_noir = dic_noir(dic)
     for position, piece in dictionnaire_noir.items():
@@ -361,6 +361,7 @@ def prise_obligatoire_noir(dic):
         if saut == True:
             prise = True
     return prise
+
 
 def avance(dic):
     saut = True
