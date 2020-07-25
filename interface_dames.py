@@ -52,7 +52,13 @@ class FenetrePartie(Tk):
         self.bouton1_A.grid(row=2, column=0, pady=5)
         self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)  # , sticky=E)
         self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
-        self.bouton1_D.grid(row=2, column=0, pady=5)  # Activer
+        self.bouton1_D.grid(row=2, column=0, pady=5)
+
+        # Liste des mouvements
+        self.messages1_B = Label(self)
+        self.messages1_B.grid(row=0, column=1, sticky=N)
+        self.messages1_B['foreground'] = 'black'
+        self.messages1_B['text'] = "Blanc       Noir\n───────\n"
 
         # Initialisation des attributs
         self.doit_prendre = False
@@ -98,6 +104,14 @@ class FenetrePartie(Tk):
 
                 retour_apres_deplacement = self.partie.damier.deplacer(self.position, self.position_cible)
                     # ok, prise ou erreur
+                if self.partie.couleur_joueur_courant == "blanc":
+                    self.messages1_B['text'] = self.messages1_B['text'] + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "     "
+                    #if retour_apres_deplacement == "prise":
+                     #   self.messages1_B['text'] = self.messages1_B['text'] + "\n"
+                else:
+                    #if retour_apres_deplacement == "prise":
+                     #   self.messages1_B['text'] = self.messages1_B['text'] + "          "
+                    self.messages1_B['text'] = self.messages1_B['text'] + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "\n"
 
                 if retour_apres_deplacement == "ok":
                      pass
@@ -106,6 +120,14 @@ class FenetrePartie(Tk):
 
                         self.position_source_forcee = self.position_cible
                         self.doit_prendre = True
+
+
+                        if self.partie.couleur_joueur_courant == 'noir':
+                            self.messages1_B['text'] = self.messages1_B['text'] + "                "
+                        else:
+                            self.messages1_B['text'] = self.messages1_B['text'] + "          \n"
+
+
 
                     else:
                         self.doit_prendre = False
