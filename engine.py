@@ -1,3 +1,6 @@
+# Auteurs: Thierry Blais et Bernard Sévigny
+
+
 from partie import Partie
 from position import Position
 from piece import Piece

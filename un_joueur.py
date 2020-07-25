@@ -1,11 +1,28 @@
+# Auteurs: Thierry Blais et Bernard Sévigny
+
 from engine import avance
 from interface_dames import FenetrePartie
 from partie import Partie
 
+
+from tkinter import *  # Tk, Label, NSEW, dnd
+from canvas_damier import CanvasDamier
+from partie import Partie
+from position import Position
+# from un_joueur import Un_joueur
+from datetime import date
+import os
+from pickle import dump, load
+
+
+
+
+
 class Un_joueur(FenetrePartie):
     def __init__(self):
         super().__init__()
-    
+        print(self.partie.damier.cases)
+
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier. La méthode appelle les méthodes vérifiant la validité
         des sélections source et cible.
@@ -119,10 +136,37 @@ class Un_joueur(FenetrePartie):
                 self.partie.couleur_joueur_courant = "blanc"
             self.messages1['text'] = "Le joueur " + self.partie.couleur_joueur_courant + " a gagné!"
 
-        
+    def valider_prise_obligee(self):
+        """
+        Détermine si le joueur actif doit ou non faire une prise. Rend la prise obligatoire dans le choix
+        de la position source.
+        return:
+                [0] : True ou False
+                [1] : Message à afficher si le joueur doit faire une prise.
+        """
+        if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
+            self.doit_prendre = True
+
+            if self.partie.couleur_joueur_courant == 'noir':
+                self.partie.damier.cases = avance(self.partie.damier.cases)
+                self.canvas_damier.actualiser()
+
+                return [False, ""]
+            elif self.position_source_forcee is None:  # C'est une première prise
+                self.titre_joueur = self.partie.couleur_joueur_courant + " joue et doit faire une prise!"
+                return [True, self.titre_joueur]
+            else:  # Indique une prise successive
+                position_source_damier_reel = self.colonne_damier_reel[self.position_source_forcee.colonne] + str(
+                    8 - self.position_source_forcee.ligne)
+                self.titre_joueur = self.partie.couleur_joueur_courant + " joue. La pièce en position "\
+                                    + position_source_damier_reel + " doit faire une prise!"
+                return [True, self.titre_joueur]
+
+        else:
+            return [False, ""]
 
 if __name__ == '__main__':
     #self.canvas_damier.actualiser()
     #self.mainloop()
-    fenetre_1 = Un_joueur()
-    fenetre_1.mainloop()
+    fenetre = Un_joueur()
+    fenetre.mainloop()
