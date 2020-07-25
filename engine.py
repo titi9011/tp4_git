@@ -290,7 +290,7 @@ def debutant_blanc(dic):
     dic_choisit = list_dic[numero_dic_choisit]
     return dic_choisit
   
-def avance_sans_prise(dic):
+def avance_une_prise(dic):
     """Détermine quatre coups à l'avance le nombre de points des noirs.
         La méthode choisit le coup qui maximise les points des noirs.
     Args:
@@ -353,23 +353,26 @@ def avance_blanc(dic):
         position_choisit = list_dic[numero_dic_choisit]
     return position_choisit
 
-def prise_obligatoire_noir(piece_qui_bouge, dic):
-    prise = False
-    dictionnaire_noir = dic_noir(dic)
-    for position, piece in dictionnaire_noir.items():
-        list_dic, saut = dic_une_piece(position, dic)
-        if saut == True:
-            prise = True
-    return prise
-
 
 def avance(dic):
-    # CanvasDamier.actualiser()
-    saut = True
-    while saut:
-        dic = avance_sans_prise(dic)
-        saut = prise_obligatoire_noir(dic)
+    prise = True
+    while prise:
+        dic_base = deepcopy(dic)
+        dic = avance_une_prise(dic)
+        #s'il y a une pièce de moins
+        if len(dic) < len(dic_base):
+            piece_bouge = list(dic.keys() - dic_base.keys())[0]
+            print(piece_bouge, 'piece_bouge')
+            #Est-ce que la piece qui bouge peut manger
+            dictionnaire_une_piece, saut = dic_une_piece(piece_bouge, dic)
+            #si oui la boucle recommence
+            prise = saut
+        else:
+            prise = False
     return dic
+            
+
+
 
 
 
