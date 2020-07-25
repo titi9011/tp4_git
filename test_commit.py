@@ -1,5 +1,6 @@
 from position import Position
 from piece import Piece
+from pickle import dump, load
 
 x = {Position(7, 0): Piece("blanc", "pion"),
 Position(7, 2): Piece("blanc", "pion"),
@@ -26,24 +27,11 @@ Position(0, 3): Piece("noir", "pion"),
 Position(0, 5): Piece("noir", "pion"),
 Position(0, 7): Piece("noir", "pion")}
 
-def str_piece(piece):
-    if str(piece) == 'x':
-        return 'Piece("noir", "pion")'
-    if str(piece) == 'X':
-        return 'Piece("noir", "dame")'
-    if str(piece) == 'o':
-        return 'Piece("blanc", "pion")'
-    if str(piece) == 'O':
-        return 'Piece("blanc", "blanc")'
+fichier = open('partie', 'wb')
+dump(['noir', x], fichier)
+fichier.close()
 
-def str_position(position):
-    return 'Position' + str(position)
-
-def str_dic(dic):
-    new_dic = {}
-    for position, piece in dic.items():
-        new_dic[str_position(position)] = str_piece(piece)
-    return str(new_dic)
-
-def class_str_dic(dic):
-    return dic.replace("'", "")
+fichier = open('partie', 'rb')
+dic = load(fichier)
+print(dic[0])
+print(dic[1])

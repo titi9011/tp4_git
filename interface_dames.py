@@ -426,7 +426,6 @@ class FenetrePartie(Tk):
             texte_5_A['foreground'] = 'red'
             texte_5_A['text'] = "Il n'y a pas de fichiers de sauvegarde dans le répertoire du projet."
         texte_5_A.grid(row=0, column=0)  # Ajuster
-
         bouton5_A.grid(row=2, column=1, sticky=N)
         self.fenetre_5.tkraise()
 

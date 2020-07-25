@@ -3,5 +3,3 @@ from interface_dames import FenetrePartie
 
 
 
-
-
