@@ -301,8 +301,9 @@ def avance_une_prise(dic):
     score_max = 0
     position_choisit = None
     list_dic, point = iteration_dic_noir(dic)
-    for dictionnaire in list_dic:
-        deuxieme_list_dic, deuxieme_point = iteration_dic_blanc(dictionnaire)
+    list_dic1 = deepcopy(list_dic)
+    for dictionnaire in range(len(list_dic1)):
+        deuxieme_list_dic, deuxieme_point = iteration_dic_blanc(list_dic1[dictionnaire])
         deuxieme_list_dic2 = deepcopy(deuxieme_list_dic)
         for deuxieme_dictionnaire in deuxieme_list_dic2:
             troisieme_list_dic, troisieme_point = iteration_dic_noir(deuxieme_dictionnaire)
@@ -315,7 +316,7 @@ def avance_une_prise(dic):
                     score = point - deuxieme_point + troisieme_point - quatrieme_point + cinquieme_point
                     if score > score_max:
                         score_max = score
-                        position_choisit = dictionnaire
+                        position_choisit = list_dic[dictionnaire]
     if position_choisit == None:
         numero_dic_choisit = randrange(len(list_dic))
         position_choisit = list_dic[numero_dic_choisit]
@@ -333,7 +334,8 @@ def avance_blanc(dic):
     score_max = 0
     position_choisit = None
     list_dic, point = iteration_dic_blanc(dic)
-    for dictionnaire in list_dic:
+    list_dic1 = deepcopy(list_dic)
+    for dictionnaire in list_dic1:
         deuxieme_list_dic, deuxieme_point = iteration_dic_noir(dictionnaire)
         deuxieme_list_dic2 = deepcopy(deuxieme_list_dic)
         for deuxieme_dictionnaire in deuxieme_list_dic2:
@@ -362,7 +364,6 @@ def avance(dic):
         #s'il y a une pièce de moins
         if len(dic) < len(dic_base):
             piece_bouge = list(dic.keys() - dic_base.keys())[0]
-            print(piece_bouge, 'piece_bouge')
             #Est-ce que la piece qui bouge peut manger
             dictionnaire_une_piece, saut = dic_une_piece(piece_bouge, dic)
             #si oui la boucle recommence
@@ -370,9 +371,6 @@ def avance(dic):
         else:
             prise = False
     return dic
-            
-
-
 
 
 
