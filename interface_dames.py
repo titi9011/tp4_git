@@ -437,9 +437,8 @@ class FenetrePartie(Tk):
         # self.damier_ouvert = literal_eval(damier_cases)
         nom_fichier.close()
         self.fenetre_5.withdraw()
-        # self.activation_partie_sauvegardee = 1
-        print("i-443")
-
+        self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
+        self.title("Jeu de dames. Le joueur " + self.titre_joueur)
         self.canvas_damier.actualiser()
         self.mainloop()
 

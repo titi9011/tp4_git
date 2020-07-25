@@ -60,7 +60,6 @@ class CanvasDamier(Canvas):
         """Méthode qui dessine les pièces sur le canvas"""
 
         # Pour toute paire "position, pièce" :
-        print("c-63 ", self.damier.cases.items())
         for position, piece in self.damier.cases.items():
             # On dessine la pièce dans le canvas, au centre de la case. On utilise l'attribut "tags" pour être en
             # mesure de récupérer les éléments dans le canvas.
