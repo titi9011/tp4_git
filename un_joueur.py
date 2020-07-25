@@ -2,20 +2,13 @@
 
 from engine import avance
 from interface_dames import FenetrePartie
-from partie import Partie
-
+from position import Position
 
 from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
 from partie import Partie
-from position import Position
-# from un_joueur import Un_joueur
-from datetime import date
 import os
 from pickle import dump, load
-
-
-
 
 
 class Un_joueur(FenetrePartie):
@@ -54,13 +47,13 @@ class Un_joueur(FenetrePartie):
 
                 retour_apres_deplacement = self.partie.damier.deplacer(self.position, self.position_cible)
                     # ok, prise ou erreur
-
+                self.canvas_damier.actualiser()
                 if retour_apres_deplacement == "ok":
-                     pass
+                    pass
                 elif retour_apres_deplacement == "prise":
                     if self.partie.damier.piece_peut_faire_une_prise(self.position_cible):
 
-                        print("i-158 peut prendre encore", self.partie.damier.piece_peut_faire_une_prise(self.position_cible))  # temp
+                        print("u-63 peut prendre encore", self.partie.damier.piece_peut_faire_une_prise(self.position_cible))  # temp
                         self.position_source_forcee = self.position_cible
                         self.doit_prendre = True
 
@@ -75,8 +68,9 @@ class Un_joueur(FenetrePartie):
                 if self.doit_prendre == False:
                     if self.partie.couleur_joueur_courant == "blanc":
 #                        self.partie.couleur_joueur_courant = "noir"
-                        self.partie.damier.cases = avance(self.partie.damier.cases)
                         self.canvas_damier.actualiser()
+                        self.partie.damier.cases = avance(self.partie.damier.cases)
+
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
                     self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"

@@ -104,7 +104,6 @@ class FenetrePartie(Tk):
                 elif retour_apres_deplacement == "prise":
                     if self.partie.damier.piece_peut_faire_une_prise(self.position_cible):
 
-                        print("i-158 peut prendre encore", self.partie.damier.piece_peut_faire_une_prise(self.position_cible))  # temp
                         self.position_source_forcee = self.position_cible
                         self.doit_prendre = True
 
