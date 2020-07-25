@@ -481,7 +481,7 @@ class FenetrePartie(Tk):
         texte_6_B = Label(self.fenetre_6)
         texte_6_C = Label(self.fenetre_6)
         texte_6_D = Label(self.fenetre_6)
-        texte_6_A['text'] = "1- Si vous jouez contre l'ordinateur, vous pouvez choisir la couleur de vous désirez"
+        texte_6_A['text'] = "1- Si vous jouez contre l'ordinateur, vous pouvez choisir la couleur que vous désirez"
         texte_6_B['text'] = "ou laisser l'ordinateur choisir aléatoirement.\n "
         texte_6_C['text'] = "2- .\n "
         texte_6_D['text'] = "3- "

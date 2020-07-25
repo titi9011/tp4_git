@@ -361,12 +361,17 @@ def avance(dic):
     while prise:
         dic_base = deepcopy(dic)
         dic = avance_une_prise(dic)
-        #s'il y a une pièce de moins
+        # S'il y a une pièce de moins
         if len(dic) < len(dic_base):
             piece_bouge = list(dic.keys() - dic_base.keys())[0]
+<<<<<<< HEAD
             #Est-ce que la piece qui bouge peut manger
+=======
+            print(piece_bouge, 'piece_bouge')
+            # Est-ce que la piece qui bouge peut manger
+>>>>>>> 671b3a62f594ad447e58db56f1c40247616d21fd
             dictionnaire_une_piece, saut = dic_une_piece(piece_bouge, dic)
-            #si oui la boucle recommence
+            # si oui, la boucle recommence
             prise = saut
         else:
             prise = False
