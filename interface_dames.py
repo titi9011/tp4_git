@@ -59,6 +59,7 @@ class FenetrePartie(Tk):
         self.messages1_B.grid(row=0, column=1, sticky=N)
         self.messages1_B['foreground'] = 'black'
         self.messages1_B['text'] = "Blanc       Noir\n───────\n"
+        self.numero_deplacement = 1
 
         # Initialisation des attributs
         self.doit_prendre = False
@@ -105,7 +106,8 @@ class FenetrePartie(Tk):
                 retour_apres_deplacement = self.partie.damier.deplacer(self.position, self.position_cible)
                     # ok, prise ou erreur
                 if self.partie.couleur_joueur_courant == "blanc":
-                    self.messages1_B['text'] = self.messages1_B['text'] + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "     "
+                    self.messages1_B['text'] = self.messages1_B['text'] + str(self.numero_deplacement) + "- " + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "     "
+                    self.numero_deplacement += 1
                     #if retour_apres_deplacement == "prise":
                      #   self.messages1_B['text'] = self.messages1_B['text'] + "\n"
                 else:
@@ -123,7 +125,7 @@ class FenetrePartie(Tk):
 
 
                         if self.partie.couleur_joueur_courant == 'noir':
-                            self.messages1_B['text'] = self.messages1_B['text'] + "                "
+                            self.messages1_B['text'] = self.messages1_B['text'] + "                    "
                         else:
                             self.messages1_B['text'] = self.messages1_B['text'] + "          \n"
 
