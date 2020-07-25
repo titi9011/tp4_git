@@ -7,6 +7,7 @@ from position import Position
 from datetime import date
 import os
 from ast import literal_eval
+from pickle import dump, load
 
 class FenetrePartie(Tk):
     """Interface graphique de la partie de dames.
@@ -31,17 +32,7 @@ class FenetrePartie(Tk):
         self.partie = Partie()
 
         # Création du canvas damier.
-        try:
-            print(self.activation_partie_sauvegardee)
-            if self.activation_partie_sauvegardee == 1:
-                damier_actuel = self.damier_ouvert
-                print("i-37")
-        except:
-            damier_actuel = self.partie.damier
-            print("i-40")
-            # print("41", self.damier_ouvert)
-           # print(self.activation_partie_sauvegardee)
-        self.canvas_damier = CanvasDamier(self, damier_actuel, 60)
+        self.canvas_damier = CanvasDamier(self, self.partie.damier, 60)
         self.canvas_damier.grid(sticky=NSEW)
         self.canvas_damier.bind('<Button-1>', self.selectionner)
         # self.canvas_damier.bind('<B1-Button_release>', self.enregistrer_position_cible)
@@ -364,10 +355,12 @@ class FenetrePartie(Tk):
             n_fich += 1
         nom_fichier_sauvegarde = "Sauvegarde-" + str(date.today()) + "(" + str(n_fich) + ").txt"
 
-        fichier_partie = open(nom_fichier_sauvegarde, "w")
-        fichier_partie.write(str(self.partie.couleur_joueur_courant))
-        fichier_partie.write("\n")
-        fichier_partie.write(self.partie.damier.str_dic(self.partie.damier.cases))
+        fichier_partie = open(nom_fichier_sauvegarde, "wb")
+        dump([self.partie.couleur_joueur_courant, self.partie.damier.cases], fichier_partie)
+
+        # fichier_partie.write(str(self.partie.couleur_joueur_courant))
+        # fichier_partie.write("\n")
+        # fichier_partie.write(self.partie.damier.str_dic(self.partie.damier.cases))
         fichier_partie.close()
 
         texte_4_A = Label(self.fenetre_4)
@@ -436,16 +429,19 @@ class FenetrePartie(Tk):
     def ouvrir_sauvegarde(self):
         self.index_fich_select = self.liste_fich.curselection()[0]
 
-        nom_fichier = open(self.liste_fich.get(self.index_fich_select), "r")
-        self.partie.couleur_joueur_courant = nom_fichier.readline()
-        damier_cases = nom_fichier.readline()
-        self.damier_ouvert = literal_eval(damier_cases)
+        nom_fichier = open(self.liste_fich.get(self.index_fich_select), "rb")
+        list_dic = load(nom_fichier)
+        self.partie.couleur_joueur_courant = list_dic[0]
+        print(self.partie.couleur_joueur_courant)
+        self.partie.damier.cases = list_dic[1]
+        # self.damier_ouvert = literal_eval(damier_cases)
         nom_fichier.close()
         self.fenetre_5.withdraw()
-        self.activation_partie_sauvegardee = 1
+        # self.activation_partie_sauvegardee = 1
         print("i-443")
-        fenetre = FenetrePartie()  # self.canvas_damier.actualiser()
-        fenetre.mainloop()
+
+        self.canvas_damier.actualiser()
+        self.mainloop()
 
     def fenetre_quit_annulee(self):
         """
