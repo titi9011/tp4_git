@@ -96,6 +96,7 @@ def piece_peut_sauter_vers_modif(position_piece, position_cible, dic):
             return False
     else:
         return False
+
 def dic_blanc(dic):
     """Permet de filtrer seulement les pièces blanches d'un dictionnaire.
     Args:
@@ -286,7 +287,7 @@ def debutant_blanc(dic):
     dic_choisit = list_dic[numero_dic_choisit]
     return dic_choisit
   
-def avance(dic):
+def avance_sans_prise(dic):
     """Détermine quatre coups à l'avance le nombre de points des noirs.
         La méthode choisit le coup qui maximise les points des noirs.
     Args:
@@ -348,6 +349,23 @@ def avance_blanc(dic):
         numero_dic_choisit = randrange(len(list_dic))
         position_choisit = list_dic[numero_dic_choisit]
     return position_choisit
+
+def prise_obligatoire_noir(dic):
+    prise = False
+    dictionnaire_noir = dic_noir(dic)
+    for position, piece in dictionnaire_noir.items():
+        list_dic, saut = dic_une_piece(position, dic)
+        if saut == True:
+            prise = True
+    return prise
+
+def avance(dic):
+    saut = True
+    while saut:
+        dic = avance_sans_prise(dic)
+        saut = prise_obligatoire_noir(dic)
+    return dic
+
 
 
 if __name__ == "__main__":
