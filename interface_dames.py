@@ -48,11 +48,11 @@ class FenetrePartie(Tk):
         self.bouton1_A = Button(self, text = 'Aide', command = self.aide,)
         self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
         self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
-#        self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.un_joueur.Un_joueur())  # Activer
+        self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.jouer_contre_ordinateur)
         self.bouton1_A.grid(row=2, column=0, pady=5)
         self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)  # , sticky=E)
         self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
-#        self.bouton1_D.grid(row=2, column=0, pady=5)  # Activer
+        self.bouton1_D.grid(row=2, column=0, pady=5)  # Activer
 
         # Initialisation des attributs
         self.doit_prendre = False
@@ -307,6 +307,18 @@ class FenetrePartie(Tk):
         self.fenetre_2.withdraw()
 
     def quitter_damier(self):
+        """
+        Méthode appelée par le bouton "Quitter" de la fenêtre principale du damier.
+        Permet
+            1. de fermer la fenêtre avec ou sans sauvegarde de la partie en cours;
+            2.aux joueurs de retourner au jeu déjà commencé;
+            3. d'ouvrir une nouvelle partie sans fermer la partie en cours.
+        Boutons activés :
+            A. Quitter et sauvegarder
+            B. Quitter sans sauvegarder
+            C. Nouvelle partie
+            D. Annuler et revenir à la partie
+        """
         self.fenetre_3 = Tk()
         self.fenetre_3.geometry("460x230")
         self.fenetre_3.title("Pourquoi quitter?")
@@ -333,11 +345,6 @@ class FenetrePartie(Tk):
         bouton3_C.grid(row=5, column=0, sticky=W)
         bouton3_D.grid(row=5, column=0, sticky=E)
         self.fenetre_3.tkraise()
-        # Boutons activés :
-            # A. Quitter et sauvegarder
-            # B. Quitter sans sauvegarder
-            # C. Nouvelle partie
-            # D. Annuler et revenir à la partie
 
     def sauvegarde_partie(self):
         """
@@ -357,9 +364,6 @@ class FenetrePartie(Tk):
         fichier_partie = open(nom_fichier_sauvegarde, "wb")
         dump([self.partie.couleur_joueur_courant, self.partie.damier.cases], fichier_partie)
 
-        # fichier_partie.write(str(self.partie.couleur_joueur_courant))
-        # fichier_partie.write("\n")
-        # fichier_partie.write(self.partie.damier.str_dic(self.partie.damier.cases))
         fichier_partie.close()
 
         texte_4_A = Label(self.fenetre_4)
@@ -430,7 +434,6 @@ class FenetrePartie(Tk):
         nom_fichier = open(self.liste_fich.get(self.index_fich_select), "rb")
         list_dic = load(nom_fichier)
         self.partie.couleur_joueur_courant = list_dic[0]
-        print(self.partie.couleur_joueur_courant)
         self.partie.damier.cases = list_dic[1]
         # self.damier_ouvert = literal_eval(damier_cases)
         nom_fichier.close()
@@ -455,6 +458,46 @@ class FenetrePartie(Tk):
         """
         self.fenetre_3.withdraw()
         self.fenetre_4.withdraw()
+
+    def jouer_contre_ordinateur(self):
+#TODO Bouton B == Radiobutton
+        """
+        Méthode appelée par le bouton "Jouer contre l'ordinateur" de la fenêtre principale du damier.
+        Permet
+            1. de jouer contre l'ordinateur;
+            2. de choisir la couleur du joueur;
+            3. de laisser l,ordinateur jouer contre lui-même.
+        Boutons activés :
+            A. Jouer contre l'ordinateur
+            B. Quitter sans sauvegarder
+            C. Nouvelle partie
+            D. Annuler et revenir à la partie
+        """
+        self.fenetre_6 = Tk()
+        self.fenetre_6.geometry("460x230")
+        self.fenetre_6.title("Jouer contre l'ordinateur!")
+
+        texte_6_A = Label(self.fenetre_6)
+        texte_6_B = Label(self.fenetre_6)
+        texte_6_C = Label(self.fenetre_6)
+        texte_6_D = Label(self.fenetre_6)
+        texte_6_A['text'] = "1- Si vous jouez contre l'ordinateur, vous pouvez choisir la couleur de vous désirez"
+        texte_6_B['text'] = "ou laisser l'ordinateur choisir aléatoirement.\n "
+        texte_6_C['text'] = "2- .\n "
+        texte_6_D['text'] = "3- "
+        texte_6_A.grid(sticky=W)
+        texte_6_B.grid(sticky=W)
+        texte_6_C.grid(sticky=W)
+        texte_6_D.grid(sticky=W)
+        bouton6_A = Button(self.fenetre_6, text="Joueur contre l'ordinateur", command=self.sauvegarde_partie)
+        bouton6_B = Button(self.fenetre_6, text='Choix de la couleur', command=self.quit)
+        bouton6_C = Button(self.fenetre_6, text='Joue contre lui-même', command=self.nouvelle_partie)
+        bouton6_D = Button(self.fenetre_6, text='Annuler', command=self.fenetre_quit_annulee)
+        bouton6_A.grid(row=4, column=0, pady=10, sticky=W)
+        bouton6_B.grid(row=4, column=0, pady=10, sticky=E)
+        bouton6_C.grid(row=5, column=0, sticky=W)
+        bouton6_D.grid(row=5, column=0, sticky=E)
+        self.fenetre_6.tkraise()
 
     def ouverture_fich_annulee(self):
         """

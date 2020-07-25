@@ -1,11 +1,11 @@
 # Auteurs: Thierry Blais et Bernard Sévigny
 
-
 from partie import Partie
 from position import Position
 from piece import Piece
 from interface_dames import FenetrePartie
 from damier import Damier
+from canvas_damier import CanvasDamier
 from random import randrange
 from time import sleep
 from copy import deepcopy
@@ -364,6 +364,7 @@ def prise_obligatoire_noir(piece_qui_bouge, dic):
 
 
 def avance(dic):
+    # CanvasDamier.actualiser()
     saut = True
     while saut:
         dic = avance_sans_prise(dic)

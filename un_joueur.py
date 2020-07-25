@@ -14,7 +14,6 @@ from pickle import dump, load
 class Un_joueur(FenetrePartie):
     def __init__(self):
         super().__init__()
-        print(self.partie.damier.cases)
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier. La méthode appelle les méthodes vérifiant la validité
