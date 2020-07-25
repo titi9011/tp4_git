@@ -38,7 +38,7 @@ class Un_joueur(FenetrePartie):
                                                  + str(8 - self.position_cible.ligne)
                 self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'\
                         .format(position_source_damier_reel, position_cible_damier_reel)
-
+                print("u-41")
                 if not self.valider_et_enregistrer_position_cible()[0]:
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = self.valider_et_enregistrer_position_cible()[1]
