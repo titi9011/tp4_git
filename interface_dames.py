@@ -50,11 +50,11 @@ class FenetrePartie(Tk):
         self.bouton1_A = Button(self, text='Aide', command=self.aide)
         self.bouton1_B = Button(self, text='Quitter', command=self.quitter_damier)
         self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
-        self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.jouer_contre_ordinateur)
+        # self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.jouer_contre_ordinateur)
         self.bouton1_A.grid(row=2, column=0, pady=5, sticky=W)
         self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)
         self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
-        self.bouton1_D.grid(row=2, column=0, pady=5, sticky=S)
+        # self.bouton1_D.grid(row=2, column=0, pady=5, sticky=S)
 
         # Liste des mouvements
         self.messages1_B = Label(self)
