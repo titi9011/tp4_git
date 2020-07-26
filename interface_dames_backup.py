@@ -1,11 +1,14 @@
-# Auteurs: À compléter
+# Auteurs: Thierry Blais et Bernard Sévigny
 
-from tkinter import Tk, Label, NSEW, dnd
-# import tkinter.dnd
+from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
-from damier import Damier
+# import interface_multi
+from datetime import date
+# from un_joueur import Un_joueur
+import os
+from pickle import dump, load
 
 class FenetrePartie(Tk):
     """Interface graphique de la partie de dames.
@@ -42,6 +45,23 @@ class FenetrePartie(Tk):
         self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
         self.colonne_damier_reel = "abcdefgh"
 
+        # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
+        self.bouton1_A = Button(self, text = 'Aide', command = self.aide,)
+        self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
+        self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
+        self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.jouer_contre_ordinateur)
+        self.bouton1_A.grid(row=2, column=0, pady=5)
+        self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)  # , sticky=E)
+        self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
+        self.bouton1_D.grid(row=2, column=0, pady=5)
+
+        # Liste des mouvements
+        self.messages1_B = Label(self)
+        self.messages1_B.grid(row=0, column=1, sticky=N)
+        self.messages1_B['foreground'] = 'black'
+        self.messages1_B['text'] = "Blanc       Noir\n───────\n"
+        self.numero_deplacement = 1
+
         # Initialisation des attributs
         self.doit_prendre = False
         self.position_source_selectionnee = None
@@ -64,20 +84,12 @@ class FenetrePartie(Tk):
             event (tkinter.Event): Objet décrivant l'évènement qui a causé l'appel de la méthode.
 
         """
-
         try:  # Permet d'affecter le premier clic à la position source et le second à la cible.
             if self.flg == 0:  # Génère l'erreur qui affecte le premier clic.
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
                 colonne = event.x // self.canvas_damier.n_pixels_par_case  # On trouve le numéro de ligne/colonne en
                     # divisant les positions en y/x par le nombre de pixels par case.
                 self.position_cible = Position(ligne, colonne)
-
-#                try:  # Affecte le clic à la position cible et s'assure que la position cible est valide.
-                print("i-86 - doit prendre : ", self.doit_prendre)  # temp
-
-                print("i-88", str(self.position_cible.ligne))  # temp
-                print("i-89 - peut sauter vers : ",  self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible))  # temp
-
 
                 self.messages1['foreground'] = 'black'
                 position_source_damier_reel =self.colonne_damier_reel[self.position.colonne]\
@@ -88,48 +100,34 @@ class FenetrePartie(Tk):
                         .format(position_source_damier_reel, position_cible_damier_reel)
 
                 if not self.valider_et_enregistrer_position_cible()[0]:
- #               if self.partie.position_cible_valide(self.position_cible)[0]:  # Maintenant inutile. À enlever
-  #                  if self.doit_prendre == True:
-   #                     if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
-    #                        print("i-116")  # verif_cible = False
-     #                       pass
-      #                  else:
-       #                     self.messages1['foreground'] = 'red'
-        #                    self.messages1['text'] = "La pièce choisie doit prendre une pièce adverse. La cible " \
-         #                                            "choisie doit être modifiée. "
-          #                  raise ValueError  # Génère une erreur pour modifier la position cible
-           #         elif self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible):
-            #            print("i-123 ", self.partie.damier.piece_peut_se_deplacer_vers(self.position, self.position_cible))  # temp
-             #           # pass
-              #      else:
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = self.valider_et_enregistrer_position_cible()[1]
                     raise ValueError
-                    # else:
-                    #    self.messages1['foreground'] = 'red'
-                    #    self.messages1['text'] = self.partie.position_cible_valide(self.position_cible)[1]
-                    #    1 / 0
- #               except: # Assure la validité du second clic affecté à la position cible.
-  #                  print("i-134 - except")
-   #                 raise ValueError  # 1/ 0
-    #            else:
-                    #ligne = event.y // self.canvas_damier.n_pixels_par_case
-                    #colonne = event.x // self.canvas_damier.n_pixels_par_case
-                    #self.position_cible = Position(ligne, colonne)
-     #               pass
 
                 retour_apres_deplacement = self.partie.damier.deplacer(self.position, self.position_cible)
                     # ok, prise ou erreur
+                if self.partie.couleur_joueur_courant == "blanc":
+                    self.messages1_B['text'] = self.messages1_B['text'] + str(self.numero_deplacement) + "- " + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "     "
+                    self.numero_deplacement += 1
+                    #if retour_apres_deplacement == "prise":
+                     #   self.messages1_B['text'] = self.messages1_B['text'] + "\n"
+                else:
+                    #if retour_apres_deplacement == "prise":
+                     #   self.messages1_B['text'] = self.messages1_B['text'] + "          "
+                    self.messages1_B['text'] = self.messages1_B['text'] + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "\n"
 
                 if retour_apres_deplacement == "ok":
                      pass
                 elif retour_apres_deplacement == "prise":
                     if self.partie.damier.piece_peut_faire_une_prise(self.position_cible):
-                        # if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
-                        # Vérifier si peut prendre encore
-                        print("i-158 peut prendre encore", self.partie.damier.piece_peut_faire_une_prise(self.position_cible))  # temp
+
                         self.position_source_forcee = self.position_cible
                         self.doit_prendre = True
+
+                        if self.partie.couleur_joueur_courant == 'noir':
+                            self.messages1_B['text'] = self.messages1_B['text'] + "                    "
+                        else:
+                            self.messages1_B['text'] = self.messages1_B['text'] + "          \n"
 
                     else:
                         self.doit_prendre = False
@@ -138,12 +136,13 @@ class FenetrePartie(Tk):
                 else:
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = "Il y a erreur dans le code!"
-                print("i-166 ", retour_apres_deplacement)  # temp
+
                 if self.doit_prendre == False:
                     if self.partie.couleur_joueur_courant == "blanc":
                         self.partie.couleur_joueur_courant = "noir"
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
+
                     self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
                     self.title("Jeu de dames. Le joueur " + self.titre_joueur)
                 else:
@@ -152,9 +151,7 @@ class FenetrePartie(Tk):
 
                 del self.flg  # Libère le drapeau pour le tour suivant
 
-                # self.canvas_damier.actualiser()
-
-        except:
+        except:  # Permet de valider la position source et déterminer si une prise doit être faite.
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
             self.position = Position(ligne, colonne)
@@ -165,16 +162,14 @@ class FenetrePartie(Tk):
                     self.messages1['foreground'] = 'black'
                     self.messages1['text'] = 'La pièce sélectionnée en position ' \
                                                  + position_source_damier_reel + ' peut faire une prise.'
-                    print("i-197 ", position_source_damier_reel)  # temp
+
                 else:
-                    print("i-199 ", position_source_damier_reel)  # temp
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = 'Sélectionnez une pièce qui peut faire une prise.'
 
             else:
                 self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
                 self.title("Jeu de dames. Le joueur " + self.titre_joueur)
-            print("flg i-203")  # temp
 
             if self.partie.position_source_valide(self.position)[0]:
                 if self.valider_et_enregistrer_position_source()[0]:
@@ -185,37 +180,6 @@ class FenetrePartie(Tk):
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = self.valider_et_enregistrer_position_source()[1]
 
-
-#                if self.doit_prendre == True:
- #                   if self.position_source_forcee is None:  # C'est une première prise
-  #                      self.flg = 0
-   #                 else:
-    #                    if self.position_source_forcee == self.position:  # Indique une prise successive
-     #                       self.messages1['foreground'] = 'red'
-      #                      self.messages1['text'] = "Vous devez prendre. La pièce en position " \
-       #                                              + position_source_damier_reel + " a été sélectionnée."
-        #                    self.flg = 0
-         #                   # self.damier.piece_peut_faire_une_prise(self.position_source_forcee)
-          #                  # verif_source_cible = False
-           #             else:
-            #                self.messages1['foreground'] = 'red'
-             #               self.messages1[
-              #                  'text'] = "Vous devez prendre. La pièce choisie ne peut pas être sélectionnée."
-
-#                else:
- #                   self.messages1['foreground'] = 'black'
-  #                  #position_source_damier_reel = self.colonne_damier_reel[self.position.colonne] + str(8 - self.position.ligne)
-   #                 self.messages1['text'] = 'La pièce en position ' + position_source_damier_reel \
-    #                                    + ' a été sélectionnée. Cliquez sur la cible désirée. '
-
-#                    print("i-205", self.doit_prendre)  # temp
-#
- #                   if self.partie.damier.piece_peut_se_deplacer(self.position):
-  #                      self.flg = 0
-   #                 else:
-    #                    self.messages1['foreground'] = 'red'
-     #                   self.messages1['text'] = "La pièce que vous avez sélectionnée ne peut pas se déplacer. Veuillez " \
-      #                                       "faire un autre choix. "
             else:
                 self.messages1['foreground'] = 'red'
                 self.messages1['text'] = self.partie.position_source_valide(self.position)[1]
@@ -234,7 +198,6 @@ class FenetrePartie(Tk):
             else:
                 self.partie.couleur_joueur_courant = "blanc"
             self.messages1['text'] = "Le joueur " + self.partie.couleur_joueur_courant + " a gagné!"
-
 
     def valider_prise_obligee(self):
         """
@@ -303,7 +266,8 @@ class FenetrePartie(Tk):
                 [1] : Message à afficher si la cible n'est pas valide.
         """
         if self.doit_prendre == True:
-            if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible):
+            if self.partie.damier.piece_peut_sauter_vers(self.position, self.position_cible,
+                                                         self.partie.couleur_joueur_courant):
                 return [True, ""]
 
             else:
@@ -316,6 +280,258 @@ class FenetrePartie(Tk):
             texte_messages1 = "La pièce choisie ne peut pas être déplacée vers cette case."
         return [False, texte_messages1]
 
+    def aide(self):
+        """
+        Fait apparaître une fenêtre contextuelle présentant, sous la forme d'un texte, l'aide à l'utilisation
+        du programme damier ainsi que les règlements applicables.
+        Le bouton "Quitter" permet de fermer la fenêtre et de retourner au damier.
+        """
+        self.fenetre_2 = Tk()
+        self.fenetre_2.title("Aide et règlements")
+
+        texte_aide0 = Message(self.fenetre_2)
+        texte_aide0['foreground'] = 'brown'
+
+        texte_aide1 = Message(self.fenetre_2, width=492)
+        texte_aide1['foreground'] = 'blue'
+
+        texte_aide2 = Message(self.fenetre_2)
+        texte_aide2['foreground'] = 'brown'
+
+        texte_aide3 = Message(self.fenetre_2)
+        texte_aide3['foreground'] = 'blue'
+
+        Extrait_aide = open("Aide_reglements.txt", 'r', encoding="utf-8")
+        texte_extrait = Extrait_aide.readlines()
+        texte_aide0['text'] = texte_extrait[0]
+        texte_aide1['text'] = texte_extrait[1]
+        for i in range(2, 5):
+            texte_aide1['text'] = texte_aide1['text'] + texte_extrait[i]
+
+        texte_aide2['text'] = texte_extrait[5]
+        texte_aide3['text'] = texte_extrait[6]
+        for i in range(7, len(texte_extrait)):
+              texte_aide3['text'] = texte_aide3['text'] + texte_extrait[i]
+        Extrait_aide.close()
+        texte_aide0.grid()
+        texte_aide1.grid(sticky=W)
+        texte_aide2.grid()
+        texte_aide3.grid(sticky=W)
+        bouton2_A = Button(self.fenetre_2, text='Quitter', command=self.fenetre_aide_quit)
+        bouton2_A.grid()
+        self.fenetre_2.tkraise()  # mainloop()
+
+    def fenetre_aide_quit(self):
+        """
+        Méthode appelée par le bouton "Quitter" de la fenêtre "Aide et règlements".
+        Permet de fermer la fenêtre en permettant aux joueurs de retourner au jeu déjà commencé.
+        """
+        self.fenetre_2.withdraw()
+
+    def quitter_damier(self):
+        """
+        Méthode appelée par le bouton "Quitter" de la fenêtre principale du damier.
+        Permet
+            1. de fermer la fenêtre avec ou sans sauvegarde de la partie en cours;
+            2.aux joueurs de retourner au jeu déjà commencé;
+            3. d'ouvrir une nouvelle partie sans fermer la partie en cours.
+        Boutons activés :
+            A. Quitter et sauvegarder
+            B. Quitter sans sauvegarder
+            C. Nouvelle partie
+            D. Annuler et revenir à la partie
+        """
+        self.fenetre_3 = Tk()
+        self.fenetre_3.geometry("460x230")
+        self.fenetre_3.title("Pourquoi quitter?")
+
+        # texte_3_A = Message(self.fenetre_3)
+        texte_3_A = Label(self.fenetre_3)
+        texte_3_B = Label(self.fenetre_3)
+        texte_3_C = Label(self.fenetre_3)
+        texte_3_D = Label(self.fenetre_3)
+        texte_3_A['text'] = "1- Si vous ouvrez une nouvelle partie, la partie non terminée que vous venez de quitter"
+        texte_3_B['text'] = "sera encore accessible et il sera possible de jouer deux parties à la fois!\n "
+        texte_3_C['text'] = "2- En annulant, vous retournez à la partie déjà ouverte.\n "
+        texte_3_D['text'] = "3- Si vous quittez sans sauvegarder, toutes les parties seront fermées."
+        texte_3_A.grid(sticky=W)
+        texte_3_B.grid(sticky=W)
+        texte_3_C.grid(sticky=W)
+        texte_3_D.grid(sticky=W)
+        bouton3_A = Button(self.fenetre_3, text='Quitter et sauvegarder', command=self.sauvegarde_partie)
+        bouton3_B = Button(self.fenetre_3, text='Quitter sans sauvegarder', command=self.quit)
+        bouton3_C = Button(self.fenetre_3, text='Nouvelle partie', command=self.nouvelle_partie)
+        bouton3_D = Button(self.fenetre_3, text='Annuler', command=self.fenetre_quit_annulee)
+        bouton3_A.grid(row=4, column=0, pady=10, sticky=W)
+        bouton3_B.grid(row=4, column=0, pady=10, sticky=E)
+        bouton3_C.grid(row=5, column=0, sticky=W)
+        bouton3_D.grid(row=5, column=0, sticky=E)
+        self.fenetre_3.tkraise()
+
+    def sauvegarde_partie(self):
+        """
+        Méthode appelée par le bouton "Quitter et sauvegarder" de la fenêtre "Quitter".
+        Permet de sauvegarder la partie au point où elle était rendue.
+        """
+        self.fenetre_4 = Tk()
+        self.fenetre_4.geometry("500x130")
+        self.fenetre_4.title("Fichier de sauvegarde")
+        # Sauvegarde de plusieurs parties à la même date
+        # Le nom des fichiers contient la date de la sauvegarde
+        n_fich = 1
+        while os.path.isfile("Sauvegarde-" + str(date.today()) + "(" + str(n_fich) + ").txt"):
+            n_fich += 1
+        nom_fichier_sauvegarde = "Sauvegarde-" + str(date.today()) + "(" + str(n_fich) + ").txt"
+
+        fichier_partie = open(nom_fichier_sauvegarde, "wb")
+        dump([self.partie.couleur_joueur_courant, self.partie.damier.cases], fichier_partie)
+
+        fichier_partie.close()
+
+        texte_4_A = Label(self.fenetre_4)
+        texte_4_B = Label(self.fenetre_4)
+        texte_4_C = Label(self.fenetre_4)
+        texte_4_D = Label(self.fenetre_4)
+        texte_4_A['foreground'] = 'blue'
+        texte_4_B['foreground'] = 'green'
+        texte_4_C['foreground'] = 'blue'
+        texte_4_A['text'] = "La partie que vous quittez a été sauvegardée dans le fichier : "
+        texte_4_B['text'] = nom_fichier_sauvegarde  # + "!"
+        texte_4_C['text'] = "!"
+        texte_4_A.grid(row=0, column=0)
+        texte_4_B.grid(row=0, column=1)
+        texte_4_C.grid(row=0, column=2)
+        texte_4_D.grid(row=1, column=0)
+        bouton4_A = Button(self.fenetre_4, text='Quitter le jeu', command=self.quit)
+        bouton4_B = Button(self.fenetre_4, text='Retour au jeu', command=self.retour_jeu)
+        bouton4_A.grid(row=2, column=0, sticky=SW)
+        bouton4_B.grid(row=2, column=0, sticky=SE)
+        self.fenetre_4.tkraise()
+
+    def nouvelle_partie(self):
+        """
+        Méthode appelée par le bouton "Nouvelle partie" de la fenêtre "Quitter".
+        Ouvre une autre fenêtre de jeu sans fermer le damier déjà commencé,
+        permettant aux joueurs de jouer plusieurs parties simultanées.
+        """
+        self.fenetre_3.withdraw()
+        fenetre = FenetrePartie()
+        fenetre.mainloop()
+
+    def partie_sauvegardee(self):
+        #TODO À compléter
+        """
+        Méthode appelée par le bouton "Partie sauvegardée" de la fenêtre principale.
+        Permet d'ouvrir une partie non complétée au point où elle avait été arrêtée.
+        """
+        self.fenetre_5 = Tk()
+        self.fenetre_5.geometry("400x230")  # Ajuster
+        self.fenetre_5.title("Fichiers sauvegardés")
+
+        texte_5_A = Label(self.fenetre_5)
+        bouton5_A = Button(self.fenetre_5, text='Annuler', command=self.ouverture_fich_annulee)
+
+        self.liste_fich = Listbox(self.fenetre_5, width=27, height=10, selectmode=SINGLE)
+        fich_insere = 0
+        for nom_fich in os.listdir():
+            if nom_fich[0:10] == "Sauvegarde":
+                self.liste_fich.insert(END, nom_fich)
+                fich_insere +=1
+        if fich_insere != 0:
+            texte_5_A['foreground'] = 'purple'
+            texte_5_A['text'] = "Liste des fichiers de sauvegarde dans le répertoire du projet :"
+            self.liste_fich.grid(row=2, column=0)
+            self.liste_fich.bind('<Double-Button-1>', lambda event : self.ouvrir_sauvegarde())
+
+        else:
+            texte_5_A['foreground'] = 'red'
+            texte_5_A['text'] = "Il n'y a pas de fichiers de sauvegarde dans le répertoire du projet."
+        texte_5_A.grid(row=0, column=0)  # Ajuster
+        bouton5_A.grid(row=2, column=1, sticky=N)
+        self.fenetre_5.tkraise()
+
+    def ouvrir_sauvegarde(self):
+        self.index_fich_select = self.liste_fich.curselection()[0]
+
+        nom_fichier = open(self.liste_fich.get(self.index_fich_select), "rb")
+        list_dic = load(nom_fichier)
+        self.partie.couleur_joueur_courant = list_dic[0]
+        self.partie.damier.cases = list_dic[1]
+        # self.damier_ouvert = literal_eval(damier_cases)
+        nom_fichier.close()
+        self.fenetre_5.withdraw()
+        self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
+        self.title("Jeu de dames. Le joueur " + self.titre_joueur)
+        self.canvas_damier.actualiser()
+        self.mainloop()
+
+    def fenetre_quit_annulee(self):
+        """
+        Méthode appelée par le bouton "Annuler" de la fenêtre "Quitter".
+        Permet de fermer la fenêtre en permettant aux joueurs de retourner au jeu déjà commencé.
+        """
+        self.fenetre_3.withdraw()
+
+    def retour_jeu(self):
+        """
+        Méthode appelée par le bouton "Retour au jeu" de la fenêtre "Quitter et sauvegarder".
+        Ferme la fenêtre confirmant le nom du fichier de sauvegarde sans fermer ni le damier déjà commencé
+        ni la fenêtre contextuelle, permettant aux joueurs de retourner à la partie en cours.
+        """
+        self.fenetre_3.withdraw()
+        self.fenetre_4.withdraw()
+
+    def jouer_contre_ordinateur(self):
+#TODO Bouton B == Radiobutton
+        """
+        Méthode appelée par le bouton "Jouer contre l'ordinateur" de la fenêtre principale du damier.
+        Permet
+            1. de jouer contre l'ordinateur;
+            2. de choisir la couleur du joueur;
+            3. de laisser l,ordinateur jouer contre lui-même.
+        Boutons activés :
+            A. Jouer contre l'ordinateur
+            B. Quitter sans sauvegarder
+            C. Nouvelle partie
+            D. Annuler et revenir à la partie
+        """
+        self.fenetre_6 = Tk()
+        self.fenetre_6.geometry("460x230")
+        self.fenetre_6.title("Jouer contre l'ordinateur!")
+
+        texte_6_A = Label(self.fenetre_6)
+        texte_6_B = Label(self.fenetre_6)
+        texte_6_C = Label(self.fenetre_6)
+        texte_6_D = Label(self.fenetre_6)
+        texte_6_A['text'] = "1- Si vous jouez contre l'ordinateur, vous pouvez choisir la couleur que vous désirez"
+        texte_6_B['text'] = "ou laisser l'ordinateur choisir aléatoirement.\n "
+        texte_6_C['text'] = "2- .\n "
+        texte_6_D['text'] = "3- "
+        texte_6_A.grid(sticky=W)
+        texte_6_B.grid(sticky=W)
+        texte_6_C.grid(sticky=W)
+        texte_6_D.grid(sticky=W)
+        # bouton6_A = Button(self.fenetre_6, text="Joueur contre l'ordinateur", command=self.ouverture_un_joueur)  # ??
+        bouton6_B = Button(self.fenetre_6, text='Choix de la couleur', command=self.quit)  # ??
+        bouton6_C = Button(self.fenetre_6, text='Joue contre lui-même', command=self.nouvelle_partie)  # ??
+        bouton6_D = Button(self.fenetre_6, text='Annuler', command=self.fenetre_quit_annulee)  # ??
+        # bouton6_A.grid(row=4, column=0, pady=10, sticky=W)
+        bouton6_B.grid(row=4, column=0, pady=10, sticky=E)
+        bouton6_C.grid(row=5, column=0, sticky=W)
+        bouton6_D.grid(row=5, column=0, sticky=E)
+        self.fenetre_6.tkraise()
+
+    def ouverture_un_joueur(self):
+        # fenetre.withdraw()
+        # interface_multi.joueur_unique(self)
+        print(" i-527 : Houba")
+
+    def ouverture_fich_annulee(self):
+        """
+        Méthode appelée par le bouton "Annuler" de la fenêtre "Quitter".
+        Permet de fermer la fenêtre en permettant aux joueurs de retourner au jeu déjà commencé.
+        """
+        self.fenetre_5.withdraw()
 
 if __name__ == '__main__':
     # Point d'entrée principal du jeu de dame et de l'affichage du damier.

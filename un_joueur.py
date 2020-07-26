@@ -38,7 +38,7 @@ class Un_joueur(FenetrePartie):
                                                  + str(8 - self.position_cible.ligne)
                 self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'\
                         .format(position_source_damier_reel, position_cible_damier_reel)
-                print("u-41")
+
                 if not self.valider_et_enregistrer_position_cible()[0]:
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = self.valider_et_enregistrer_position_cible()[1]
@@ -68,7 +68,9 @@ class Un_joueur(FenetrePartie):
                     if self.partie.couleur_joueur_courant == "blanc":
 #                        self.partie.couleur_joueur_courant = "noir"
                         self.canvas_damier.actualiser()
-                        self.partie.damier.cases = avance(self.partie.damier.cases)
+                        if self.partie.damier.piece_de_couleur_peut_se_deplacer('noir') or \
+                            self.partie.damier.piece_de_couleur_peut_faire_une_prise('noir'):
+                            self.partie.damier.cases = avance(self.partie.damier.cases)
 
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
@@ -117,6 +119,8 @@ class Un_joueur(FenetrePartie):
         self.canvas_damier.actualiser()
 
         # Fin de partie
+        print("u-120", (self.partie.couleur_joueur_courant))
+        print(self.partie.damier.piece_de_couleur_peut_se_deplacer(self.partie.couleur_joueur_courant))
         if self.partie.damier.piece_de_couleur_peut_se_deplacer(self.partie.couleur_joueur_courant) or \
                 self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
             pass
@@ -124,10 +128,15 @@ class Un_joueur(FenetrePartie):
             self.title("Jeu de dames. La partie est terminée!")
             self.messages1['foreground'] = 'orange'
             if self.partie.couleur_joueur_courant == "blanc":
+                print(129)
                 self.partie.couleur_joueur_courant = "noir"
+                self.partie.couleur_joueur_gagnant = "noir"
             else:
+                print(132)
+                self.partie.couleur_joueur_gagnant = "blanc"
                 self.partie.couleur_joueur_courant = "blanc"
-            self.messages1['text'] = "Le joueur " + self.partie.couleur_joueur_courant + " a gagné!"
+            self.messages1['text'] = "Le joueur " + self.partie.couleur_joueur_gagnant + " a gagné!"
+
 
     def valider_prise_obligee(self):
         """
