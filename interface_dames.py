@@ -37,7 +37,7 @@ class FenetrePartie(Tk):
         # self.canvas_damier.bind('<B1-Button_release>', self.enregistrer_position_cible)
 
         # Ajout d'une étiquette d'information.
-        self.messages1 = Label(self)
+        self.messages1 = Label(self)  # Affichage des messages
         self.messages1.grid()
         self.messages1['foreground'] = 'blue'
         # self.messages1['background'] = 'white'
@@ -45,10 +45,12 @@ class FenetrePartie(Tk):
         self.colonne_damier_reel = "abcdefgh"
 
         # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
-        self.bouton1_A = Button(self, text='Aide', command=self.aide)
+        self.bouton1_A = Button(self, text='Aide', bg='light cyan', command=self.aide)
         self.bouton1_B = Button(self, text='Quitter', command=self.quitter_damier)
         self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
         # self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.jouer_contre_ordinateur)
+        # self.button['font'] =
+
         self.bouton1_A.grid(row=2, column=0, pady=5, sticky=W)
         self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)
         self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
@@ -70,6 +72,7 @@ class FenetrePartie(Tk):
         # Nom de la fenêtre («title» est une méthode de la classe de base «Tk»)
         self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
         self.title("Jeu de dames. Le joueur " + self.titre_joueur)
+        self['background'] = 'ghost white'  # light blue'
 
         # Truc pour le redimensionnement automatique des éléments de la fenêtre.
         self.grid_columnconfigure(0, weight=1)

@@ -9,7 +9,7 @@ fenetre.title("Jouer contre l'ordinateur ou à deux joueurs")
 texte_0_A = Label(fenetre)
 texte_0_B = Label(fenetre)
 texte_0_C = Label(fenetre)
-texte_0_A['background'] = 'light blue'
+# texte_0_A['background'] = 'light blue'
 texte_0_B['background'] = 'light blue'
 texte_0_C['background'] = 'light blue'
 texte_0_A['foreground'] = 'VioletRed3'
