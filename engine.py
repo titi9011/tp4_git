@@ -171,7 +171,7 @@ def cases_jouable_saut(position_source, dic):
     for position_cible in position_source.quatre_positions_sauts():
         if piece_peut_sauter_vers_modif(position_source, position_cible, dic):
             #si pièce doit être promue
-            if position_cible.cases_promotion():
+            if position_cible.cases_promotion_noir():
                 nouveau_dic = dict(dic)
                 nouveau_dic[position_cible] = nouveau_dic[position_source]
                 nouveau_dic[position_cible].promouvoir()
@@ -357,6 +357,12 @@ def avance_blanc(dic):
 
 
 def avance(dic):
+    """La méthode permet plusieurs prise par l'engine noir.
+    Args:
+        dic (dict): Dictionnaire des positions.
+    Returns:
+        (dict): Solution de l'engine qui prend en compte les prises multiples.
+    """
     prise = True
     while prise:
         dic_base = deepcopy(dic)
