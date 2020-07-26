@@ -53,7 +53,6 @@ class Un_joueur(FenetrePartie):
                 elif retour_apres_deplacement == "prise":
                     if self.partie.damier.piece_peut_faire_une_prise(self.position_cible):
 
-                        print("u-63 peut prendre encore", self.partie.damier.piece_peut_faire_une_prise(self.position_cible))  # temp
                         self.position_source_forcee = self.position_cible
                         self.doit_prendre = True
 
@@ -69,13 +68,11 @@ class Un_joueur(FenetrePartie):
                     if self.partie.couleur_joueur_courant == "blanc":
 #                        self.partie.couleur_joueur_courant = "noir"
                         self.canvas_damier.actualiser()
-                        print("u-71", self.partie.damier.piece_de_couleur_peut_se_deplacer('noir'))
                         if self.partie.damier.piece_de_couleur_peut_se_deplacer('noir') or \
                             self.partie.damier.piece_de_couleur_peut_faire_une_prise('noir'):
                             self.partie.damier.cases = avance(self.partie.damier.cases)
                         else:
                             self.messages1['foreground'] = 'orange'
-                            print("u-79")
                             self.messages1['text'] = "Le joueur blanc a gagné!"
                             self.fin_de_partie = 1
 
@@ -126,8 +123,6 @@ class Un_joueur(FenetrePartie):
         self.canvas_damier.actualiser()
 
         # Fin de partie
-        print("u-120", (self.partie.couleur_joueur_courant))
-        print(self.partie.damier.piece_de_couleur_peut_se_deplacer(self.partie.couleur_joueur_courant))
         if self.fin_de_partie == 0:
 
             if self.partie.damier.piece_de_couleur_peut_se_deplacer('blanc') or \

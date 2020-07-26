@@ -4,6 +4,7 @@ from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
+import interface_multi
 # from un_joueur import Un_joueur
 from datetime import date
 import os
@@ -41,23 +42,25 @@ class FenetrePartie(Tk):
         self.messages1 = Label(self)
         self.messages1.grid()
         self.messages1['foreground'] = 'blue'
+        # self.messages1['background'] = 'white'
         self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
         self.colonne_damier_reel = "abcdefgh"
 
         # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
-        self.bouton1_A = Button(self, text = 'Aide', command = self.aide,)
-        self.bouton1_B = Button(self, text = 'Quitter', command = self.quitter_damier)
+        self.bouton1_A = Button(self, text='Aide', command=self.aide)
+        self.bouton1_B = Button(self, text='Quitter', command=self.quitter_damier)
         self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
         self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.jouer_contre_ordinateur)
-        self.bouton1_A.grid(row=2, column=0, pady=5)
-        self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)  # , sticky=E)
+        self.bouton1_A.grid(row=2, column=0, pady=5, sticky=W)
+        self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)
         self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
-        self.bouton1_D.grid(row=2, column=0, pady=5)
+        self.bouton1_D.grid(row=2, column=0, pady=5, sticky=S)
 
         # Liste des mouvements
         self.messages1_B = Label(self)
         self.messages1_B.grid(row=0, column=1, sticky=N)
         self.messages1_B['foreground'] = 'black'
+        self.messages1_B['background'] = 'white'
         self.messages1_B['text'] = "Blanc       Noir\n───────\n"
         self.numero_deplacement = 1
 
@@ -106,14 +109,16 @@ class FenetrePartie(Tk):
                 retour_apres_deplacement = self.partie.damier.deplacer(self.position, self.position_cible)
                     # ok, prise ou erreur
                 if self.partie.couleur_joueur_courant == "blanc":
-                    self.messages1_B['text'] = self.messages1_B['text'] + str(self.numero_deplacement) + "- " + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "     "
+                    self.messages1_B['text'] = self.messages1_B['text'] + str(self.numero_deplacement) + "- "\
+                                + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "     "
                     self.numero_deplacement += 1
                     #if retour_apres_deplacement == "prise":
                      #   self.messages1_B['text'] = self.messages1_B['text'] + "\n"
                 else:
                     #if retour_apres_deplacement == "prise":
                      #   self.messages1_B['text'] = self.messages1_B['text'] + "          "
-                    self.messages1_B['text'] = self.messages1_B['text'] + str(position_source_damier_reel) + "  " + str(position_cible_damier_reel) + "\n"
+                    self.messages1_B['text'] = self.messages1_B['text'] + str(position_source_damier_reel) + "  " \
+                                               + str(position_cible_damier_reel) + "\n"
 
                 if retour_apres_deplacement == "ok":
                      pass
@@ -510,7 +515,7 @@ class FenetrePartie(Tk):
         texte_6_B.grid(sticky=W)
         texte_6_C.grid(sticky=W)
         texte_6_D.grid(sticky=W)
-        bouton6_A = Button(self.fenetre_6, text="Joueur contre l'ordinateur", command=self.sauvegarde_partie)
+        bouton6_A = Button(self.fenetre_6, text="Joueur contre l'ordinateur", command=interface_multi.multi_joueurs())
         bouton6_B = Button(self.fenetre_6, text='Choix de la couleur', command=self.quit)
         bouton6_C = Button(self.fenetre_6, text='Joue contre lui-même', command=self.nouvelle_partie)
         bouton6_D = Button(self.fenetre_6, text='Annuler', command=self.fenetre_quit_annulee)
