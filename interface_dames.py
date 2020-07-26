@@ -4,7 +4,7 @@ from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
-import interface_multi
+# import interface_multi
 # from un_joueur import Un_joueur
 from datetime import date
 import os
@@ -515,11 +515,11 @@ class FenetrePartie(Tk):
         texte_6_B.grid(sticky=W)
         texte_6_C.grid(sticky=W)
         texte_6_D.grid(sticky=W)
-        bouton6_A = Button(self.fenetre_6, text="Joueur contre l'ordinateur", command=interface_multi.multi_joueurs())
+     #   bouton6_A = Button(self.fenetre_6, text="Joueur contre l'ordinateur", command=interface_multi.multi_joueurs(self))
         bouton6_B = Button(self.fenetre_6, text='Choix de la couleur', command=self.quit)
         bouton6_C = Button(self.fenetre_6, text='Joue contre lui-même', command=self.nouvelle_partie)
         bouton6_D = Button(self.fenetre_6, text='Annuler', command=self.fenetre_quit_annulee)
-        bouton6_A.grid(row=4, column=0, pady=10, sticky=W)
+     #   bouton6_A.grid(row=4, column=0, pady=10, sticky=W)
         bouton6_B.grid(row=4, column=0, pady=10, sticky=E)
         bouton6_C.grid(row=5, column=0, sticky=W)
         bouton6_D.grid(row=5, column=0, sticky=E)
