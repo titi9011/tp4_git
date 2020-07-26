@@ -166,7 +166,6 @@ class Un_joueur(FenetrePartie):
             return [False, ""]
 
 if __name__ == '__main__':
-    #self.canvas_damier.actualiser()
-    #self.mainloop()
+    
     fenetre = Un_joueur()
     fenetre.mainloop()
