@@ -35,6 +35,8 @@ class FenetrePartie(Tk):
         self.canvas_damier.grid(sticky=NSEW)
         self.canvas_damier.bind('<Button-1>', self.selectionner)
         # self.canvas_damier.bind('<B1-Button_release>', self.enregistrer_position_cible)
+        self.canvas_damier.couleur_foncee = '#426D8F'  # Bleu
+        self.canvas_damier.couleur_pale = 'light cyan'
 
         # Ajout d'une étiquette d'information.
         self.messages1 = Label(self)  # Affichage des messages
@@ -495,35 +497,87 @@ class FenetrePartie(Tk):
         Permet de choisir les couleurs du damier;
         Boutons activés :
             A. Bleu
-            B. Rouge
-            C. Orange
-            D. Vert
+            B. Mauve
+            C. Marron
+            D. Rouge
+            E. Vert
         """
         self.fenetre_6 = Tk()
         self.fenetre_6.geometry("460x230")
         self.fenetre_6.title("Couleurs du damier!")
+        self.var_b = IntVar()
+        r_bouton6_A = Radiobutton(self.fenetre_6, text='Bleu', variable=self.var_b, value=1, command=self.selection_couleur_bleue)
+        r_bouton6_B = Radiobutton(self.fenetre_6, text='Mauve', variable=self.var_b, value=2,  command=self.selection_couleur_mauve)
+        r_bouton6_C = Radiobutton(self.fenetre_6, text='Marron', variable=self.var_b, value=3, command=self.selection_couleur_marron)
+        r_bouton6_D = Radiobutton(self.fenetre_6, text='Rouge', variable=self.var_b, value=4,  command=self.selection_couleur_rouge)
+        r_bouton6_E = Radiobutton(self.fenetre_6, text='Vert', variable=self.var_b, value=5, command=self.selection_couleur_verte)
 
         texte_6_A = Label(self.fenetre_6)
-        texte_6_B = Label(self.fenetre_6)
-        texte_6_C = Label(self.fenetre_6)
-        texte_6_D = Label(self.fenetre_6)
-        texte_6_A['text'] = "1- Si vous jouez contre l'ordinateur, vous pouvez choisir la couleur que vous désirez"
-        texte_6_B['text'] = "ou laisser l'ordinateur choisir aléatoirement.\n "
-        texte_6_C['text'] = "2- .\n "
-        texte_6_D['text'] = "3- "
-        texte_6_A.grid(sticky=W)
-        texte_6_B.grid(sticky=W)
-        texte_6_C.grid(sticky=W)
-        texte_6_D.grid(sticky=W)
-        bouton6_A = Button(self.fenetre_6, text='Bleu', command=interface_multi.multi_joueurs(self))
-        bouton6_B = Button(self.fenetre_6, text='Rouge', command=self.quit)
-        bouton6_C = Button(self.fenetre_6, text='Orange', command=self.nouvelle_partie)
-        bouton6_D = Button(self.fenetre_6, text='Vert', command=self.fenetre_quit_annulee)
-        bouton6_A.grid(row=4, column=0, pady=10, sticky=W)
-        bouton6_B.grid(row=4, column=0, pady=10, sticky=E)
-        bouton6_C.grid(row=5, column=0, sticky=W)
-        bouton6_D.grid(row=5, column=0, sticky=E)
+        texte_6_A['text'] = "Choisir la couleur du damier que vous désirez afficher."
+
+        texte_6_A.grid(row=0, sticky=N)
+
+        r_bouton6_A.grid(sticky=W)  # row=2)
+        r_bouton6_B.grid(sticky=W)
+        r_bouton6_C.grid(sticky=W)
+        r_bouton6_D.grid(sticky=W)
+        r_bouton6_E.grid(sticky=W)
+
+        bouton6_A = Button(self.fenetre_6, text='Annuler', command=self.fenetre_6.withdraw)
+        bouton6_A.grid()
+
         self.fenetre_6.tkraise()
+
+    def selection_couleur_bleue(self):
+        """
+        Modification de la couleur du damier.
+        Ferme la fenêtre contextuelle dès que la sélection est faite et retourne au damier.
+        """
+        self.canvas_damier.couleur_foncee = '#426D8F'  # Bleu
+        self.canvas_damier.couleur_pale = 'light cyan'
+        self.fenetre_6.withdraw()
+        self.canvas_damier.actualiser()
+
+    def selection_couleur_mauve(self):
+        """
+        Modification de la couleur du damier.
+        Ferme la fenêtre contextuelle dès que la sélection est faite et retourne au damier.
+        """
+        self.canvas_damier.couleur_foncee = 'maroon4'  # Mauve
+        self.canvas_damier.couleur_pale = 'thistle1'
+        self.fenetre_6.withdraw()
+        self.canvas_damier.actualiser()
+
+    def selection_couleur_marron(self):
+        """
+        Modification de la couleur du damier.
+        Ferme la fenêtre contextuelle dès que la sélection est faite et retourne au damier.
+        """
+        self.canvas_damier.couleur_foncee = 'Firebrick4'  # Marron
+        self.canvas_damier.couleur_pale = 'Wheat1'
+        self.fenetre_6.withdraw()
+        self.canvas_damier.actualiser()
+
+    def selection_couleur_rouge(self):
+        """
+        Modification de la couleur du damier.
+        Ferme la fenêtre contextuelle dès que la sélection est faite et retourne au damier.
+        """
+        self.canvas_damier.couleur_foncee = 'red4'  # Rouge
+        self.canvas_damier.couleur_pale = 'LightPink1'
+        self.fenetre_6.withdraw()
+        self.canvas_damier.actualiser()
+
+    def selection_couleur_verte(self):
+        """
+        Modification de la couleur du damier.
+        Ferme la fenêtre contextuelle dès que la sélection est faite et retourne au damier.
+        """
+        self.canvas_damier.couleur_foncee = 'chartreuse4'  # Vert
+        self.canvas_damier.couleur_pale = 'light cyan'
+        self.fenetre_6.withdraw()
+        self.canvas_damier.actualiser()
+
 
     def ouverture_fich_annulee(self):
         """

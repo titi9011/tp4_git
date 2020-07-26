@@ -22,7 +22,6 @@ class CanvasDamier(Canvas):
 
         """
         self.damier = damier
-
         # Nombre de pixels par case, variable.
         self.n_pixels_par_case = n_pixels_par_case
 
@@ -48,9 +47,9 @@ class CanvasDamier(Canvas):
 
                 # On détermine la couleur.
                 if (i + j) % 2 == 0:
-                    couleur = '#426D8F'  # Blue2'  #FF6464'  # rouge
+                    couleur = self.couleur_foncee  # '#426D8F'  # Blue2'  #FF6464'  # rouge
                 else:
-                    couleur = 'light cyan' #DDDDFF' #C9E2FC'  #PaleTurquoise1'  #DDDDFF'
+                    couleur = self.couleur_pale  # 'light cyan' #DDDDFF' #C9E2FC'  #PaleTurquoise1'  #DDDDFF'
 
                 # On dessine le rectangle. On utilise l'attribut "tags" pour être en mesure de récupérer les éléments
                 # par la suite.
