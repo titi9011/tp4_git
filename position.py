@@ -90,8 +90,8 @@ class Position:
 
         return Position(x, y)
     
-    def cases_promotion(self):
-        if self.ligne == 0 or self.ligne == 7:
+    def cases_promotion_noir(self):
+        if self.ligne == 7:
             return True
         else:
             return False
