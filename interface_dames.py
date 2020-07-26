@@ -49,10 +49,10 @@ class FenetrePartie(Tk):
         self.bouton1_B = Button(self, text='Quitter', bg='SlateGray2', command=self.quitter_damier)
         self.bouton1_C = Button(self, text='Partie sauvegardée', bg='SlateGray2',command=self.partie_sauvegardee)
         self.bouton1_D = Button(self, text="Couleurs du damier", bg='SlateGray2', command=self.couleur_damier)
-        self.bouton1_A['foreground'] = 'midnight blue'
-        self.bouton1_B['foreground'] = 'midnight blue'
-        self.bouton1_C['foreground'] = 'midnight blue'
-        self.bouton1_D['foreground'] = 'midnight blue'
+        # self.bouton1_A['foreground'] = 'midnight blue'
+        # self.bouton1_B['foreground'] = 'midnight blue'
+        # self.bouton1_C['foreground'] = 'midnight blue'
+        # self.bouton1_D['foreground'] = 'midnight blue'
 
         self.bouton1_A.grid(row=2, column=0, pady=5, sticky=W)
         self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)
