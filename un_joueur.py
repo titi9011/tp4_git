@@ -14,6 +14,7 @@ from pickle import dump, load
 class Un_joueur(FenetrePartie):
     def __init__(self):
         super().__init__()
+        self.fin_de_partie = 0
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier. La méthode appelle les méthodes vérifiant la validité
@@ -68,14 +69,15 @@ class Un_joueur(FenetrePartie):
                     if self.partie.couleur_joueur_courant == "blanc":
 #                        self.partie.couleur_joueur_courant = "noir"
                         self.canvas_damier.actualiser()
+                        print("u-71", self.partie.damier.piece_de_couleur_peut_se_deplacer('noir'))
                         if self.partie.damier.piece_de_couleur_peut_se_deplacer('noir') or \
                             self.partie.damier.piece_de_couleur_peut_faire_une_prise('noir'):
                             self.partie.damier.cases = avance(self.partie.damier.cases)
                         else:
-                            self.title("Jeu de dames. La partie est terminée!")
                             self.messages1['foreground'] = 'orange'
-
-                        self.messages1['text'] = "Le joueur blanc a gagné!"
+                            print("u-79")
+                            self.messages1['text'] = "Le joueur blanc a gagné!"
+                            self.fin_de_partie = 1
 
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
@@ -126,21 +128,17 @@ class Un_joueur(FenetrePartie):
         # Fin de partie
         print("u-120", (self.partie.couleur_joueur_courant))
         print(self.partie.damier.piece_de_couleur_peut_se_deplacer(self.partie.couleur_joueur_courant))
-        if self.partie.damier.piece_de_couleur_peut_se_deplacer(self.partie.couleur_joueur_courant) or \
-                self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
-            pass
+        if self.fin_de_partie == 0:
+
+            if self.partie.damier.piece_de_couleur_peut_se_deplacer('blanc') or \
+                self.partie.damier.piece_de_couleur_peut_faire_une_prise('blanc'):
+                pass
+            else:
+                self.title("Jeu de dames. La partie est terminée!")
+                self.messages1['foreground'] = 'orange'
+                self.messages1['text'] = "Le joueur noir a gagné!"
         else:
             self.title("Jeu de dames. La partie est terminée!")
-            self.messages1['foreground'] = 'orange'
-            if self.partie.couleur_joueur_courant == "blanc":
-                print(129)
-                self.partie.couleur_joueur_courant = "noir"
-                self.partie.couleur_joueur_gagnant = "noir"
-            else:
-                print(132)
-                self.partie.couleur_joueur_gagnant = "blanc"
-                self.partie.couleur_joueur_courant = "blanc"
-            self.messages1['text'] = "Le joueur " + self.partie.couleur_joueur_gagnant + " a gagné!"
 
 
     def valider_prise_obligee(self):
