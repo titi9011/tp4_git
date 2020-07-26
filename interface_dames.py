@@ -123,13 +123,10 @@ class FenetrePartie(Tk):
                         self.position_source_forcee = self.position_cible
                         self.doit_prendre = True
 
-
                         if self.partie.couleur_joueur_courant == 'noir':
                             self.messages1_B['text'] = self.messages1_B['text'] + "                    "
                         else:
                             self.messages1_B['text'] = self.messages1_B['text'] + "          \n"
-
-
 
                     else:
                         self.doit_prendre = False
