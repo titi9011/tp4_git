@@ -357,6 +357,12 @@ def avance_blanc(dic):
 
 
 def avance(dic):
+    """La méthode permet plusieurs prise par l'engine noir.
+    Args:
+        dic (dict): Dictionnaire des positions.
+    Returns:
+        (dict): Solution de l'engine qui prend en compte les prises multiples.
+    """
     prise = True
     while prise:
         dic_base = deepcopy(dic)
