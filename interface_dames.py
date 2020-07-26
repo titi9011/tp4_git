@@ -4,7 +4,7 @@ from tkinter import *  # Tk, Label, NSEW, dnd
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
-import interface_multi
+# import interface_multi
 from datetime import date
 # from un_joueur import Un_joueur
 import os
