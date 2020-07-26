@@ -363,7 +363,7 @@ def avance(dic):
     Returns:
         (dict): Solution de l'engine qui prend en compte les prises multiples.
     """
-    print("a-366")
+
     prise = True
     while prise:
         dic_base = deepcopy(dic)

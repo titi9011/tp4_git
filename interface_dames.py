@@ -17,8 +17,6 @@ class FenetrePartie(Tk):
         partie (Partie): Le gestionnaire de la partie de dame
         canvas_damier (CanvasDamier): Le «widget» gérant l'affichage du damier à l'écran
         messages (Label): Un «widget» affichant des messages textes à l'utilisateur du programme
-
-        TODO: AJOUTER VOS PROPRES ATTRIBUTS ICI!
     """
 
     def __init__(self):
@@ -266,7 +264,7 @@ class FenetrePartie(Tk):
         une prise ou en se déplaçant.
 
         return:
-                [0] : True ou False
+                [0] : True, si la position cible est valide, sinon False
                 [1] : Message à afficher si la cible n'est pas valide.
         """
         if self.doit_prendre == True:
@@ -423,7 +421,6 @@ class FenetrePartie(Tk):
         fenetre.mainloop()
 
     def partie_sauvegardee(self):
-        #TODO À compléter
         """
         Méthode appelée par le bouton "Partie sauvegardée" de la fenêtre principale.
         Permet d'ouvrir une partie non complétée au point où elle avait été arrêtée.
@@ -486,7 +483,6 @@ class FenetrePartie(Tk):
         self.fenetre_4.withdraw()
 
     def jouer_contre_ordinateur(self):
-#TODO Bouton B == Radiobutton
         """
         Méthode appelée par le bouton "Jouer contre l'ordinateur" de la fenêtre principale du damier.
         Permet

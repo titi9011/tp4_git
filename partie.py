@@ -57,8 +57,6 @@ class Partie:
                  deuxième élément est un message d'erreur (ou une chaîne vide s'il n'y a pas d'erreur).
 
         """
-        #TODO: À tester - compléter
-
         if position_source in self.damier.cases:
             if self.doit_prendre == False:
                 if self.damier.cases[position_source].couleur == self.couleur_joueur_courant:
@@ -85,8 +83,6 @@ class Partie:
                 a pas d'erreur).
 
         """
-        #TODO: À compléter
-
         if self.damier.position_est_dans_damier(position_cible):
             return [True, ""]
         else:

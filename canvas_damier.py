@@ -48,7 +48,7 @@ class CanvasDamier(Canvas):
 
                 # On détermine la couleur.
                 if (i + j) % 2 == 0:
-                    couleur = '#FF6464'
+                    couleur = 'pink'  #FF6464'  # rouge
                 else:
                     couleur = '#DDDDFF'
 

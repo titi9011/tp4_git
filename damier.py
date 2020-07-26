@@ -88,8 +88,6 @@ class Damier:
         Returns:
             bool: True si la position est dans les bornes, False autrement.
         """
-        #TODO: À tester - compléter
-
         if position.ligne in range(8) and position.colonne in range(8):
             return True
         else:
@@ -109,8 +107,6 @@ class Damier:
         Returns:
             bool: True si la pièce peut se déplacer à la position cible, False autrement.
         """
-        #TODO: À tester - compléter
-
         #si la position est dans le damier et s'il y a une piece sur la case et si la position_cible n'est pas occupée
         if self.position_est_dans_damier(position_cible) and position_piece in self.cases and not position_cible in self.cases:
 
@@ -150,14 +146,16 @@ class Damier:
         """
         position_piece_mange = position_piece.position_mange(position_cible)
         piece_mange = self.recuperer_piece_a_position(position_piece_mange)
-        # Si la position est dans le damier, s'il y a une pièce sur la case et si la position_cible est libre"            
-        if position_piece_mange != position_piece and position_piece_mange in self.cases:
+
+        # S'il y a une pièce sur la case et si la position_cible est libre"
+        if position_piece_mange != position_piece and position_piece_mange in self.cases \
+                and position_cible != position_piece_mange:
             if self.cases[position_piece_mange].couleur == couleur_joueur:
                 return False
             else:
                 return True
         if self.position_est_dans_damier(position_cible) and position_piece in self.cases and not position_cible in self.cases:
-            # Si une pièce adverse peut être mangée"
+            # Si une pièce adverse peut être prise"
             if position_piece_mange in self.cases and self.recuperer_piece_a_position(position_piece) != piece_mange:
                 return True
             else:
@@ -174,8 +172,6 @@ class Damier:
         Returns:
             bool: True si une pièce est à la position reçue et celle-ci peut se déplacer, False autrement.
         """
-        # TODO: À tester - compléter
-
         verif_depl_possible = False
         if position_piece in self.cases:
             if (self.cases[position_piece].type_de_piece) == "dame":
@@ -213,9 +209,7 @@ class Damier:
         Returns:
             bool: True si une pièce est à la position reçue et celle-ci peut faire une prise. False autrement.
         """
-        # TODO: À tester - compléter
-
-        if position_piece in self.cases:  # Nécessaire ou déjà vérifié?
+        if position_piece in self.cases:
             for i in range(4):
                 if self.position_est_dans_damier(position_piece.quatre_positions_sauts()[i]):
                     if position_piece.quatre_positions_diagonales()[i] in self.cases:
@@ -234,8 +228,6 @@ class Damier:
         Returns:
             bool: True si une pièce de la couleur reçue peut faire un déplacement standard, False autrement.
         """
-        #TODO: À tester - compléter
-        # valider_deplacement_piece_couleur
         for i in range(8):
             for j in range(8):
                 if Position(i,j) in self.cases:
@@ -255,8 +247,6 @@ class Damier:
         Returns:
             bool: True si une pièce de la couleur reçue peut faire un saut (une prise), False autrement.
         """
-        #TODO: À tester - compléter
-
         for i in range(8):
             for j in range(8):
                 if Position(i, j) in self.cases:
