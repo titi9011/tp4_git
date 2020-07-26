@@ -522,8 +522,9 @@ class FenetrePartie(Tk):
         self.fenetre_6.tkraise()
 
     def ouverture_un_joueur(self):
-        fenetre.withdraw()
+        # fenetre.withdraw()
         # interface_multi.joueur_unique(self)
+        print(" i-527 : Houba")
 
     def ouverture_fich_annulee(self):
         """
