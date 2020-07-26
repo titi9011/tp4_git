@@ -24,7 +24,6 @@ class Un_joueur(FenetrePartie):
             event (tkinter.Event): Objet décrivant l'évènement qui a causé l'appel de la méthode.
 
         """
-
         try:  # Permet d'affecter le premier clic à la position source et le second à la cible.
             if self.flg == 0:  # Génère l'erreur qui affecte le premier clic.
                 ligne = event.y // self.canvas_damier.n_pixels_par_case
@@ -38,7 +37,8 @@ class Un_joueur(FenetrePartie):
                 position_cible_damier_reel = self.colonne_damier_reel[self.position_cible.colonne]\
                                                  + str(8 - self.position_cible.ligne)
                 self.messages1['text'] = 'Pièce à la position {} déplacée à {}.'\
-
+                        .format(position_source_damier_reel, position_cible_damier_reel)
+                print("u-41")
                 if not self.valider_et_enregistrer_position_cible()[0]:
                     self.messages1['foreground'] = 'red'
                     self.messages1['text'] = self.valider_et_enregistrer_position_cible()[1]

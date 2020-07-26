@@ -171,7 +171,7 @@ def cases_jouable_saut(position_source, dic):
     for position_cible in position_source.quatre_positions_sauts():
         if piece_peut_sauter_vers_modif(position_source, position_cible, dic):
             #si pièce doit être promue
-            if position_cible.cases_promotion_noir():
+            if position_cible.cases_promotion():
                 nouveau_dic = dict(dic)
                 nouveau_dic[position_cible] = nouveau_dic[position_source]
                 nouveau_dic[position_cible].promouvoir()
