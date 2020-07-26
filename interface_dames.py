@@ -40,21 +40,24 @@ class FenetrePartie(Tk):
         self.messages1 = Label(self)  # Affichage des messages
         self.messages1.grid()
         self.messages1['foreground'] = 'blue'
-        # self.messages1['background'] = 'white'
+        self.messages1['background'] = 'mint cream'
         self.messages1['text'] = 'Quelle pièce désirez-vous déplacer?'
         self.colonne_damier_reel = "abcdefgh"
 
         # Ajout des boutons : A permettant d'obtenir l'aide et B de quitter et d'enregistrer.
-        self.bouton1_A = Button(self, text='Aide', bg='light cyan', command=self.aide)
-        self.bouton1_B = Button(self, text='Quitter', command=self.quitter_damier)
-        self.bouton1_C = Button(self, text='Partie sauvegardée', command=self.partie_sauvegardee)
-        # self.bouton1_D = Button(self, text="Jouer contre l'ordinateur", command=self.jouer_contre_ordinateur)
-        # self.button['font'] =
+        self.bouton1_A = Button(self, text='Aide', bg='SlateGray2', command=self.aide)
+        self.bouton1_B = Button(self, text='Quitter', bg='SlateGray2', command=self.quitter_damier)
+        self.bouton1_C = Button(self, text='Partie sauvegardée', bg='SlateGray2',command=self.partie_sauvegardee)
+        self.bouton1_D = Button(self, text="Couleurs du damier", bg='SlateGray2', command=self.couleur_damier)
+        self.bouton1_A['foreground'] = 'midnight blue'
+        self.bouton1_B['foreground'] = 'midnight blue'
+        self.bouton1_C['foreground'] = 'midnight blue'
+        self.bouton1_D['foreground'] = 'midnight blue'
 
         self.bouton1_A.grid(row=2, column=0, pady=5, sticky=W)
         self.bouton1_B.grid(row=1, column=1, padx=25, pady=5)
         self.bouton1_C.grid(row=2, column=1, pady=5, sticky=E)
-        # self.bouton1_D.grid(row=2, column=0, pady=5, sticky=S)
+        self.bouton1_D.grid(row=2, column=0, pady=5, sticky=S)
 
         # Liste des mouvements
         self.messages1_B = Label(self)
@@ -69,10 +72,10 @@ class FenetrePartie(Tk):
         self.position_source_selectionnee = None
         self.position_source_forcee = None
 
-        # Nom de la fenêtre («title» est une méthode de la classe de base «Tk»)
+        # Nom de la fenêtre
         self.titre_joueur = self.partie.couleur_joueur_courant + " joue!"
         self.title("Jeu de dames. Le joueur " + self.titre_joueur)
-        self['background'] = 'ghost white'  # light blue'
+        self['background'] = 'mint cream'
 
         # Truc pour le redimensionnement automatique des éléments de la fenêtre.
         self.grid_columnconfigure(0, weight=1)
@@ -485,22 +488,20 @@ class FenetrePartie(Tk):
         self.fenetre_3.withdraw()
         self.fenetre_4.withdraw()
 
-    def jouer_contre_ordinateur(self):
+    def couleur_damier(self):
+#TODO
         """
-        Méthode appelée par le bouton "Jouer contre l'ordinateur" de la fenêtre principale du damier.
-        Permet
-            1. de jouer contre l'ordinateur;
-            2. de choisir la couleur du joueur;
-            3. de laisser l,ordinateur jouer contre lui-même.
+        Méthode appelée par le bouton "Couleurs du damier" de la fenêtre principale du damier.
+        Permet de choisir les couleurs du damier;
         Boutons activés :
-            A. Jouer contre l'ordinateur
-            B. Quitter sans sauvegarder
-            C. Nouvelle partie
-            D. Annuler et revenir à la partie
+            A. Bleu
+            B. Rouge
+            C. Orange
+            D. Vert
         """
         self.fenetre_6 = Tk()
         self.fenetre_6.geometry("460x230")
-        self.fenetre_6.title("Jouer contre l'ordinateur!")
+        self.fenetre_6.title("Couleurs du damier!")
 
         texte_6_A = Label(self.fenetre_6)
         texte_6_B = Label(self.fenetre_6)
@@ -514,11 +515,11 @@ class FenetrePartie(Tk):
         texte_6_B.grid(sticky=W)
         texte_6_C.grid(sticky=W)
         texte_6_D.grid(sticky=W)
-     #   bouton6_A = Button(self.fenetre_6, text="Joueur contre l'ordinateur", command=interface_multi.multi_joueurs(self))
-        bouton6_B = Button(self.fenetre_6, text='Choix de la couleur', command=self.quit)
-        bouton6_C = Button(self.fenetre_6, text='Joue contre lui-même', command=self.nouvelle_partie)
-        bouton6_D = Button(self.fenetre_6, text='Annuler', command=self.fenetre_quit_annulee)
-     #   bouton6_A.grid(row=4, column=0, pady=10, sticky=W)
+        bouton6_A = Button(self.fenetre_6, text='Bleu', command=interface_multi.multi_joueurs(self))
+        bouton6_B = Button(self.fenetre_6, text='Rouge', command=self.quit)
+        bouton6_C = Button(self.fenetre_6, text='Orange', command=self.nouvelle_partie)
+        bouton6_D = Button(self.fenetre_6, text='Vert', command=self.fenetre_quit_annulee)
+        bouton6_A.grid(row=4, column=0, pady=10, sticky=W)
         bouton6_B.grid(row=4, column=0, pady=10, sticky=E)
         bouton6_C.grid(row=5, column=0, sticky=W)
         bouton6_D.grid(row=5, column=0, sticky=E)

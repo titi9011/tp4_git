@@ -50,7 +50,7 @@ class CanvasDamier(Canvas):
                 if (i + j) % 2 == 0:
                     couleur = '#426D8F'  # Blue2'  #FF6464'  # rouge
                 else:
-                    couleur = '#C9E2FC'  #PaleTurquoise1'  #DDDDFF'
+                    couleur = 'light cyan' #DDDDFF' #C9E2FC'  #PaleTurquoise1'  #DDDDFF'
 
                 # On dessine le rectangle. On utilise l'attribut "tags" pour être en mesure de récupérer les éléments
                 # par la suite.
