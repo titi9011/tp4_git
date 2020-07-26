@@ -71,6 +71,11 @@ class Un_joueur(FenetrePartie):
                         if self.partie.damier.piece_de_couleur_peut_se_deplacer('noir') or \
                             self.partie.damier.piece_de_couleur_peut_faire_une_prise('noir'):
                             self.partie.damier.cases = avance(self.partie.damier.cases)
+                        else:
+                            self.title("Jeu de dames. La partie est terminée!")
+                            self.messages1['foreground'] = 'orange'
+
+                        self.messages1['text'] = "Le joueur blanc a gagné!"
 
                     else:
                         self.partie.couleur_joueur_courant = "blanc"
